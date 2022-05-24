@@ -608,8 +608,8 @@ textarea {
   font-size: 16px;
   resize: none;
   border-radius: 5px;
-  max-width: 470px;
-  min-width: 470px;
+  max-width: 490px;
+  min-width: 490px;
   max-height: 60px;
   min-height: 60px;
   background-color: white;
@@ -706,24 +706,19 @@ textarea {
   font-size: 22px;
 }
 
-#locker {
-  color: rgb(20, 20, 20);
-  font-weight: 700;
-  width: 130px;
-  height: 80px;
-  font-size: 60px;
-}
 #proximo-departamento2,
 #tipo-embalaje {
   visibility: hidden;
 }
 
+/* CAJA DOBLE FORMULARIO */
 .cajaformulario {
+    margin-top:30px;
   display: flex;
   width: 500px;
   height: 80px;
-  border: solid 1px white;
   align-items: center;
+  /*   border: solid 1px white; */
 }
 
 .cajaformulario > div {
@@ -731,11 +726,12 @@ textarea {
 }
 
 .cajaformulario > div > input {
-  width: 100%;
+  width: 98%;
   height: 25px;
   color: rgb(20, 20, 20);
   font-size: 16px;
-  text-align: center;
+  text-align: left;
+  padding-left: 2%;
   font-weight: 600;
   margin-top: 5px;
 }
@@ -745,26 +741,68 @@ textarea {
   /* visibility: hidden; */
 }
 
-#destino-recepcion {
-  flex: 1;
-  margin-left: 10px;
-}
 
 
 /* Clase testarea */
-.cajaformulariotextarea {
- 
+.cajaformulario-textarea {
+    margin-top:30px;
+  width: 100%;
   height: 120px;
-  border: solid 1px white;
   align-items: center;
+  /*   border: solid 1px white; */
 }
 
 #obser {
   color: rgb(20, 20, 20);
   font-size: 16px;
+  text-align: left;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+
+
+.cajaformulario-locker {
+  display: flex;
+  width: 500px;
+  height: 80px;
+  align-items: center;
+  /*   border: solid 1px white; */
+}
+
+.cajaformulario-locker > div {
+  height: 80px;
+}
+
+.cajaformulario-locker > div > input {
+  width: 98%;
+  height: 60px;
+  color: rgb(20, 20, 20);
+  font-size: 40px;
   text-align: center;
   font-weight: 600;
   margin-top: 5px;
-  border: solid 1px red;
-  width: 500px;
 }
+
+/* #vacio-recepcion {
+  flex: 1.5;
+} */
+
+#locker-recepcion {
+  flex: 0.4;
+}
+
+#destino-recepcion {
+    flex: 1.6;
+    margin-left: 15px;
+  }
+
+
+
+/*  #locker {
+    color: rgb(20, 20, 20);
+    font-weight: 700;
+    width: 130px;
+    height: 80px;
+    font-size: 60px;
+  } */

@@ -220,7 +220,7 @@ var obtenerLocker = (tipo) => {
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
             console.log(jsparse[0].Locker_ID)
-            document.getElementById("locker").value = jsparse[0].Locker_ID;
+            document.getElementById("locker-recepciones").value = jsparse[0].Locker_ID;
         },
         error: function () {
             alert("Error");
