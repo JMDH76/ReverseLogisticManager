@@ -1,0 +1,723 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  /*  background-color: beige; */
+  /* border: solid 1px black; */
+}
+
+body {
+  padding: 10px;
+  margin: 5px;
+  min-width: 50%;
+  background-color: #0b0213;
+}
+
+header {
+  display: flex;
+  flex-direction: row-reverse;
+  font-style: italic;
+  /* text-shadow: 1px 2px rgb(209, 204, 204); */
+}
+
+#encabezado {
+  min-width: 600px;
+  text-align: left;
+  /* text-shadow: 1px 2px rgb(209, 204, 204); */
+  font-weight: 700;
+  flex: 2.5;
+  /* border: solid 1px black; */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+#nombreapp {
+  flex: 1.5;
+  align-items: center;
+  min-width: 400px;
+  margin-left: 25px;
+  vertical-align: text-bottom;
+}
+
+#nombreformulario {
+  flex: 0.7;
+  float: left;
+  text-align: center;
+  min-width: 200px;
+}
+#logo {
+  width: 180px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+#clock {
+  flex: 0.5;
+  min-width: 150px;
+  margin-bottom: 5px;
+  /*  border: solid 1px black; */
+}
+
+h1 {
+  /* color: lightseagreen; */
+  color: #afcb05;
+  font-size: 70px;
+  margin-left: 15px;
+  /* border: solid 1px black; */
+}
+
+h2 {
+  color: lightseagreen;
+  font-weight: 700;
+  font-size: 30px;
+  /* margin-bottom: 50px; */
+  /*  text-shadow: 1px 2px rgb(209, 204, 204); */
+  font-style: italic;
+  align-items: flex-end;
+  color: orange;
+}
+
+#digitalclock,
+#date {
+  /* color: lightseagreen; */
+  color: #afcb05;
+  font-size: 35px;
+  /* text-shadow: 1px 2px rgb(209, 204, 204); */
+  text-align: left;
+  font-weight: 700;
+  font-style: italic;
+}
+
+nav {
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-bottom: 30px; */
+  width: 100%;
+  font-weight: 600;
+  background-color: #afcb05;
+  border-bottom: solid 2px orange;
+  /* border: solid 1px rgb(159, 204, 55); */
+  /* text-shadow: 1px 1px rgb(178, 187, 180) */
+}
+
+#menu {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1200px;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+.navegador {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* box-shadow: 0 2px 10px rgb(172, 172, 172); */
+}
+
+.navegador > li {
+  float: left;
+  flex: 1;
+  /*  border-bottom: solid 2px black; */
+}
+
+.navegador li a,
+.navegador li p {
+  /* padding-left: 50px; */
+  background-color: #afcb05;
+  color: #0b0213;
+  padding: 10px 12px;
+  display: block;
+  text-decoration: none;
+  /* border: solid 1px black; */
+  text-align: left;
+  min-width: 120px;
+}
+
+.navegador li a:hover,
+.navegador li p:hover {
+  background-color: orange;
+  color: brown;
+}
+
+.navegador li ul {
+  display: none;
+  position: absolute;
+  min-width: 170px;
+}
+
+.navegador li:hover > ul {
+  display: block;
+}
+
+.navegador li ul li {
+  position: relative;
+  border: solid 1px white;
+  margin-top: 1px;
+  /* border-bottom: solid 2px white; */
+}
+
+.navegador li ul li ul li {
+  right: -170px;
+  top: -38px;
+  max-width: 250px;
+}
+.alingmenu {
+  height: 36px;
+  line-height: 36px;
+}
+
+.submenu {
+  font-size: 14px;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+}
+
+/* FORMULARIO PICKING */
+section {
+  /* border: solid 1px black; */
+  margin: 10px;
+  margin-left: 15px;
+  width: 500px;
+  height: 600px;
+  color: lightseagreen;
+  align-items: center;
+}
+
+#salirformulario {
+  visibility: hidden;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#btcancel {
+  margin-left: 40px;
+}
+
+#btreset {
+  margin-left: 55px;
+}
+
+#btsend {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#enviar-solicitud {
+  margin-left: 155px;
+}
+
+#observaciones-recogidas {
+  width: 20px;
+}
+
+/* FORMULARIO */
+::placeholder {
+  color: lightgrey;
+}
+
+.contenedor-formulario {
+  /* border: solid 2px red; */
+  width: 500px;
+  min-width: 300px;
+  margin: 5px;
+  margin-top: 25px;
+  padding: 5px;
+  text-align: left;
+  visibility: hidden;
+}
+
+#titulo-formulario {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+.show {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.campos-formulario {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 480px;
+  height: 25px;
+  /* color: rgb(150, 150, 150); */
+}
+
+.titulo-campo {
+  text-align: left;
+  margin-top: 20px;
+}
+.contenedor-simple {
+  padding: 0;
+  width: 485px;
+  /* border: solid 1px green;  */
+}
+
+.contenedor-doble {
+  margin-top: 0;
+  padding: 0;
+  width: 485px;
+  display: flexbox;
+
+  /* flex-direction: row; */
+  /* border: solid 2px green;  */
+}
+
+#fecha-recogida {
+  width: 175px;
+  padding-left: 10px;
+  color: rgb(20, 20, 20);
+  text-align: left;
+  font-weight: 700;
+}
+
+#agencia-transporte {
+  width: 200px;
+  padding-left: 10px;
+  color: rgb(20, 20, 20);
+  text-align: left;
+  font-weight: 700;
+}
+
+#codigo-cliente,
+#zip-cliente {
+  width: 90px;
+  color: rgb(20, 20, 20);
+  text-align: center;
+  font-weight: 700;
+}
+
+#provincia-cliente,
+#poblacion-cliente {
+  margin-left: 5px;
+  color: rgb(20, 20, 20);
+  width: 145px;
+  padding-left: 10px;
+  text-align: left;
+  font-weight: 700;
+}
+#poblacion-cliente {
+  margin-left: 5px;
+  color: rgb(20, 20, 20);
+  width: 200px;
+  padding-left: 10px;
+  text-align: left;
+  font-weight: 700;
+}
+
+.campos-formulario:hover {
+  background-color: rgb(226, 253, 253);
+  color: rgb(178, 32, 122);
+}
+
+#nombre-cliente {
+  margin-left: 5px;
+  color: rgb(20, 20, 20);
+  width: 370px;
+  padding-left: 10px;
+  text-align: left;
+  font-weight: 700;
+}
+
+#tlf1-cliente,
+#etiqueta-pedido {
+  width: 225px;
+  padding-left: 10px;
+  margin: 0;
+  color: rgb(20, 20, 20);
+  text-align: left;
+  font-weight: 700;
+}
+
+#horario-recogida {
+  width: 185px;
+  padding-left: 10px;
+  margin: 0;
+  color: rgb(20, 20, 20);
+  text-align: left;
+  font-weight: 700;
+}
+
+#urgente {
+  width: 200px;
+  padding-left: 10px;
+  margin: 0;
+  color: rgb(20, 20, 20);
+  text-align: left;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+#tlf2-cliente {
+  width: 225px;
+  padding-left: 10px;
+  margin-left: 5px;
+  color: rgb(20, 20, 20);
+  text-align: left;
+  font-weight: 700;
+}
+
+#direccion-cliente,
+#direccion-cliente2,
+#email-cliente {
+  width: 470px;
+  padding-left: 10px;
+  color: rgb(20, 20, 20);
+  text-align: left;
+  font-weight: 700;
+}
+
+#departamento-destino {
+  width: 270px;
+  padding-left: 10px;
+  color: rgb(20, 20, 20);
+  text-align: left;
+  font-weight: 700;
+}
+
+#pedido-asociado {
+  width: 180px;
+  padding-left: 10px;
+  color: rgb(20, 20, 20);
+  text-align: left;
+  font-weight: 700;
+}
+
+#cliente {
+  font-weight: 700;
+}
+
+#a01 {
+  float: left;
+  width: 200px;
+}
+#a02 {
+  margin-left: 10px;
+  float: left;
+  width: 200px;
+}
+#a1 {
+  float: left;
+  width: 200px;
+
+  /* border: solid 1px black; */
+}
+
+#a2 {
+  margin-left: 10px;
+  float: left;
+  width: 200px;
+
+  /* border: solid 1px black; */
+}
+
+#a3 {
+  float: left;
+  width: 150px;
+  margin-top: -15px;
+  /* border: solid 1px black; */
+}
+
+#a4 {
+  margin-left: 50px;
+  float: left;
+  width: 260px;
+  margin-top: -15px;
+  /* border: solid 1px black; */
+}
+
+.placehold {
+  color: rgb(102, 18, 18);
+}
+
+.boton {
+  border-radius: 5px;
+  background-color: #afcb05;
+  margin: 25px auto 25px auto;
+  width: 170px;
+  height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgb(172, 172, 172);
+  border: solid 1px rgb(131, 130, 130);
+  color: #0b0213;
+  text-decoration: none;
+}
+
+.boton2 {
+  border-radius: 5px;
+  background-color: #afcb05;
+  margin: 30px;
+  margin-bottom: 0px;
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  /* box-shadow: 0 2px 10px rgb(172, 172, 172); */
+  border: solid 1px rgb(131, 130, 130);
+  color: #0b0213;
+  text-decoration: none;
+}
+
+.boton:hover {
+  background-color: orange;
+  color: brown;
+}
+
+#codigo-agencia,
+#id-codigo-agencia,
+#num-orden {
+  height: 30px;
+  width: 60px;
+  margin-top: 20px;
+  margin-left: 10px;
+  visibility: hidden;
+}
+
+input {
+  color: lightseagreen;
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+  font-size: 14px;
+  background-color: white;
+  border-radius: 5px;
+  width: 250px;
+  /* border-color: lightseagreen; */
+  border-width: 1px;
+  box-shadow: inset 1px 1px lightgray;
+}
+select {
+  border-radius: 5px;
+  font-weight: normal;
+  font-style: italic;
+  text-align: left;
+  color: seagreen;
+  background-color: white;
+  box-shadow: inset 1px 1px lightgray;
+}
+option {
+  font-weight: normal;
+  font-style: italic;
+  text-align: left;
+  font-size: 14px;
+  background-color: white;
+  border-radius: 3px;
+  width: auto;
+  border-color: lightseagreen;
+  border-width: 1px;
+}
+.separador {
+  border: 0;
+  height: 0;
+  margin: 0;
+}
+/* FIN FORMULARIO */
+
+/* aside */
+aside {
+  /*  border: solid 1px black; */
+  width: 400px;
+  height: 650px;
+  margin-left: 10px;
+  padding: 20px;
+  margin-right: 120px;
+  align-items: rigth;
+  display: flexbox;
+  flex-direction: column;
+  background-color: transparent;
+  /* background-color: beige; */
+  text-align: right;
+}
+
+a {
+  text-decoration: none;
+  color: #0b0213;
+}
+
+#contador-pendientes {
+  margin-right: -30px;
+  width: 150px;
+  height: 100px;
+  color: orange;
+  /* color: lightseagreen; */
+  font-weight: 700;
+  font-size: 70px;
+  text-align: center;
+  font-style: italic;
+  background-color: #0b0213;
+  box-shadow: none;
+  /* text-shadow: 1px 2px rgb(209, 204, 204); */
+}
+.h3aside {
+  color: lightseagreen;
+  font-weight: 700;
+  font-size: 60px;
+  margin-bottom: 50px;
+  /* text-shadow: 1px 2px rgb(209, 204, 204); */
+  font-style: italic;
+}
+
+.h4aside {
+  color: lightseagreen;
+  font-weight: 700;
+  font-size: 25px;
+  /* text-shadow: 1px 2px rgb(209, 204, 204); */
+  font-style: italic;
+  margin-bottom: 50px;
+}
+footer {
+  border: solid 1px black;
+  width: 100%;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sorry {
+  margin-top: 90px;
+  height: 800px;
+  width: auto;
+  text-align: center;
+  font-size: 40px;
+  color: orange;
+  /* text-shadow: 3px 5px rgb(209, 204, 204); */
+}
+.underconstruction {
+  height: 400px;
+ /*  text-shadow: 2px 2px 5px red; */
+}
+
+#contenedor-obras {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+textarea {
+  padding: 5px;
+  color: lightseagreen;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 16px;
+  resize: none;
+  border-radius: 5px;
+  max-width: 470px;
+  min-width: 470px;
+  max-height: 60px;
+  min-height: 60px;
+  background-color: white;
+  box-shadow: inset 1px 1px lightgray;
+}
+#text2 {
+  max-height: 50px;
+  min-height: 50px;
+}
+
+/* INDEX */
+
+#usuario {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+#confirmuserpassword,
+#confirmnameuser,
+#confirmuser {
+  width: 60px;
+  height: 30px;
+  visibility: hidden;
+}
+
+#indexmenu {
+  visibility: hidden;
+}
+#lineaencabezado {
+  margin-top: 5px;
+  width: 100%;
+  height: 5px;
+  background-color: orange;
+  border-color: brown;
+  visibility: visible;
+}
+
+/* .fondoindex{
+    background-image: url("../images/fondo2.jpg");
+    background-size: cover;
+    opacity: 1;
+    margin-top: 5px;
+
+} */
+#fondo {
+  width: 100%;
+  height: auto;
+}
+#imagenfondo::after {
+  content: "";
+  background: url("../images/fondo3_.jpg");
+  opacity: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#seccionbienvenida {
+  width: 100%;
+  text-align: left;
+  visibility: hidden;
+}
+
+.bienvenida {
+  width: auto;
+  font-size: 100px;
+  margin-top: 65px;
+  color: rgb(159, 206, 203);
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* FORMULARIO Recepciones */
+#contenedor-recepcion {
+  width: 850px;
+  display: flexbox;
+  flex-direction: row;
+  text-align: center;
+  background-color: #afcb05;
+}
+
+#num-recogida,
+#proximo-departamento,
+#proximo-departamento2 {
+  color: rgb(20, 20, 20);
+  font-weight: 700;
+  text-align: center;
+  width: 450px;
+  height: 30px;
+  font-size: 22px;
+}
+
+#locker {
+  color: rgb(20, 20, 20);
+  font-weight: 700;
+  width: 130px;
+  height: 80px;
+  font-size: 60px;
+}
+#proximo-departamento2,
+#tipo-embalaje{
+    visibility: hidden;
+}
