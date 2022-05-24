@@ -2,7 +2,6 @@
   margin: 0px;
   padding: 0px;
   font-family: Arial, Helvetica, sans-serif;
-  /*  background-color: beige; */
   /* border: solid 1px black; */
 }
 
@@ -535,7 +534,6 @@ aside {
   display: flexbox;
   flex-direction: column;
   background-color: transparent;
-  /* background-color: beige; */
   text-align: right;
 }
 
@@ -594,7 +592,7 @@ footer {
 }
 .underconstruction {
   height: 400px;
- /*  text-shadow: 2px 2px 5px red; */
+  /*  text-shadow: 2px 2px 5px red; */
 }
 
 #contenedor-obras {
@@ -699,8 +697,6 @@ textarea {
   background-color: #afcb05;
 }
 
-#num-recogida,
-#proximo-departamento,
 #proximo-departamento2 {
   color: rgb(20, 20, 20);
   font-weight: 700;
@@ -718,6 +714,57 @@ textarea {
   font-size: 60px;
 }
 #proximo-departamento2,
-#tipo-embalaje{
-    visibility: hidden;
+#tipo-embalaje {
+  visibility: hidden;
+}
+
+.cajaformulario {
+  display: flex;
+  width: 500px;
+  height: 80px;
+  border: solid 1px white;
+  align-items: center;
+}
+
+.cajaformulario > div {
+  height: 80px;
+}
+
+.cajaformulario > div > input {
+  width: 100%;
+  height: 25px;
+  color: rgb(20, 20, 20);
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+#numero-recepcion {
+  flex: 1.1;
+  /* visibility: hidden; */
+}
+
+#destino-recepcion {
+  flex: 1;
+  margin-left: 10px;
+}
+
+
+/* Clase testarea */
+.cajaformulariotextarea {
+ 
+  height: 120px;
+  border: solid 1px white;
+  align-items: center;
+}
+
+#obser {
+  color: rgb(20, 20, 20);
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 5px;
+  border: solid 1px red;
+  width: 500px;
 }
