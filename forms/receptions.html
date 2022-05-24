@@ -62,7 +62,6 @@
                             <button id="close" class="boton2">Aceptar</button>
                             <button id="cancelwindow" class="boton2" onclick="cancel()">Cancelar</button>
                         </div>
-
                     </div>
                 </div>
                 <script src="../src/receptions.js"></script>
@@ -72,90 +71,65 @@
 
         <section>
             <form>
-                <!-- DATOS CLIENTE -->
+                <!-- FORMULARIO -->
                 <div class="contenedor-formulario" id="cont1">
                     <div id="titulo-formulario">
                         <h3>Confirmación de la recepción</h3>
                     </div>
-                    <div class="contenedor-doble">
-
-
-                        <div class="cajaformulario-locker">
-
-                            <div id="locker-recepcion">
-                                <h4 class="titulo-campo">Casillero</h4>
-                                <input type="text" id="locker-recepciones" readonly required />
-                            </div>
-
-                            <!-- <div id="vacio-recepcion">
-
-
-                            </div> -->
-                            <div id="destino-recepcion">
-                                <h4 class="titulo-campo">Destino</h4>
-                                <input type="text" name="depList" list="DeptList" id="proximo-departamento" required>
-                                <datalist id="DeptList"></datalist>
-                            </div>
+                    <div class="cajaformulario-locker">
+                        <div id="locker-recepcion">
+                            <h4 class="titulo-campo">Casillero</h4>
+                            <input type="text" id="locker-recepciones" readonly required />
                         </div>
 
-
-                        <div class="cajaformulario">
-                            <div id="numero-recepcion">
-                                <h4 class="titulo-campo">Nº Recepción</h4>
-                                <input type="text" id="num-recogida" maxlength="25" placeholder="Nº Recogida" readonly
-                                    required />
-                            </div>
-                            <!-- <div id="destino-recepcion">
-                                <h4 class="titulo-campo">Destino</h4>
-                                <input type="text" name="depList" list="DeptList" id="proximo-departamento" required>
-                                <datalist id="DeptList"></datalist>
-                            </div> -->
+                        <div id="vacio-recepcion">
                         </div>
-
-                        <div class="cajaformulario-textarea">
-                            <h4 class="titulo-campo">Comentarios / Observaciones</h4>
-                            <textarea type="text" id="obser" placeholder="Comentarios sobre la devolución"></textarea>
-                        </div>
-
-
-
-
-                        <div>
-                            <div id="salirformulario">
-
-                                <button id="btcancel" class="boton" onclick="cancel()">
-                                    Cancelar solicitud
-                                </button>
-
-                                <button class="boton" id="btreset" onclick="enviarsolicitud()">
-                                    Confirmar
-                                </button>
-
-                            </div>
-
-                            <div id="btsend">
-
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-
                     </div>
-                    <div class="contenedor-simple">
-                        <input id="proximo-departamento2" readonly required />
-                        <input type="text" id="tipo-embalaje" class="campos-formulario" readonly required />
 
+                    <div class="cajaformulario">
+                        <div id="numero-recepcion">
+                            <h4 class="titulo-campo">Nº Recepción</h4>
+                            <input type="text" id="num-recogida" maxlength="25" placeholder="Nº Recogida" readonly
+                                required />
+                        </div>
+                        <div id="destino-recepcion">
+                            <h4 class="titulo-campo">Destino</h4>
+                            <input type="text" name="depList" list="DeptList" id="proximo-departamento" required>
+                            <datalist id="DeptList"></datalist>
+                        </div>
+                    </div>
 
+                    <div class="cajaformulario-textarea">
+                        <h4 class="titulo-campo">Comentarios / Observaciones</h4>
+                        <textarea type="text" id="obser" placeholder="Comentarios sobre la devolución"></textarea>
+                    </div>
 
+                    <div>
+                        <div id="salirformulario">
+                            <button id="btcancel" class="boton" onclick="cancel()">
+                                Cancelar solicitud
+                            </button>
+                            <button class="boton" id="btsend2" onclick="enviarsolicitud()">
+                                Confirmar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CONTENEDOR DATOS OCULTOS -->
+                    <div class="cajaformulario-datos">
+                        <div id="prox-dep">
+                            <input id="proximo-departamento2" readonly required />
+                        </div>
+                        <div id="tipo-emb">
+                            <input type="text" id="tipo-embalaje" readonly required />
+                        </div>
+                        <div class="vacio">
+                        </div>
+                        <div class="vacio">
+                        </div>
                     </div>
             </form>
         </section>
-
     </main>
 
     <footer id="footer">
@@ -165,7 +139,5 @@
             </a>
         </div>
     </footer>
-
 </body>
-
 </html>
