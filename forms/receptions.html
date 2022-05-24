@@ -79,26 +79,46 @@
                     </div>
                     <div class="contenedor-doble">
 
-                        <h4 class="titulo-campo">Nº Recepción</h4>
+                        <!--  <h4 class="titulo-campo">Nº Recepción</h4>
                         <input type="text" id="num-recogida" maxlength="25" class="campos-formulario"
-                            placeholder="Nº Recogida" readonly required/>
+                            placeholder="Nº Recogida" readonly required/> -->
 
-                        <h4 class="titulo-campo">Destino</h4>
+                        <!-- <h4 class="titulo-campo">Destino</h4>
                         <input type="text" name="depList" list="DeptList" class="campos-formulario"
                             id="proximo-departamento" required>
-                        <datalist id="DeptList"></datalist>
+                        <datalist id="DeptList"></datalist> -->
 
                         <h4 class="titulo-campo">Casillero</h4>
                         <input type="text" id="locker" class="campos-formulario" readonly required />
 
-                        <h4 class="titulo-campo">Comentarios / Observaciones</h4>
-
-
+                        <!-- <h4 class="titulo-campo">Comentarios / Observaciones</h4>
                         <textarea type="text" id="observaciones-mercancia" class="campos-formulario"
-                            placeholder="Comentarios sobre la devolución"></textarea>
-
-
+                            placeholder="Comentarios sobre la devolución"></textarea> -->
                     </div>
+
+
+
+                    <div class="cajaformulario">
+                        <div id="numero-recepcion">
+                            <h4 class="titulo-campo">Nº Recepción</h4>
+                            <input type="text" id="num-recogida" maxlength="25" placeholder="Nº Recogida" readonly
+                                required />
+                        </div>
+                        <div id="destino-recepcion">
+                            <h4 class="titulo-campo">Destino</h4>
+                            <input type="text" name="depList" list="DeptList" id="proximo-departamento" required>
+                            <datalist id="DeptList"></datalist>
+                        </div>
+                    </div>
+
+                    <div class="cajaformulariotextarea">
+                            <h4 class="titulo-campo">Comentarios / Observaciones</h4>
+                            <textarea type="text" id="obser"
+                                placeholder="Comentarios sobre la devolución"></textarea>
+                       
+                    </div>
+
+
 
 
                     <div>
@@ -116,21 +136,21 @@
 
                         <div id="btsend">
 
-                    
+
                         </div>
-                        
+
                     </div>
 
 
 
 
-                    
+
 
                 </div>
                 <div class="contenedor-simple">
-                    <input id="proximo-departamento2" readonly required/>
-                    <input type="text" id="tipo-embalaje" class="campos-formulario"readonly required />
-                    
+                    <input id="proximo-departamento2" readonly required />
+                    <input type="text" id="tipo-embalaje" class="campos-formulario" readonly required />
+
 
 
                 </div>
