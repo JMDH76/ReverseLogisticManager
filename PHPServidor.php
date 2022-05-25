@@ -47,6 +47,7 @@
     //GUARDAR DATOS TABLA RECEPCION
     if(isset($_POST["PickUp_ID"], $_POST["PackageType"])){
         
+        $Reception_ID =$_POST["Reception_ID"];
         $PickUp_ID = $_POST["PickUp_ID"];
         $User_ID = $_POST["User_ID"];
         $PackageType = $_POST["PackageType"];
@@ -69,8 +70,8 @@
             echo("Conexion establecida correctamente.");
         }
 
-        $sql = "INSERT INTO receptions (PickUp_ID, User_ID, PackageType, NextTrackingStatus,Locker_ID,Comments)
-        VALUES ('".addslashes($PickUp_ID)."','".addslashes($User_ID)."', 
+        $sql = "INSERT INTO receptions (Reception_ID, PickUp_ID, User_ID, PackageType, NextTrackingStatus,Locker_ID,Comments)
+        VALUES ('".addslashes($Reception_ID)."', '".addslashes($PickUp_ID)."','".addslashes($User_ID)."', 
         '".addslashes($PackageType)."','".addslashes($NextTrackingStatus)."', '".addslashes($Locker_ID)."', 
         '".addslashes($Comments)."')";
 
@@ -84,41 +85,6 @@
     }
 
 
-    //RELLENAR DATOS DE TRACKING DESDE RECEPCIONES
-    if(isset($_POST["PickUp_ID"], $_POST["Locker_ID"])){
-        
-        $PickUp_ID = $_POST["PickUp_ID"];
-        $Customer_ID = $_POST["Customer_ID"];
-        $NextTrackingStatus = $_POST["NextTrackingStatus"];
-        $Locker_ID = $_POST["Locker_ID"];
-      
-        $servidor = "localhost";
-        $usuario = "root";
-        $password = "";
-        $dbname = "reverselogisticsmng";
-
-        $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
-        if (!$conexion) {
-            echo(alert("Fallo en la conexion"));
-            echo "MySQL connection error: ".mysqli_connect_error();
-            exit();
-
-        } else {
-            echo("Conexion establecida correctamente.");
-        }
-
-        $sql = "INSERT INTO tracking (PickUp_ID, Customer_ID, NextTrackingStatus,Locker_ID)
-        VALUES ('".addslashes($PickUp_ID)."','".addslashes($Customer_ID)."', 
-        '".addslashes($NextTrackingStatus)."', '".addslashes($Locker_ID)."')";
-
-        if (mysqli_query($conexion, $sql)) {
-            echo "\nRegistros guardados.";
-            
-        } else {
-            echo "Error: ".mysqli_error($conexion);
-        }
-        mysqli_close($conexion);
-    }
 
 
 

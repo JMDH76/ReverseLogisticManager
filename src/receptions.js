@@ -64,8 +64,6 @@ close.addEventListener('click', () => {
         obtenterDepartamento(pickupId);
         obtenerLocker(type);
         importarListaDepartamentos();
-        obtenerReceptionId(pickupId)
-
 
     } else {
         return;
@@ -76,10 +74,10 @@ close.addEventListener('click', () => {
     //Grabar tracking
 });
 
-
 var confirmarRecepcion = () => {
 
     var PickUp_ID = document.getElementById("num-recogida").value;
+    var Reception_ID = "20220525253023456603"
     var User_ID = 1;
     var PackageType = document.getElementById("tipo-embalaje").value;
 
@@ -105,23 +103,21 @@ var confirmarRecepcion = () => {
             NextTrackingStatus = proxdepidactual;
             console.log("Próximo departamento nuevo " + NextTrackingStatus);
         }
-    } else return;
 
-    var Reception_ID = parseInt(document.getElementById("num-recepcion").value) + 1;
-    console.log("recepcion real >> " + Reception_ID);
+    } else return;
 
     var Locker_ID = document.getElementById("locker-recepciones").value;
     var Comments = document.getElementById("obser").value;
     var Customer_ID = document.getElementById("cod_cliente").value;
 
-    //Guardar en tabla receptions y tabla tracking
+    //Generar reception_ID
     //Poner Locker a 1 >> Ocupado
-    //GUARDAR datos en receptions y genera número de recepción
-
+    //GUARDAR DATOS EN RECEPTION Y TRACKING
     $.ajax({
         type: "POST",
         url: "../PHPServidor.php",  //dirección del servidor
         data: {
+            Reception_ID: Reception_ID,
             PickUp_ID: PickUp_ID,
             User_ID: User_ID,
             PackageType: PackageType,
@@ -131,17 +127,13 @@ var confirmarRecepcion = () => {
         },
         success: function (response) {
             console.log("Solicitud registrada correctamente");
-
-            Reception_ID = parseInt(document.getElementById("num-recepcion").value) + 1;
-            Customer_ID = document.getElementById("cod_cliente").value;
-
             $.ajax({
                 type: "POST",
-                url: "../PHPServidor2.php",
+                url: "../PHPServidor3.php",
                 data: {
                     Reception_ID: Reception_ID,
                     Customer_ID: Customer_ID,
-                    NextTrackingStatus: NextTrackingStatus,
+                    LastStatus: NextTrackingStatus,
                     Locker_ID: Locker_ID
                 },
                 success: function (response) {
@@ -155,29 +147,12 @@ var confirmarRecepcion = () => {
         error: function () {
             alert("Error");
         }
-
     });
 
-    //Guardar tabla tracking
-    /*  $.ajax({
-         type: "POST",
-         url: "../PHPServidor2.php",
-         data: {
-             Reception_ID: Reception_ID,
-             Customer_ID: Customer_ID,
-             NextTrackingStatus: NextTrackingStatus,
-             Locker_ID: Locker_ID
-         },
-         success: function (response) {
-             console.log("Solicitud registrada correctamente2");
-         },
-         error: function () {
-             alert("Error");
-         }
-     }); */
 
-    //poner como recibida en pickups
-    //Poner Locker a 1 >> Ocupado
+
+
+   
 
 }
 //OBTIENE EL ULTIMO NUMERO DE RECEPCION DE LA TABLA
@@ -203,10 +178,6 @@ var obtenerReceptionId = (pickupId) => {
         }
     });
 }
-
-
-
-
 
 
 //IMPORTACIÓN DE DEPARTAMENTOS >>> LISTA Desplegable y Array de verificación
