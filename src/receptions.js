@@ -13,9 +13,9 @@ open.addEventListener('click', () => {
 
 //CANCELACION DEL FORMULARIO. Sale al principio (No deja volver a acceder al formulario)
 var cancel = () => {
+    desbloquearLocker();
     window.location.replace("../forms/receptions.html");
 }
-
 
 close.addEventListener('click', () => {
 
@@ -31,7 +31,7 @@ close.addEventListener('click', () => {
         }
     }
 
-    if (flag) console.log("Nº de Recogida correcto >>> " + pickupId);
+    /* if (flag) console.log("Nº de Recogida correcto >>> " + pickupId); */
     if (flag == false) {
         document.getElementById('pickup-number').value = "";
         alert('Introduzca un número de recogida válido');
@@ -46,7 +46,7 @@ close.addEventListener('click', () => {
         return;
     } else {
         flag2 = true;
-        console.log("Tipo embalaje >>> " + type);
+
     }
 
     if (flag == true && flag2 == true) {
@@ -68,16 +68,34 @@ close.addEventListener('click', () => {
     } else {
         return;
     }
-
-    //Usuario
-    //Grabar en su receptions
-    //Grabar tracking
 });
+
+var generarNumeroRecepcion = (codigcliente) => {
+
+    var customer = codigcliente;
+    var date = new Date();
+    var day = updatefechahora(date.getDate()).toString();
+    var mounth = updatefechahora((date.getMonth() + 1)).toString();
+    var year = date.getFullYear().toString(); //).substring(2);    //año con dos cifras
+    var hour = updatefechahora(date.getHours()).toString();
+    var minute = updatefechahora(date.getMinutes()).toString();
+    var digitocontrol = Math.floor(Math.random() * (9 - 0 + 1) + 0);
+
+    var Reception_ID = year + mounth + day + hour + minute + customer + digitocontrol;
+    
+    if (Reception_ID.length == 20) {
+        return Reception_ID;
+    } else {
+        Reception_ID = "";
+        return PickUp_ID;
+    }
+}
 
 var confirmarRecepcion = () => {
 
     var PickUp_ID = document.getElementById("num-recogida").value;
-    var Reception_ID = "20220525253023456655"
+    var Customer_ID = document.getElementById("cod_cliente").value;
+    var Reception_ID = generarNumeroRecepcion(Customer_ID);
     var User_ID = 1;
     var PackageType = document.getElementById("tipo-embalaje").value;
 
@@ -101,15 +119,13 @@ var confirmarRecepcion = () => {
         var proxdepidactual = id[index2];
         if (NextTrackingStatus != proxdepidactual) {
             NextTrackingStatus = proxdepidactual;
-            console.log("Próximo departamento nuevo " + NextTrackingStatus);
         }
 
     } else return;
 
     var Locker_ID = document.getElementById("locker-recepciones").value;
-    console.log("Locker: "  + Locker_ID)
     var Comments = document.getElementById("obser").value;
-    var Customer_ID = document.getElementById("cod_cliente").value;
+    
 
     //Generar reception_ID
     //Poner Locker a 1 >> Ocupado
@@ -127,7 +143,7 @@ var confirmarRecepcion = () => {
             Comments: Comments
         },
         success: function (response) {
-            console.log("Solicitud registrada correctamente");
+            console.log("Recepción registrada correctamente");
         },
         error: function () {
             alert("Error");
@@ -143,38 +159,15 @@ var confirmarRecepcion = () => {
             Locker_ID: Locker_ID
         },
         success: function (response) {
-            console.log("Solicitud registrada correctamente2");
-        },
-        error: function () {
-            alert("Error");
-        }
-    });
-
-   bloquearLocker();
-}
-
-
-var bloquearLocker = () => {
-
-    var locker = document.getElementById("id-locker").value;
-    var status = 1;
-    console.log(locker);
-    console.log(status);
-    $.ajax({
-        type: "POST",
-        url: "../PHPServidor4.php",
-        data: {
-            Locker_ID: locker,
-            Status: status
-        },
-        success: function (response) {
-            console.log("Casillero bloqueado");
+            console.log("Tracking iniciado");
         },
         error: function () {
             alert("Error");
         }
     });
 }
+
+
 
 
 
@@ -209,7 +202,6 @@ var importarListaDepartamentos = () => {
                 $datalist.appendChild(option);
             }
             stringdepartamentos = (departamentos.toString() + "." + ids.toString())
-            /* .log("String: " + stringdepartamentos); */
         },
         error: function () {
             alert("Error");
@@ -236,7 +228,6 @@ var obtenterDepartamento = (pickupId) => {
             for (var i = 0; i < jsparse.length; i++) {
                 document.getElementById("proximo-dep").value = jsparse[i].Department_ID;
                 document.getElementById("cod_cliente").value = jsparse[i].Customer_ID;
-                /* Obtiene nombre */
                 var departamento = jsparse[i].Department_ID;
                 $.ajax({
                     type: "POST",
@@ -282,7 +273,6 @@ var importarPickUpsIds = () => {
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
 
-            //Creamos los 'option' del select
             const $datalist = document.getElementById("pickup-number")
             var option;
             var valor;
@@ -337,7 +327,6 @@ var importarTiposEmbalaje = () => {
                 option.value = valor;
                 option.text = texto;
                 $select.appendChild(option);
-                //.log("Select: " + valor + "-" + texto);
             }
         },
         error: function () {
@@ -347,7 +336,7 @@ var importarTiposEmbalaje = () => {
 }
 
 
-//IMPORTAR LOCKER LIBRE
+//IMPORTAR LOCKER LIBRE LO BLOQUEA PARA QUE NO SE DUPLIQUE
 var obtenerLocker = (tipo) => {
     var Tipo = tipo;
     var status = 0;
@@ -365,6 +354,7 @@ var obtenerLocker = (tipo) => {
 
             document.getElementById("id-locker").value = jsparse[0].Locker_ID;
             document.getElementById("locker-recepciones").value = jsparse[0].Name;
+            bloquearLocker(jsparse[0].Locker_ID, jsparse[0].Name);
         },
         error: function () {
             alert("Error");
@@ -372,7 +362,47 @@ var obtenerLocker = (tipo) => {
     });
 }
 
+//BLOQUEO DEL LOCKER SELECCIONADO
+var bloquearLocker = (lockerid, name) => {
+    /* var locker = document.getElementById("id-locker").value; */
+    var locker = lockerid;
+    var status = 1;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            Locker_ID: locker,
+            Status: status
+        },
+        success: function (response) {
+            console.log("Casillero " + name + " bloqueado");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
 
+var desbloquearLocker = () => {
+    var locker = document.getElementById("id-locker").value;
+    var name = document.getElementById("locker-recepciones").value;
+    var status = 0;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            Locker_ID: locker,
+            Status: status
+        },
+        success: function (response) {
+            console.log("Recepción cancelada. Casillero " + name + " desbloqueado");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+
+}
 
 
 
