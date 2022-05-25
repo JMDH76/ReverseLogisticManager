@@ -22,12 +22,13 @@ close2.addEventListener('click', () => {
     var password = document.getElementById('password').value;
 
     importarUsuarios(usuario, password);    //Pasamos los datos a la función para compararlos
+    
     if (document.getElementById("confirmuserpassword")) {
-         document.getElementById("seccionbienvenida").style.visibility = "visible";
+        document.getElementById("indexmenu").style.visibility = "visible";
+        document.getElementById("seccionbienvenida").style.visibility = "visible";
         modal_container2.classList.remove('show');
         document.getElementById("lineaencabezado").style.visibility = "hidden";
         document.getElementById("indexmenu").style.visibility = "visible";
-
     } else {
         alert("Usuario o contraseña incorrectos");
         usuario = document.getElementById('usuario').value = "";

@@ -166,7 +166,7 @@ var confirmarRecepcion = () => {
     });
     marcarMercaniaRecibida(PickUp_ID);
 }
-
+//MARCA EN TABLA PICKUPS LA RECOGIDA COMO RECEPCIONADA
 var marcarMercaniaRecibida = (pickupid) => {
     var pickup = pickupid;
     var recibido = 1;
@@ -417,7 +417,6 @@ var desbloquearLocker = () => {
             alert("Error");
         }
     });
-
 }
 
 

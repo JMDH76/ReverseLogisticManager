@@ -620,6 +620,7 @@ textarea {
   min-height: 50px;
 }
 
+
 /* INDEX */
 
 #usuario {
@@ -714,10 +715,12 @@ textarea {
   margin-top: 5px;
 }
 
+#num-recogida,
 #numero-recepcion {
   flex: 1;
 }
 
+#codigo-cliente,
 #destino-recepcion {
   flex: 1;
   margin-left: 15px;
@@ -766,6 +769,7 @@ textarea {
   flex: 1.6;
 }
 
+#locker-returns,
 #locker-recepcion {
   flex: 0.4;
 }
@@ -776,7 +780,7 @@ textarea {
 
 /* Contenedor con datos ocultos */
 .cajaformulario-datos {
-  /* visibility: hidden; */
+  visibility: hidden;
   margin-top: 30px;
   display: flex;
   width: 500px;
