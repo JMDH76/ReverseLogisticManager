@@ -51,54 +51,123 @@ close.addEventListener('click', () => {
 
     if (flag == true && flag2 == true) {
 
+        /* Se hace visible el menú */
         modal_container.classList.remove('show');
-        document.getElementById("num-recogida").value = pickupId;
-        document.getElementById("tipo-embalaje").value = type;
-
-        importarDepartamentos();
-
-
         document.getElementById('cont1').style.visibility = "visible";
-        document.getElementById('salirformulario').style.visibility = "visible";
+        document.getElementById('botonera').style.visibility = "visible";
         document.getElementById('proximo-departamento').focus();
 
-
+        /* Obtenemos la ID del departamento y el nombre */
         obtenterDepartamento(pickupId);
         obtenerLocker(type);
-        console.log("Next: " + document.getElementById("proximo-departamento2").value)
-        /* obtenterNombreDepartamento(document.getElementById("proximo-departamento2").value); */
-        obtenterNombreDepartamento(1);
+        importarListaDepartamentos();
+        document.getElementById("num-recogida").value = pickupId;
+        document.getElementById("tipo-embalaje").value = type;
 
     } else {
         return;
     }
-
-
-
-
-
-
-
-    /*   var locker = document.getElementById("locker-asigned").value;
-      console.log("Locker asignado >>> " + locker);
-  
-      var nextdept = document.getElementById("next-deptartment").value;
-      console.log("Prox. departamento >>> " + nextdept); */
-
-    var user = 1;
-
-
-
 
     //Usuario
     //Grabar en su receptions
     //Grabar tracking
 });
 
-//OBTENER PROXIMO DEPARTAMENTOS
+
+var confirmarRecepcion = () => {
+
+    var numrecogida = document.getElementById("num-recogida").value;
+    var userid = 1;
+    var packagetype = document.getElementById("tipo-embalaje").value;
+
+    //VALIDACION DEPARTAMENTO:
+    var departamentos = importarListaDepartamentos();
+    var index = departamentos.indexOf(".");
+    var dep = (departamentos.substring(0, index)).split(",");
+    var id = (departamentos.substring(index + 1)).split(",");
+
+
+    var proxdepartamento = document.getElementById("proximo-dep").value;
+    console.log("Próximo departamento inicio " + proxdepartamento);
+    var proxdepactual = document.getElementById("proximo-departamento").value;
+    console.log("Próximo departamento actual " + proxdepactual);
+
+    //Confirmamos que existe
+    var flag = false;
+    for (var i = 0; i < dep.length; i++) {
+        if (proxdepactual == dep[i]) {
+            flag == true;
+        }
+    }
+    console.log("Flag: " + flag)
+    //Comprueba que si se ha cambiado manuelamente el dpto y modifica la variable
+    if (!flag) {
+        var index2 = dep.indexOf(proxdepactual);
+        var proxdepidactual = id[index2];
+        if (proxdepartamento != proxdepidactual) {
+            proxdepartamento = proxdepidactual;
+            console.log("Próximo departamento nuevo " + proxdepartamento);
+        }
+    } else return;
+    var locker = document.getElementById("locker-recepciones").value;
+    var comentarios = document.getElementById("obser").value;
+
+
+    //Guardar en tabla receptions y tabla tracking
+    //Poner Locker a 1 >> Ocupado
+    
+
+}
+
+
+
+//IMPORTACIÓN DE DEPARTAMENTOS >>> LISTA Desplegable y Array de verificación
+var importarListaDepartamentos = () => {
+    var departamentoactivo = 1;
+    window.departamentos = [];
+    window.ids = [];
+    window.stringdepartamentos;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",  //dirección del servidor
+        data: {
+            Activo: departamentoactivo,
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+
+            //Creamos los 'option' del select
+            const $datalist = document.getElementById("DeptList");
+
+            var option;
+            var valor;
+            for (var i = 0; i < jsparse.length; i++) {
+                option = document.createElement('option');
+                valor = jsparse[i].Name;
+                departamentos.push(jsparse[i].Name);
+                ids.push(jsparse[i].Department_ID);
+                option.value = valor;
+                $datalist.appendChild(option);
+            }
+            stringdepartamentos = (departamentos.toString() + "." + ids.toString())
+            /* .log("String: " + stringdepartamentos); */
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+    return window.stringdepartamentos;
+}
+
+
+
+
+
+//OBTENER PROXIMO DEPARTAMENTOS. DOS CONSULTAS ANIDADAS
 var obtenterDepartamento = (pickupId) => {
     var Recogida = pickupId;
-
     $.ajax({
         type: "POST",
         url: "../PHPServidor.php",
@@ -111,7 +180,29 @@ var obtenterDepartamento = (pickupId) => {
             var jsparse = JSON.parse(json);
 
             for (var i = 0; i < jsparse.length; i++) {
-                document.getElementById("proximo-departamento2").value = jsparse[i].Department_ID;
+                document.getElementById("proximo-dep").value = jsparse[i].Department_ID;
+
+                /* Obtiene nombre */
+                var departamento = jsparse[i].Department_ID;
+                $.ajax({
+                    type: "POST",
+                    url: "../PHPServidor.php",
+                    data: {
+                        Department_ID: departamento
+                    },
+                    success: function (response) {
+                        var index = response.indexOf("[");
+                        var json = response.substring(index, response.length);
+                        var jsparse = JSON.parse(json);
+
+                        for (var i = 0; i < jsparse.length; i++) {
+                            document.getElementById("proximo-departamento").value = jsparse[i].Name;
+                        }
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
             }
         },
         error: function () {
@@ -120,6 +211,30 @@ var obtenterDepartamento = (pickupId) => {
     });
 }
 
+/* //OBTENER NOMBRE DEPARTAMENTOS
+var obtenterNombreDepartamento = (dep) => {
+    var departamento = dep;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            Department_ID: departamento
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+
+            for (var i = 0; i < jsparse.length; i++) {
+                document.getElementById("proximo-departamento").value = jsparse[i].Name;
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+    // document.getElementById("id-departamento") = dep;
+} */
 
 //IMPORTACIÓN NUMEROS DE RECOGIDA pendientes de recepcionar >>> Desplegable y Array de verificación
 var importarPickUpsIds = () => {
@@ -160,7 +275,6 @@ var importarPickUpsIds = () => {
 //IMPORTAR TIPOS DE EMBALAJE >>> Select
 var importarTiposEmbalaje = () => {
     var Activo = 1;
-
     $.ajax({
         type: "POST",
         url: "../PHPServidor2.php",
@@ -193,7 +307,7 @@ var importarTiposEmbalaje = () => {
                 option.value = valor;
                 option.text = texto;
                 $select.appendChild(option);
-                //console.log("Select: " + valor + "-" + texto);
+                //.log("Select: " + valor + "-" + texto);
             }
         },
         error: function () {
@@ -207,7 +321,6 @@ var importarTiposEmbalaje = () => {
 var obtenerLocker = (tipo) => {
     var Tipo = tipo;
     var status = 0;
-
     $.ajax({
         type: "POST",
         url: "../PHPServidor.php",
@@ -219,7 +332,7 @@ var obtenerLocker = (tipo) => {
             var index = response.indexOf("[");
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
-            console.log(jsparse[0].Locker_ID)
+            /* .log(jsparse[0].Locker_ID) */
             document.getElementById("locker-recepciones").value = jsparse[0].Locker_ID;
         },
         error: function () {
@@ -228,32 +341,8 @@ var obtenerLocker = (tipo) => {
     });
 }
 
-//OBTENER PROXIMO DEPARTAMENTOS
-var obtenterNombreDepartamento = (dep) => {
-    var departamento = dep;
-    $.ajax({
-        type: "POST",
-        url: "../PHPServidor.php",
-        data: {
-            Department_ID: departamento
-        },
-        success: function (response) {
-            var index = response.indexOf("[");
-            var json = response.substring(index, response.length);
-            var jsparse = JSON.parse(json);
 
-            for (var i = 0; i < jsparse.length; i++) {
-                document.getElementById("proximo-departamento").value = jsparse[i].Name;
-            }
-        },
-        error: function () {
-            alert("Error");
-        }
-    });
-    // document.getElementById("id-departamento") = dep;
-}
-
-//IMPORTAR DEPARTAMENTOS >>> lista
+/* //IMPORTAR DEPARTAMENTOS >>> lista
 var importarDepartamentos = () => {
     var Activo = 1;
     $.ajax({
@@ -268,36 +357,36 @@ var importarDepartamentos = () => {
             var jsparse = JSON.parse(json);
 
             //Creamos los 'option' del select
-            const $select = document.getElementById("proximo-departamento")
+            const $select = document.getElementById("proximo-departamento") */
             //Borramos los anteriores
-            /*  for (let i = $select.options.length; i >= 0; i--) {
-                 $select.remove(i);
-             } */
-            var option;
-            var valor;
-            var texto;
-            for (var i = -1; i < jsparse.length; i++) {
-                option = document.createElement('option');
-                if (i == -1) {
-                    valor = "";
-                    texto = "Elija un departamento";
-                } else {
-                    if (jsparse[i].Department_ID == 1) {
-                        option.selected = true;
-                    }
-                    valor = jsparse[i].Department_ID;
-                    texto = jsparse[i].Name;
-                }
-                option.value = valor;
-                option.text = texto;
-                $select.appendChild(option);
-            }
-        },
-        error: function () {
-            alert("Error");
-        }
-    });
+/*  for (let i = $select.options.length; i >= 0; i--) {
+     $select.remove(i);
+ } */
+/*   var option;
+  var valor;
+  var texto;
+  for (var i = -1; i < jsparse.length; i++) {
+      option = document.createElement('option');
+      if (i == -1) {
+          valor = "";
+          texto = "Elija un departamento";
+      } else {
+          if (jsparse[i].Department_ID == 1) {
+              option.selected = true;
+          }
+          valor = jsparse[i].Department_ID;
+          texto = jsparse[i].Name;
+      }
+      option.value = valor;
+      option.text = texto;
+      $select.appendChild(option);
+  }
+},
+error: function () {
+  alert("Error");
 }
+});
+} */
 
 
 

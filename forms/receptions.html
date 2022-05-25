@@ -76,22 +76,26 @@
                     <div id="titulo-formulario">
                         <h3>Confirmación de la recepción</h3>
                     </div>
+                    <!-- LOCKER -->
                     <div class="cajaformulario-locker">
                         <div id="locker-recepcion">
                             <h4 class="titulo-campo">Casillero</h4>
                             <input type="text" id="locker-recepciones" readonly required />
                         </div>
-
                         <div id="vacio-recepcion">
                         </div>
                     </div>
 
                     <div class="cajaformulario">
+
+                        <!-- NUMERO DE RECEPCION -->
                         <div id="numero-recepcion">
                             <h4 class="titulo-campo">Nº Recepción</h4>
                             <input type="text" id="num-recogida" maxlength="25" placeholder="Nº Recogida" readonly
                                 required />
                         </div>
+                        
+                        <!-- DEPARTAMENTO DE DESTINO -->
                         <div id="destino-recepcion">
                             <h4 class="titulo-campo">Destino</h4>
                             <input type="text" name="depList" list="DeptList" id="proximo-departamento" required>
@@ -99,17 +103,19 @@
                         </div>
                     </div>
 
+                    <!-- COMENTARIOS -->
                     <div class="cajaformulario-textarea">
                         <h4 class="titulo-campo">Comentarios / Observaciones</h4>
                         <textarea type="text" id="obser" placeholder="Comentarios sobre la devolución"></textarea>
                     </div>
 
+                    <!-- BOTONERA -->
                     <div>
-                        <div id="salirformulario">
+                        <div id="botonera">
                             <button id="btcancel" class="boton" onclick="cancel()">
                                 Cancelar solicitud
                             </button>
-                            <button class="boton" id="btsend2" onclick="enviarsolicitud()">
+                            <button class="boton" id="btsend2" onclick="confirmarRecepcion()">
                                 Confirmar
                             </button>
                         </div>
@@ -117,8 +123,9 @@
 
                     <!-- CONTENEDOR DATOS OCULTOS -->
                     <div class="cajaformulario-datos">
+                        <!-- PROXIMO DEPARTAMENTO -->
                         <div id="prox-dep">
-                            <input id="proximo-departamento2" readonly required />
+                            <input id="proximo-dep" readonly required />
                         </div>
                         <div id="tipo-emb">
                             <input type="text" id="tipo-embalaje" readonly required />
