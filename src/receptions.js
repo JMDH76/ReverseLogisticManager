@@ -70,6 +70,8 @@ close.addEventListener('click', () => {
     }
 });
 
+
+//GENERA NUMERO DE RECEPCION 
 var generarNumeroRecepcion = (codigcliente) => {
 
     var customer = codigcliente;
@@ -125,11 +127,8 @@ var confirmarRecepcion = () => {
 
     var Locker_ID = document.getElementById("locker-recepciones").value;
     var Comments = document.getElementById("obser").value;
-    
 
-    //Generar reception_ID
-    //Poner Locker a 1 >> Ocupado
-    //GUARDAR DATOS EN RECEPTION Y TRACKING
+    //GUARDA DATOS EN RECEPTION Y TRACKING
     $.ajax({
         type: "POST",
         url: "../PHPServidor.php",  //dirección del servidor
@@ -165,10 +164,27 @@ var confirmarRecepcion = () => {
             alert("Error");
         }
     });
+    marcarMercaniaRecibida(PickUp_ID);
 }
 
-
-
+var marcarMercaniaRecibida = (pickupid) => {
+    var pickup = pickupid;
+    var recibido = 1;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor2.php",
+        data: {
+            PickUp_ID: pickup,
+            Received: recibido
+        },
+        success: function (response) {
+            console.log("Mercancía de la recogida: " + pickupid + " >>> Recepcionada");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
 
 
 //IMPORTACIÓN DE DEPARTAMENTOS >>> LISTA Desplegable y Array de verificación

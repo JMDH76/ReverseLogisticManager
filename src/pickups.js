@@ -210,7 +210,7 @@ var enviarsolicitud = () => {
             alert("Error");
         }
     });
-    //Invocación a constructorFichero y esconde el formulario denuevo
+    //Invocación a constructorFichero y esconde el formulario de nuevo
     guardarArchivoTexto(constructorFichero(PickUp_ID), PickUp_ID);
     alert("Solicitud y fichero generados\n\n" + PickUp_ID);
     document.getElementById('cont1').style.visibility = "hidden";
