@@ -1,5 +1,5 @@
 <?php
-  
+  //CONSULTA CUENTA DE IMPUTACION RETORNOS POR AGENCIA
   if(isset($_POST["Disponible"])){
        
     $Disponible = $_POST["Disponible"];      
@@ -101,6 +101,78 @@ if(isset($_POST["ActivePackage"])){
     mysqli_close($conexion);
 }    
 
+
+ //OBTIENE EL NUMERO DE RECEPCION PARA PASARLO A TRACKING
+ if(isset( $_POST["NextTrackingStatus"], $_POST["PickUp_ID"])){
+        
+    $PickUp_ID = $_POST["PickUp_ID"];
+    $NextTrackingStatus = $_POST["NextTrackingStatus"];
+  
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+    /* $sql = "SELECT Reception_ID FROM receptions WHERE PickUp_ID = $PickUp_ID" ;  */   
+    $sql = "SELECT Reception_ID FROM receptions WHERE Reception_ID = (SELECT MAX(Reception_ID) FROM receptions) "; 
+    $select = mysqli_query($conexion, $sql);
+
+    $dat=mysqli_fetch_assoc($select);
+    
+    echo json_encode($dat);   
+
+     if (mysqli_query($conexion, $sql)) {
+     } else {
+         echo "Error: ".mysqli_error($conexion);
+     }
+     mysqli_close($conexion);
+}
+
+//RELLENAR DATOS DE TRACKING DESDE RECEPCIONES
+if(isset($_POST["Reception_ID"], $_POST["Customer_ID"], $_POST["NextTrackingStatus"], $_POST["Locker_ID"])){
+        
+    $Reception_ID = $_POST["Reception_ID"];
+    $Customer_ID = $_POST["Customer_ID"];
+    $NextTrackingStatus = $_POST["NextTrackingStatus"];
+    $Locker_ID = $_POST["Locker_ID"];
+  
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+    $sql = "INSERT INTO tracking (Reception_ID, Customer_ID, NextTrackingStatus,Locker_ID)
+    VALUES ('".addslashes($Reception_ID)."','".addslashes($Customer_ID)."', 
+    '".addslashes($NextTrackingStatus)."', '".addslashes($Locker_ID)."')";
+
+    if (mysqli_query($conexion, $sql)) {
+        echo "\nRegistros guardados.";
+        
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}
 
 
 ?>

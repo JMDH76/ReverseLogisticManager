@@ -57,12 +57,15 @@ close.addEventListener('click', () => {
         document.getElementById('botonera').style.visibility = "visible";
         document.getElementById('proximo-departamento').focus();
 
+        document.getElementById("num-recogida").value = pickupId;
+        document.getElementById("tipo-embalaje").value = type;
         /* Obtenemos la ID del departamento y el nombre */
+
         obtenterDepartamento(pickupId);
         obtenerLocker(type);
         importarListaDepartamentos();
-        document.getElementById("num-recogida").value = pickupId;
-        document.getElementById("tipo-embalaje").value = type;
+        obtenerReceptionId(pickupId)
+
 
     } else {
         return;
@@ -76,22 +79,17 @@ close.addEventListener('click', () => {
 
 var confirmarRecepcion = () => {
 
-    var numrecogida = document.getElementById("num-recogida").value;
-    var userid = 1;
-    var packagetype = document.getElementById("tipo-embalaje").value;
+    var PickUp_ID = document.getElementById("num-recogida").value;
+    var User_ID = 1;
+    var PackageType = document.getElementById("tipo-embalaje").value;
 
     //VALIDACION DEPARTAMENTO:
     var departamentos = importarListaDepartamentos();
     var index = departamentos.indexOf(".");
     var dep = (departamentos.substring(0, index)).split(",");
     var id = (departamentos.substring(index + 1)).split(",");
-
-
-    var proxdepartamento = document.getElementById("proximo-dep").value;
-    console.log("Próximo departamento inicio " + proxdepartamento);
+    var NextTrackingStatus = document.getElementById("proximo-dep").value;
     var proxdepactual = document.getElementById("proximo-departamento").value;
-    console.log("Próximo departamento actual " + proxdepactual);
-
     //Confirmamos que existe
     var flag = false;
     for (var i = 0; i < dep.length; i++) {
@@ -99,25 +97,115 @@ var confirmarRecepcion = () => {
             flag == true;
         }
     }
-    console.log("Flag: " + flag)
     //Comprueba que si se ha cambiado manuelamente el dpto y modifica la variable
     if (!flag) {
         var index2 = dep.indexOf(proxdepactual);
         var proxdepidactual = id[index2];
-        if (proxdepartamento != proxdepidactual) {
-            proxdepartamento = proxdepidactual;
-            console.log("Próximo departamento nuevo " + proxdepartamento);
+        if (NextTrackingStatus != proxdepidactual) {
+            NextTrackingStatus = proxdepidactual;
+            console.log("Próximo departamento nuevo " + NextTrackingStatus);
         }
     } else return;
-    var locker = document.getElementById("locker-recepciones").value;
-    var comentarios = document.getElementById("obser").value;
 
+    var Reception_ID = parseInt(document.getElementById("num-recepcion").value) + 1;
+    console.log("recepcion real >> " + Reception_ID);
+
+    var Locker_ID = document.getElementById("locker-recepciones").value;
+    var Comments = document.getElementById("obser").value;
+    var Customer_ID = document.getElementById("cod_cliente").value;
 
     //Guardar en tabla receptions y tabla tracking
     //Poner Locker a 1 >> Ocupado
-    
+    //GUARDAR datos en receptions y genera número de recepción
+
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",  //dirección del servidor
+        data: {
+            PickUp_ID: PickUp_ID,
+            User_ID: User_ID,
+            PackageType: PackageType,
+            NextTrackingStatus: NextTrackingStatus,
+            Locker_ID: Locker_ID,
+            Comments: Comments
+        },
+        success: function (response) {
+            console.log("Solicitud registrada correctamente");
+
+            Reception_ID = parseInt(document.getElementById("num-recepcion").value) + 1;
+            Customer_ID = document.getElementById("cod_cliente").value;
+
+            $.ajax({
+                type: "POST",
+                url: "../PHPServidor2.php",
+                data: {
+                    Reception_ID: Reception_ID,
+                    Customer_ID: Customer_ID,
+                    NextTrackingStatus: NextTrackingStatus,
+                    Locker_ID: Locker_ID
+                },
+                success: function (response) {
+                    console.log("Solicitud registrada correctamente2");
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        },
+        error: function () {
+            alert("Error");
+        }
+
+    });
+
+    //Guardar tabla tracking
+    /*  $.ajax({
+         type: "POST",
+         url: "../PHPServidor2.php",
+         data: {
+             Reception_ID: Reception_ID,
+             Customer_ID: Customer_ID,
+             NextTrackingStatus: NextTrackingStatus,
+             Locker_ID: Locker_ID
+         },
+         success: function (response) {
+             console.log("Solicitud registrada correctamente2");
+         },
+         error: function () {
+             alert("Error");
+         }
+     }); */
+
+    //poner como recibida en pickups
+    //Poner Locker a 1 >> Ocupado
 
 }
+//OBTIENE EL ULTIMO NUMERO DE RECEPCION DE LA TABLA
+var obtenerReceptionId = (pickupId) => {
+    var PickUp_ID = pickupId;
+    var NextTrackingStatus = 0;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor2.php",
+        data: {
+            PickUp_ID: PickUp_ID,
+            NextTrackingStatus: NextTrackingStatus
+        },
+        success: function (response) {
+            var index = response.indexOf("{");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+            document.getElementById("num-recepcion").value = jsparse.Reception_ID;
+            console.log("Reception_ID >>> " + jsparse.Reception_ID);
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+
+
 
 
 
@@ -162,9 +250,6 @@ var importarListaDepartamentos = () => {
 }
 
 
-
-
-
 //OBTENER PROXIMO DEPARTAMENTOS. DOS CONSULTAS ANIDADAS
 var obtenterDepartamento = (pickupId) => {
     var Recogida = pickupId;
@@ -181,7 +266,7 @@ var obtenterDepartamento = (pickupId) => {
 
             for (var i = 0; i < jsparse.length; i++) {
                 document.getElementById("proximo-dep").value = jsparse[i].Department_ID;
-
+                document.getElementById("cod_cliente").value = jsparse[i].Customer_ID;
                 /* Obtiene nombre */
                 var departamento = jsparse[i].Department_ID;
                 $.ajax({
@@ -211,30 +296,6 @@ var obtenterDepartamento = (pickupId) => {
     });
 }
 
-/* //OBTENER NOMBRE DEPARTAMENTOS
-var obtenterNombreDepartamento = (dep) => {
-    var departamento = dep;
-    $.ajax({
-        type: "POST",
-        url: "../PHPServidor.php",
-        data: {
-            Department_ID: departamento
-        },
-        success: function (response) {
-            var index = response.indexOf("[");
-            var json = response.substring(index, response.length);
-            var jsparse = JSON.parse(json);
-
-            for (var i = 0; i < jsparse.length; i++) {
-                document.getElementById("proximo-departamento").value = jsparse[i].Name;
-            }
-        },
-        error: function () {
-            alert("Error");
-        }
-    });
-    // document.getElementById("id-departamento") = dep;
-} */
 
 //IMPORTACIÓN NUMEROS DE RECOGIDA pendientes de recepcionar >>> Desplegable y Array de verificación
 var importarPickUpsIds = () => {
@@ -340,53 +401,6 @@ var obtenerLocker = (tipo) => {
         }
     });
 }
-
-
-/* //IMPORTAR DEPARTAMENTOS >>> lista
-var importarDepartamentos = () => {
-    var Activo = 1;
-    $.ajax({
-        type: "POST",
-        url: "../PHPServidor.php",  //dirección del servidor
-        data: {
-            Activo: Activo
-        },
-        success: function (response) {
-            var index = response.indexOf("[");
-            var json = response.substring(index, response.length);
-            var jsparse = JSON.parse(json);
-
-            //Creamos los 'option' del select
-            const $select = document.getElementById("proximo-departamento") */
-            //Borramos los anteriores
-/*  for (let i = $select.options.length; i >= 0; i--) {
-     $select.remove(i);
- } */
-/*   var option;
-  var valor;
-  var texto;
-  for (var i = -1; i < jsparse.length; i++) {
-      option = document.createElement('option');
-      if (i == -1) {
-          valor = "";
-          texto = "Elija un departamento";
-      } else {
-          if (jsparse[i].Department_ID == 1) {
-              option.selected = true;
-          }
-          valor = jsparse[i].Department_ID;
-          texto = jsparse[i].Name;
-      }
-      option.value = valor;
-      option.text = texto;
-      $select.appendChild(option);
-  }
-},
-error: function () {
-  alert("Error");
-}
-});
-} */
 
 
 

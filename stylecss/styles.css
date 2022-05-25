@@ -799,6 +799,14 @@ textarea {
   flex: 1;
 }
 
+#cod-cli{
+    flex:1
+}
+#num-recep{
+    flex:1
+}
 .vacio {
   flex: 1;
 }
+
+

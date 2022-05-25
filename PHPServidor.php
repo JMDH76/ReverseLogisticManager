@@ -44,6 +44,84 @@
         mysqli_close($conexion);
     }
 
+    //GUARDAR DATOS TABLA RECEPCION
+    if(isset($_POST["PickUp_ID"], $_POST["PackageType"])){
+        
+        $PickUp_ID = $_POST["PickUp_ID"];
+        $User_ID = $_POST["User_ID"];
+        $PackageType = $_POST["PackageType"];
+        $NextTrackingStatus = $_POST["NextTrackingStatus"];
+        $Locker_ID = $_POST["Locker_ID"];
+        $Comments = $_POST["Comments"];
+      
+        $servidor = "localhost";
+        $usuario = "root";
+        $password = "";
+        $dbname = "reverselogisticsmng";
+
+        $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+        if (!$conexion) {
+            echo(alert("Fallo en la conexion"));
+            echo "MySQL connection error: ".mysqli_connect_error();
+            exit();
+
+        } else {
+            echo("Conexion establecida correctamente.");
+        }
+
+        $sql = "INSERT INTO receptions (PickUp_ID, User_ID, PackageType, NextTrackingStatus,Locker_ID,Comments)
+        VALUES ('".addslashes($PickUp_ID)."','".addslashes($User_ID)."', 
+        '".addslashes($PackageType)."','".addslashes($NextTrackingStatus)."', '".addslashes($Locker_ID)."', 
+        '".addslashes($Comments)."')";
+
+        if (mysqli_query($conexion, $sql)) {
+            echo "\nRegistros guardados.";
+            
+        } else {
+            echo "Error: ".mysqli_error($conexion);
+        }
+        mysqli_close($conexion);
+    }
+
+
+    //RELLENAR DATOS DE TRACKING DESDE RECEPCIONES
+    if(isset($_POST["PickUp_ID"], $_POST["Locker_ID"])){
+        
+        $PickUp_ID = $_POST["PickUp_ID"];
+        $Customer_ID = $_POST["Customer_ID"];
+        $NextTrackingStatus = $_POST["NextTrackingStatus"];
+        $Locker_ID = $_POST["Locker_ID"];
+      
+        $servidor = "localhost";
+        $usuario = "root";
+        $password = "";
+        $dbname = "reverselogisticsmng";
+
+        $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+        if (!$conexion) {
+            echo(alert("Fallo en la conexion"));
+            echo "MySQL connection error: ".mysqli_connect_error();
+            exit();
+
+        } else {
+            echo("Conexion establecida correctamente.");
+        }
+
+        $sql = "INSERT INTO tracking (PickUp_ID, Customer_ID, NextTrackingStatus,Locker_ID)
+        VALUES ('".addslashes($PickUp_ID)."','".addslashes($Customer_ID)."', 
+        '".addslashes($NextTrackingStatus)."', '".addslashes($Locker_ID)."')";
+
+        if (mysqli_query($conexion, $sql)) {
+            echo "\nRegistros guardados.";
+            
+        } else {
+            echo "Error: ".mysqli_error($conexion);
+        }
+        mysqli_close($conexion);
+    }
+
+
+
     //Consulta datos del cliente
     if(isset($_POST["Customer_ID"])){
        
@@ -79,6 +157,7 @@
          mysqli_close($conexion);
      }
 
+
      //Nombres de agencias para desplegable
      if(isset($_POST["Disponible"])){
        
@@ -110,6 +189,7 @@
         }
         mysqli_close($conexion);
     }
+
 
     //BUSCAR NOMBRE DE DEPARTAMENTO POR ID
     if(isset($_POST["Department_ID"])){
@@ -248,7 +328,7 @@
     }    
 
 
-//CONSULTA USUARIO / CONTRASEÑA
+    //CONSULTA USUARIO / CONTRASEÑA
     if(isset($_POST["UsuarioActivo"])){
             
         $UsuarioActivo = $_POST["UsuarioActivo"];      
@@ -284,7 +364,8 @@
     }    
 
 
-    //CONSULTA LOCKER VACIO
+    
+//CONSULTA LOCKER VACIO
  if(isset($_POST["PackageType"], $_POST["Status"])){
         
     $PackageType = $_POST["PackageType"];   
@@ -307,9 +388,7 @@
 
     $sql = "SELECT Locker_ID FROM lockers WHERE PackageType = $PackageType AND Status = $Status LIMIT 1";      
     $select = mysqli_query($conexion, $sql);
-
-    /* $dat = mysqli_fetch_assoc($select);
-    echo json_encode($dat);  */    
+  
     while ($dat=mysqli_fetch_assoc($select)){
         $arr[]=$dat;
     }
@@ -322,7 +401,7 @@
     mysqli_close($conexion);
 }    
 
-   //OBTENER PROXIMO DEPARTAMENTO
+   //OBTENER PROXIMO DEPARTAMENTO Y CODIGO DE CLIENTE
    if(isset($_POST["PickUp_ID"])){
         
     $PickUp_ID = $_POST["PickUp_ID"];        
@@ -342,7 +421,7 @@
         echo("Conexion establecida correctamente.");
     }
 
-    $sql = "SELECT Department_ID  FROM pickups WHERE PickUp_ID  = $PickUp_ID";      
+    $sql = "SELECT Department_ID, Customer_ID  FROM pickups WHERE PickUp_ID  = $PickUp_ID";      
     $select = mysqli_query($conexion, $sql);
    
     while ($dat=mysqli_fetch_assoc($select)){
@@ -388,5 +467,11 @@ if(isset($_POST["Activo"])){
     }
     mysqli_close($conexion);
 }
+
+
+
+
+
+
 
 ?>
