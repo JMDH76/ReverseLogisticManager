@@ -77,7 +77,7 @@ close.addEventListener('click', () => {
 var confirmarRecepcion = () => {
 
     var PickUp_ID = document.getElementById("num-recogida").value;
-    var Reception_ID = "20220525253023456603"
+    var Reception_ID = "20220525253023456655"
     var User_ID = 1;
     var PackageType = document.getElementById("tipo-embalaje").value;
 
@@ -107,6 +107,7 @@ var confirmarRecepcion = () => {
     } else return;
 
     var Locker_ID = document.getElementById("locker-recepciones").value;
+    console.log("Locker: "  + Locker_ID)
     var Comments = document.getElementById("obser").value;
     var Customer_ID = document.getElementById("cod_cliente").value;
 
@@ -127,57 +128,54 @@ var confirmarRecepcion = () => {
         },
         success: function (response) {
             console.log("Solicitud registrada correctamente");
-            $.ajax({
-                type: "POST",
-                url: "../PHPServidor3.php",
-                data: {
-                    Reception_ID: Reception_ID,
-                    Customer_ID: Customer_ID,
-                    LastStatus: NextTrackingStatus,
-                    Locker_ID: Locker_ID
-                },
-                success: function (response) {
-                    console.log("Solicitud registrada correctamente2");
-                },
-                error: function () {
-                    alert("Error");
-                }
-            });
         },
         error: function () {
             alert("Error");
         }
     });
-
-
-
-
-   
-
-}
-//OBTIENE EL ULTIMO NUMERO DE RECEPCION DE LA TABLA
-var obtenerReceptionId = (pickupId) => {
-    var PickUp_ID = pickupId;
-    var NextTrackingStatus = 0;
     $.ajax({
         type: "POST",
-        url: "../PHPServidor2.php",
+        url: "../PHPServidor3.php",
         data: {
-            PickUp_ID: PickUp_ID,
-            NextTrackingStatus: NextTrackingStatus
+            Reception_ID: Reception_ID,
+            Customer_ID: Customer_ID,
+            LastStatus: NextTrackingStatus,
+            Locker_ID: Locker_ID
         },
         success: function (response) {
-            var index = response.indexOf("{");
-            var json = response.substring(index, response.length);
-            var jsparse = JSON.parse(json);
-            document.getElementById("num-recepcion").value = jsparse.Reception_ID;
-            console.log("Reception_ID >>> " + jsparse.Reception_ID);
+            console.log("Solicitud registrada correctamente2");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+
+   bloquearLocker();
+}
+
+
+var bloquearLocker = () => {
+
+    var locker = document.getElementById("id-locker").value;
+    var status = 1;
+    console.log(locker);
+    console.log(status);
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor4.php",
+        data: {
+            Locker_ID: locker,
+            Status: status
+        },
+        success: function (response) {
+            console.log("Casillero bloqueado");
         },
         error: function () {
             alert("Error");
         }
     });
 }
+
 
 
 //IMPORTACIÓN DE DEPARTAMENTOS >>> LISTA Desplegable y Array de verificación
@@ -364,8 +362,9 @@ var obtenerLocker = (tipo) => {
             var index = response.indexOf("[");
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
-            /* .log(jsparse[0].Locker_ID) */
-            document.getElementById("locker-recepciones").value = jsparse[0].Locker_ID;
+
+            document.getElementById("id-locker").value = jsparse[0].Locker_ID;
+            document.getElementById("locker-recepciones").value = jsparse[0].Name;
         },
         error: function () {
             alert("Error");

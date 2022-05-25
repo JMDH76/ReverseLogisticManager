@@ -352,7 +352,7 @@
         echo("Conexion establecida correctamente.");
     }
 
-    $sql = "SELECT Locker_ID FROM lockers WHERE PackageType = $PackageType AND Status = $Status LIMIT 1";      
+    $sql = "SELECT Locker_ID, Name FROM lockers WHERE PackageType = $PackageType AND Status = $Status LIMIT 1";      
     $select = mysqli_query($conexion, $sql);
   
     while ($dat=mysqli_fetch_assoc($select)){
@@ -365,6 +365,7 @@
         echo "Error: ".mysqli_error($conexion);
     }
     mysqli_close($conexion);
+
 }    
 
    //OBTENER PROXIMO DEPARTAMENTO Y CODIGO DE CLIENTE
