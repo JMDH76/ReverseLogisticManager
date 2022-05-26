@@ -160,7 +160,7 @@ if(isset($_POST["NextTrackingStatus"])){
         echo("Conexion establecida correctamente.");
     }
 
-    $sql = "SELECT Reception_ID, Locker_ID, Comments FROM receptions WHERE NextTrackingStatus = $NextTrackingStatus ORDER BY DateReception ASC";      
+    $sql = "SELECT Reception_ID, Locker_ID, Comments, PackageType FROM receptions WHERE NextTrackingStatus = $NextTrackingStatus ORDER BY DateReception ASC";      
     $select = mysqli_query($conexion, $sql);
 
     while ($dat=mysqli_fetch_assoc($select)){
@@ -175,7 +175,7 @@ if(isset($_POST["NextTrackingStatus"])){
     mysqli_close($conexion);
 }    
 
-//OBTENER EL NUMERO D EORDEN ASOCIADA A UN Reception_ID
+//OBTENER EL NUMERO DE ORDEN ASOCIADA A UN Reception_ID
 if(isset($_POST["Recepcion"])){
         
     $Reception_ID = $_POST["Recepcion"];      
@@ -196,7 +196,6 @@ if(isset($_POST["Recepcion"])){
     }
 
     $sql = "SELECT AssociatedOrder_ID FROM pickups WHERE PickUp_ID = (SELECT PickUp_ID FROM receptions WHERE Reception_ID=$Reception_ID)"; 
-   /*  $sql = "SELECT PickUp_ID FROM receptions WHERE Reception_ID=$Reception_ID";  */     
     $select = mysqli_query($conexion, $sql);
 
     while ($dat=mysqli_fetch_assoc($select)){
@@ -211,7 +210,8 @@ if(isset($_POST["Recepcion"])){
     mysqli_close($conexion);
 }    
 
-//OBTENER EL ITEM Y CANTIDAD dDE UNA ORDEN
+
+//OBTENER EL ITEM Y CANTIDAD DE UNA ORDEN
 if(isset($_POST["Orden"])){
         
     $Order_ID = $_POST["Orden"];      
@@ -246,7 +246,7 @@ if(isset($_POST["Orden"])){
     mysqli_close($conexion);
 }    
 
-//OBTENER EL ITEM Y CANTIDAD dDE UNA ORDEN
+//OBTENER EL ITEM Y CANTIDAD DE UNA ORDEN
 if(isset($_POST["Cliente"])){
         
     $Customer_ID = $_POST["Cliente"];      
@@ -267,6 +267,41 @@ if(isset($_POST["Cliente"])){
     }
 
     $sql = "SELECT Name, Phone1 FROM customers WHERE Customer_ID = $Customer_ID";     
+    $select = mysqli_query($conexion, $sql);
+
+    while ($dat=mysqli_fetch_assoc($select)){
+        $arr[]=$dat;
+    }
+    echo json_encode($arr);    
+
+    if (mysqli_query($conexion, $sql)) {
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}    
+
+//OBTENER LA DESCRIPCION DE UN ITEM
+if(isset($_POST["Item"])){
+        
+    $Item_ID = $_POST["Item"];      
+
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+    $sql = "SELECT Reference, Description FROM warehouseitems WHERE Item_ID = $Item_ID";     
     $select = mysqli_query($conexion, $sql);
 
     while ($dat=mysqli_fetch_assoc($select)){

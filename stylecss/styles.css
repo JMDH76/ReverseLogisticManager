@@ -779,7 +779,7 @@ textarea {
 
 /* Contenedor con datos ocultos */
 .cajaformulario-datos {
-  visibility: visible; /* ///// */
+  visibility: hidden; /* ///// */
   margin-top: 30px;
   display: flex;
   width: 500px;

@@ -13,24 +13,22 @@ open.addEventListener('click', () => {
 
 //CANCELACION DEL FORMULARIO. Sale al principio (No deja volver a acceder al formulario)
 var cancel = () => {
-    //desbloquearLocker();
+    desbloquearLocker();
     window.location.replace("../forms/returns.html");
 }
 
 close.addEventListener('click', () => {
-
     var reception_id = document.getElementById("devoluciones-pendientes").value;
     document.getElementById("numerorecepcio-returns").value = "Recepción:   " + reception_id;
+
     var arrayreceptionsinfo = importarListaRecepcionesPendientes();
     var index1 = arrayreceptionsinfo.indexOf(".");
+    var arrayreceptionsid = arrayreceptionsinfo.substring(0, index1).split(",");
+
     var substring2 = arrayreceptionsinfo.substring(index1 + 1);
     var index2 = substring2.indexOf(".");
-
-    var arrayreceptionsid = arrayreceptionsinfo.substring(0, index1).split(",");
     var arraylockers = substring2.substring(0, index2).split(",");
     var arraycomments = substring2.substring(index2 + 1).split(",");
-
-    console.log(reception_id)
 
     //SACAMOS NUMERO DE CLIENTE
     var codigocliente = reception_id.substring(12, 19);
@@ -39,27 +37,41 @@ close.addEventListener('click', () => {
     //SACAMOS CASILLERO Y COMENTARIOS
     var index3 = arrayreceptionsid.indexOf(reception_id);
     var locker = arraylockers[index3];
+    var lockertype = locker.substring(0, 1)
+    var packagetype;
+    if (lockertype == "A" || lockertype == "B" || lockertype == "C" || lockertype == "D") {
+        packagetype = 1
+    } else if (lockertype == "E" || lockertype == "F" || lockertype == "G" || lockertype == "H") {
+        packagetype = 2;
+    } else if (lockertype == "I" || lockertype == "J") {
+        packagetype = 3;
+    } else if (locker.substring(0, 1) == "K") {
+        packagetype = 4;
+    } else {
+        return
+    }
+    console.log(packagetype);
     var comments = arraycomments[index3];
     document.getElementById("locker-in-returns").value = locker;
     document.getElementById("comentarios-cliente-returns").value = comments;
+
 
     modal_container.classList.remove('show');
     document.getElementById('cont1').style.visibility = "visible";
     document.getElementById('cont2').style.visibility = "visible";
     document.getElementById('botonera-returns').style.visibility = "visible";
-    document.getElementById('mercancia-abonar').focus();
+    document.getElementById('cantidadabono-returns').focus();
 
     obtenerOrdenAsociada(reception_id);
     obtenerDatosCliente(codigocliente);
-    cantidadItemsAbonar();
+    obtenerLocker(packagetype);  //Reserva un locker al abrir la gestión
 });
 
 
 //CANTIDAD DE ITEMS PARA ABONAR
-var cantidadItemsAbonar = (reception) => {
+var cantidadItemsAbonar = (unidades) => {
     const $select = document.getElementById("cantidadabono-returns");
-    var cantidad = 5;
-    console.log("Cant: " + cantidad);
+    var cantidad = unidades;
     var option;
     var valor;
     var texto;
@@ -71,21 +83,12 @@ var cantidadItemsAbonar = (reception) => {
         } else {
             valor = i + 1;
             texto = i + 1;
-            /*          lockers.push(jsparse[i].Locker_ID);
-                     comentarios.push(jsparse[i].Comments);
-                     pickups.push(valor); */
         }
         option.value = valor;
         option.text = texto;
         $select.appendChild(option);
     }
 }
-
-
-
-
-
-
 
 
 //OBTENER NOMBRE Y TELEFONO DEL CLIENTE
@@ -101,9 +104,9 @@ var obtenerDatosCliente = (codigo) => {
             var index = response.indexOf("[");
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
-
             document.getElementById("nombrecliente-returns").value = jsparse[0].Name;
             document.getElementById("telefono1-returns").value = jsparse[0].Phone1;
+            /* console.log("Obtenidos datos del cliente"); */
         },
         error: function () {
             alert("Error");
@@ -125,7 +128,7 @@ var obtenerOrdenAsociada = (recepcion) => {
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
             document.getElementById("pedidoasociado-returns").value = jsparse[0].AssociatedOrder_ID;
-            console.log(jsparse[0].AssociatedOrder_ID);
+            /*  console.log("Orden asociada >>> " + jsparse[0].AssociatedOrder_ID); */
             obtenerDetalleOrdenAsociada(jsparse[0].AssociatedOrder_ID);
         },
         error: function () {
@@ -147,9 +150,10 @@ var obtenerDetalleOrdenAsociada = (order) => {
             var index = response.indexOf("[");
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
-            document.getElementById("detalle-pedido-returns").value = jsparse[0].Item_ID;
-            document.getElementById("mercancia-abonar").value = jsparse[0].Item_ID;
             document.getElementById("cantidadreturns").value = jsparse[0].Qty + " uds.";
+            cantidadItemsAbonar(jsparse[0].Qty);
+            obtenerDescripcionItem(jsparse[0].Item_ID);
+            console.log(">>> Importados todos los elementos");
         },
         error: function () {
             alert("Error");
@@ -157,12 +161,41 @@ var obtenerDetalleOrdenAsociada = (order) => {
     });
 }
 
+//OBTENER DESCRIPCION DEL ITEMS
+
+var obtenerDescripcionItem = (item) => {
+    var itemref = item;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor2.php",
+        data: {
+            Item: itemref,
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+            document.getElementById("mercancia-abonar").value = jsparse[0].Reference;
+            document.getElementById("detalle-pedido-returns").value = jsparse[0].Reference;
+            document.getElementById("descripctionItem-returns").value = jsparse[0].Description;
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+
+
+
+
 //IMPORTA LISTA DE RECEPCIONES EN ESPERA DE ENTRAR EN DEPARTAMENTO + ARRAY CON LOCKER Y COMENTARIOS
 var importarListaRecepcionesPendientes = () => {
     var proximodep = 1;
     window.pickups = [];
     window.lockers = [];
     window.comentarios = [];
+    window.packagetype = [];
     window.stringrecepionespendientes;
     $.ajax({
         type: "POST",
@@ -173,10 +206,8 @@ var importarListaRecepcionesPendientes = () => {
         success: function (response) {
             var index = response.indexOf("[");
             var json = response.substring(index, response.length);
-            //console.log(json);
             var jsparse = JSON.parse(json);
 
-            //Creamos los 'option' del select
             const $select = document.getElementById("devoluciones-pendientes");
             var option;
             var valor;
@@ -192,16 +223,86 @@ var importarListaRecepcionesPendientes = () => {
                     lockers.push(jsparse[i].Locker_ID);
                     comentarios.push(jsparse[i].Comments);
                     pickups.push(valor);
+                    packagetype.push(jsparse[i].PackageType);
                 }
                 option.value = valor;
                 option.text = texto;
                 $select.appendChild(option);
             }
-            stringrecepionespendientes = pickups.toString() + "." + lockers.toString() + "." + comentarios.toString();
+            stringrecepionespendientes = pickups.toString() + "." + lockers.toString() + "." + comentarios.toString() + "." + packagetype.toString();
         },
         error: function () {
             alert("Error");
         }
     });
     return window.stringrecepionespendientes;
+}
+
+
+
+/* ----------------------LOCKERS-------------------------------- */
+//IMPORTAR LOCKER LIBRE LO BLOQUEA PARA QUE NO SE DUPLIQUE
+var obtenerLocker = (tipo) => {
+    var Tipo = tipo;
+    var status = 0;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            PackageType: Tipo,
+            Status: status
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+            document.getElementById("nextlocker-id-returns").value = jsparse[0].Locker_ID;
+            document.getElementById("nextlocker-returns").value = jsparse[0].Name;
+            bloquearLocker(jsparse[0].Locker_ID, jsparse[0].Name);
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+//BLOQUEO DEL LOCKER SELECCIONADO
+var bloquearLocker = (lockerid, name) => {
+    /* var locker = document.getElementById("id-locker").value; */
+    var locker = lockerid;
+    var status = 1;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            Locker_ID: locker,
+            Status: status
+        },
+        success: function (response) {
+            console.log(">>> Casillero " + name + " bloqueado");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+var desbloquearLocker = () => {
+    var locker = document.getElementById("nextlocker-id-returns").value;
+    var name = document.getElementById("nextlocker-returns").value;
+    var status = 0;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            Locker_ID: locker,
+            Status: status
+        },
+        success: function (response) {
+            console.log(">>> Gestión cancelada. Casillero " + name + " desbloqueado");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
 }
