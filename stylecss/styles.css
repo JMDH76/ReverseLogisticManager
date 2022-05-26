@@ -230,7 +230,7 @@ section {
   margin-top: 25px;
   padding: 5px;
   text-align: left;
-  visibility: hidden;
+  visibility: visible; /* /////////// */
 }
 
 #titulo-formulario {
@@ -620,7 +620,6 @@ textarea {
   min-height: 50px;
 }
 
-
 /* INDEX */
 
 #usuario {
@@ -780,16 +779,18 @@ textarea {
 
 /* Contenedor con datos ocultos */
 .cajaformulario-datos {
-  visibility: hidden;
+  visibility: visible; /* ///// */
   margin-top: 30px;
   display: flex;
   width: 500px;
   height: 25px;
   align-items: center;
 }
+
 .cajaformulario-datos > div {
   height: 25px;
 }
+
 .cajaformulario-datos > div > input {
   width: 100%;
   height: 100%;
@@ -798,19 +799,202 @@ textarea {
   text-align: center;
   margin: 10px;
 }
+
+.vacio,
+#id-locker,
+#cod-cli,
 #prox-dep,
 #tipo-emb {
   flex: 1;
 }
 
-#cod-cli{
-    flex:1
+/* ---------FORM RETURNS----------- */
+
+/* CONTENEDOR DATOS OCULTOS RETURNS */
+.cajaformulario-datos {
+  visibility: visible;
+  /* ///// */
+  margin-top: 30px;
+  display: flex;
+  width: 500px;
+  height: 30px;
+  align-items: center;
+  /*   border: solid 1px white; */
 }
-#id-locker{
-    flex:1
+
+.cajaformulario-datos > div {
+  height: 100%;
+  margin: 0;
 }
-.vacio {
+
+.cajaformulario-datos > div > input {
+  width: 100%;
+  height: 30px;
+  color: rgb(20, 20, 20);
+  font-size: 40px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+#id1,
+#id2,
+#id3,
+#id4,
+#id5,
+#id6 {
   flex: 1;
 }
 
+/* --------------------------------------- */
 
+.cajaformulario-returns {
+  /* margin-top: 30px; */
+  display: flex;
+  width: 500px;
+  height: 40px;
+  /* align-items: center; */
+  /* border: solid 1px white; */
+}
+.cajaformulario-titulo-returns {
+  /* margin-top: 30px; */
+  display: flex;
+  width: 500px;
+  height: 70px;
+  /* align-items: center; */
+  /*  border: solid 1px white; */
+}
+.cajaformulario-locker-returns {
+  /* margin-top: 30px; */
+  display: flex;
+  width: 500px;
+  height: 105px;
+  /* align-items: center; */
+  /*  border: solid 1px white; */
+}
+.cajaformulario-textarea-returns {
+  margin-top: 10px;
+  width: 100%;
+  height: 80px;
+  align-items: center;
+ /*  border: solid 1px white; */
+}
+
+.cajaformulario-textarea2-returns {
+  margin-top: 0px;
+  width: 100%;
+  height: 120px;
+  align-items: center;
+  /* border: solid 1px white; */
+}
+
+.cajaformulario-rellenar-titulo-returns {
+  margin-top: 115px;
+  display: flex;
+  width: 500px;
+  height: 70px;
+  /* align-items: center; */
+ /*  border: solid 1px white; */
+}
+.cajaformulario-rellenar-returns {
+  display: flex;
+  width: 500px;
+  height: 40px;
+  margin-top:10px
+  /* align-items: center; */
+  /* border: solid 1px white; */
+}
+
+#comentarios-cliente-returns,
+#detalle-pedido-returns {
+  color: rgb(20, 20, 20);
+  font-size: 16px;
+  text-align: left;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.cajaformulario-returns > div,
+.cajaformulario-rellenar-titulo-returns > div,
+.cajaformulario-rellenar-returns > div,
+.cajaformulario-titulo-returns > div,
+.cajaformulario-returns > div,
+.cajaformulario-locker-returns > div {
+  height: 100%;
+}
+
+.cajaformulario-titulo-returns > div > input,
+.cajaformulario-returns > div > input,
+.cajaformulario-rellenar-titulo-returns > div > input,
+.cajaformulario-rellenar-returns > div >input {
+  width: 100%;
+  height: 25px;
+  color: rgb(20, 20, 20);
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 5px;
+}
+.cajaformulario-locker-returns > div > input {
+  width: 100%;
+  height: 60px;
+  color: rgb(20, 20, 20);
+  font-size: 40px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 5px;
+}
+.cajaformulario-returns > div > h4 {
+  margin: 0px;
+}
+.cajaformulario-locker-returns > div > h4 {
+  margin-top: 10px;
+}
+#locker-returns {
+  flex: 0.2;
+  height: 100%;
+}
+
+#vacio-locker-returns {
+  flex: 0.8;
+  height: 100%;
+  margin-left: 15px;
+  visibility: hidden;
+}
+
+#codigocliente-returns {
+  flex: 0.3;
+}
+
+#numero-recepcion-returns {
+  flex: 0.7;
+  margin-left: 15px;
+}
+
+#nombre-cliente-returns {
+  flex: 0.7;
+}
+
+#numero-telefono-returns {
+  flex: 0.3;
+  margin-left: 15px;
+}
+
+#vacia2-returns {
+  flex: 1;
+}
+#pedido-asociado-returns {
+  flex: 1;
+}
+
+#item-returns {
+  flex: 0.7;
+}
+#cantidad-returns {
+  flex: 0.3;
+  margin-left: 15px;
+}
+
+#descripcion-item-returns {
+  flex: 1;
+}

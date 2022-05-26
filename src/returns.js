@@ -21,7 +21,7 @@ close.addEventListener('click', () => {
     modal_container.classList.remove('show');
     document.getElementById('cont1').style.visibility = "visible";
     document.getElementById('botonera').style.visibility = "visible";
-    document.getElementById('proximo-departamento').focus();
+    //document.getElementById('proximo-departamento').focus();
 
 
 });
