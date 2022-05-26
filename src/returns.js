@@ -8,19 +8,22 @@ open.addEventListener('click', () => {
     document.getElementById("devoluciones-pendientes").focus();
     document.getElementById("open").style.visibility = "hidden";
     importarListaRecepcionesPendientes();
-
 });
 
 //CANCELACION DEL FORMULARIO. Sale al principio (No deja volver a acceder al formulario)
 var cancel = () => {
     desbloquearLocker();
+    borrarEntradaDepartamento(document.getElementById("returnid").value);
     window.location.replace("../forms/returns.html");
 }
 
 close.addEventListener('click', () => {
     var reception_id = document.getElementById("devoluciones-pendientes").value;
-    document.getElementById("numerorecepcio-returns").value = "Recepción:   " + reception_id;
-
+    document.getElementById("numerorecepcio-returns").value = "Recepción:    " + reception_id;
+    
+    var returnid = generarReturId(100);
+    document.getElementById("returnid").value = returnid;
+    
     var arrayreceptionsinfo = importarListaRecepcionesPendientes();
     var index1 = arrayreceptionsinfo.indexOf(".");
     var arrayreceptionsid = arrayreceptionsinfo.substring(0, index1).split(",");
@@ -34,7 +37,7 @@ close.addEventListener('click', () => {
     var codigocliente = reception_id.substring(12, 19);
     document.getElementById("codigoclientereturns").value = codigocliente;
 
-    //SACAMOS CASILLERO Y COMENTARIOS
+    //SACAMOS CASILLERO, COMENTARIOS Y OBTENEMOS TIPO DE EMBALAJE
     var index3 = arrayreceptionsid.indexOf(reception_id);
     var locker = arraylockers[index3];
     var lockertype = locker.substring(0, 1)
@@ -66,7 +69,7 @@ close.addEventListener('click', () => {
     obtenerLocker(packagetype);  //Reserva un locker al abrir la gestión
 
     var userid = 1;
-    var returnid = generarReturId(100)
+    
     //Graba la entrada en tabla returns, luego añadimos datos.
     //TODO: borrar al cancelar
     $.ajax({
@@ -84,26 +87,26 @@ close.addEventListener('click', () => {
             alert("Error");
         }
     });
-
-
-
-
-
-
-
-
 });
 
 
 //GUARDAR FECHA DE ENTRADA EN DEPARTAMENTO
-var borrarEntradaDepartamento = () => {
-
-
-
-
+var borrarEntradaDepartamento = (returnid) => {
+    console.log(returnid);
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",  //dirección del servidor
+        data: {
+            Devolucion: returnid,
+        },
+        success: function (response) {
+            console.log(">>> Devolución borrada del registro correctamente");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
 }
-
-
 
 
 //OBTENER TIPO DE LOCKER
@@ -120,13 +123,23 @@ var generarReturId = (code) => {
     var Return_ID = depcode + year + mounth + day + hour + minute + digitocontrol;
 
     if (Return_ID.length == 16) {
+        console.log("reutnid ok");
         return Return_ID;
     } else {
         Return_ID = "";
+        console.log("Error al generar Return_ID");
         return Return_ID;
     }
 }
 
+//CONFIGURACION digitos fecha y hora. Añade ceros a los parámetros de la fecha u hora cuando son menores de 10
+var updatefechahora = (datetime) => {
+    if (datetime < 10) {
+        return "0" + datetime;
+    } else {
+        return datetime;
+    }
+}
 
 
 //CANTIDAD DE ITEMS PARA ABONAR

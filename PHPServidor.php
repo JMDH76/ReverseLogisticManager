@@ -465,7 +465,7 @@ if(isset($_POST["Locker_ID"], $_POST["Status"])){
 if(isset($_POST["Return"], $_POST["Reception"])){
         
     $Reception_ID =$_POST["Reception"];
-    $ReturnID = $_POST["Return"];
+    $Return_ID = $_POST["Return"];
     $User_ID = $_POST["User"];
     
     $servidor = "localhost";
@@ -495,7 +495,33 @@ if(isset($_POST["Return"], $_POST["Reception"])){
     mysqli_close($conexion);
 }
 
+//BORRAR REGISTROS AL CANCELAR
+if(isset($_POST["Devolucion"])){
+        
+    $Return_ID = $_POST["Devolucion"];
+    
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
 
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+    $sql = "DELETE FROM returns WHERE Return_ID = $Return_ID";
+
+    if (mysqli_query($conexion, $sql)) {
+        echo "\nRegistro modificados.";
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}
 
 
 ?>
