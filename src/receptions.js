@@ -93,8 +93,8 @@ var generarNumeroRecepcion = (codigcliente) => {
     }
 }
 
+//GUARDA LA RECEPCION EN LAS TABLAS Y HACE TODAS LAS MODIFICACIONES EN LA DEMÁS TABLAS IMPLICADAS
 var confirmarRecepcion = () => {
-
     var PickUp_ID = document.getElementById("num-recogida").value;
     var Customer_ID = document.getElementById("cod_cliente").value;
     var Reception_ID = generarNumeroRecepcion(Customer_ID);
@@ -166,6 +166,7 @@ var confirmarRecepcion = () => {
     });
     marcarMercaniaRecibida(PickUp_ID);
 }
+
 //MARCA EN TABLA PICKUPS LA RECOGIDA COMO RECEPCIONADA
 var marcarMercaniaRecibida = (pickupid) => {
     var pickup = pickupid;

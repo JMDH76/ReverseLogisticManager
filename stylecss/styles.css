@@ -795,7 +795,7 @@ textarea {
   width: 100%;
   height: 100%;
   color: rgb(20, 20, 20);
-  font-size: 16px;
+  font-size: 10px;
   text-align: center;
   margin: 10px;
 }
@@ -861,7 +861,7 @@ textarea {
   display: flex;
   width: 500px;
   height: 70px;
- /*  text-align: center; */
+  /*  text-align: center; */
   /* align-items: center; */
   /*  border: solid 1px white; */
 }
@@ -878,7 +878,7 @@ textarea {
   width: 100%;
   height: 80px;
   align-items: center;
- /*  border: solid 1px white; */
+  /*  border: solid 1px white; */
 }
 
 .cajaformulario-textarea2-returns {
@@ -889,12 +889,12 @@ textarea {
   /* border: solid 1px white; */
 }
 .cajaformulario-textarea3-returns {
-    margin-top: 60px;
-    width: 100%;
-    height: 120px;
-    align-items: center;
-    /* border: solid 1px white; */
-  }
+  margin-top: 60px;
+  width: 100%;
+  height: 120px;
+  align-items: center;
+  /* border: solid 1px white; */
+}
 
 .cajaformulario-rellenar-titulo-returns {
   margin-top: 175px;
@@ -902,19 +902,18 @@ textarea {
   width: 500px;
   height: 70px;
   /* align-items: center; */
- /*  border: solid 1px white; */
+  /*  border: solid 1px white; */
 }
 .cajaformulario-rellenar-returns {
   display: flex;
   width: 500px;
   height: 40px;
-  margin-top:10px
+  margin-top: 10px;
   /* align-items: center; */
   /* border: solid 1px white; */
 }
 
-#comentarios-tecnico-returns
-#comentarios-cliente-returns,
+#comentarios-tecnico-returns #comentarios-cliente-returns,
 #detalle-pedido-returns {
   color: rgb(20, 20, 20);
   font-size: 16px;
@@ -935,7 +934,8 @@ textarea {
 .cajaformulario-titulo-returns > div > input,
 .cajaformulario-returns > div > input,
 .cajaformulario-rellenar-titulo-returns > div > input,
-.cajaformulario-rellenar-returns > div >input {
+.cajaformulario-rellenar-titulo-returns > div > select,
+.cajaformulario-rellenar-returns > div > input {
   width: 100%;
   height: 25px;
   color: rgb(20, 20, 20);
@@ -944,6 +944,8 @@ textarea {
   font-weight: 600;
   margin-top: 5px;
 }
+
+
 .cajaformulario-locker-returns > div > input {
   width: 100%;
   height: 60px;
@@ -992,7 +994,7 @@ textarea {
 #vacia2-returns {
   flex: 0;
 }
-#pedido-asociado-returns {
+#pedidoasociado-returns {
   flex: 1;
 }
 
@@ -1008,10 +1010,24 @@ textarea {
   flex: 1;
 }
 
+#detalle-pedido-returns {
+  text-align: center;
+}
+
+
+#cantidadabono-returns{
+    flex:0.6;
+}
+#mercancia-abonar{
+    flex:0.4;
+}
+/* #cantidadreturns {
+ 
+} */
 
 #botonera-returns {
-    margin-top:70px;
-    visibility: hidden;
-    margin-left: 20px;
-    /* border: solid 1px white; */
-  }
+  margin-top: 70px;
+  visibility: hidden;
+  margin-left: 20px;
+  /* border: solid 1px white; */
+}

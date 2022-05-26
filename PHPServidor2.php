@@ -175,4 +175,110 @@ if(isset($_POST["NextTrackingStatus"])){
     mysqli_close($conexion);
 }    
 
+//OBTENER EL NUMERO D EORDEN ASOCIADA A UN Reception_ID
+if(isset($_POST["Recepcion"])){
+        
+    $Reception_ID = $_POST["Recepcion"];      
+
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+    $sql = "SELECT AssociatedOrder_ID FROM pickups WHERE PickUp_ID = (SELECT PickUp_ID FROM receptions WHERE Reception_ID=$Reception_ID)"; 
+   /*  $sql = "SELECT PickUp_ID FROM receptions WHERE Reception_ID=$Reception_ID";  */     
+    $select = mysqli_query($conexion, $sql);
+
+    while ($dat=mysqli_fetch_assoc($select)){
+        $arr[]=$dat;
+    }
+    echo json_encode($arr);    
+
+    if (mysqli_query($conexion, $sql)) {
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}    
+
+//OBTENER EL ITEM Y CANTIDAD dDE UNA ORDEN
+if(isset($_POST["Orden"])){
+        
+    $Order_ID = $_POST["Orden"];      
+
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+    $sql = "SELECT Item_ID, Qty FROM orders WHERE Order_ID = $Order_ID";     
+    $select = mysqli_query($conexion, $sql);
+
+    while ($dat=mysqli_fetch_assoc($select)){
+        $arr[]=$dat;
+    }
+    echo json_encode($arr);    
+
+    if (mysqli_query($conexion, $sql)) {
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}    
+
+//OBTENER EL ITEM Y CANTIDAD dDE UNA ORDEN
+if(isset($_POST["Cliente"])){
+        
+    $Customer_ID = $_POST["Cliente"];      
+
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+    $sql = "SELECT Name, Phone1 FROM customers WHERE Customer_ID = $Customer_ID";     
+    $select = mysqli_query($conexion, $sql);
+
+    while ($dat=mysqli_fetch_assoc($select)){
+        $arr[]=$dat;
+    }
+    echo json_encode($arr);    
+
+    if (mysqli_query($conexion, $sql)) {
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}    
+
 ?>
