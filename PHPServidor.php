@@ -84,10 +84,6 @@
         mysqli_close($conexion);
     }
 
-
-
-
-
     //Consulta datos del cliente
     if(isset($_POST["Customer_ID"])){
        
@@ -465,6 +461,39 @@ if(isset($_POST["Locker_ID"], $_POST["Status"])){
 }
 
 
+//GUARDAR DATOS TABLA RETURNS
+if(isset($_POST["Return"], $_POST["Reception"])){
+        
+    $Reception_ID =$_POST["Reception"];
+    $ReturnID = $_POST["Return"];
+    $User_ID = $_POST["User"];
+    
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+    $sql = "INSERT INTO returns (Reception_ID, Return_ID, User_ID)
+    VALUES ('".addslashes($Reception_ID)."', '".addslashes($Return_ID)."','".addslashes($User_ID)."')";
+
+    if (mysqli_query($conexion, $sql)) {
+        echo "\nRegistros guardados.";
+        
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}
 
 
 

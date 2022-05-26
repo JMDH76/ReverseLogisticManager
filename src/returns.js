@@ -50,11 +50,10 @@ close.addEventListener('click', () => {
     } else {
         return
     }
-    console.log(packagetype);
+
     var comments = arraycomments[index3];
     document.getElementById("locker-in-returns").value = locker;
     document.getElementById("comentarios-cliente-returns").value = comments;
-
 
     modal_container.classList.remove('show');
     document.getElementById('cont1').style.visibility = "visible";
@@ -65,7 +64,69 @@ close.addEventListener('click', () => {
     obtenerOrdenAsociada(reception_id);
     obtenerDatosCliente(codigocliente);
     obtenerLocker(packagetype);  //Reserva un locker al abrir la gestión
+
+    var userid = 1;
+    var returnid = generarReturId(100)
+    //Graba la entrada en tabla returns, luego añadimos datos.
+    //TODO: borrar al cancelar
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",  //dirección del servidor
+        data: {
+            Return: returnid,
+            Reception: reception_id,
+            User: userid
+        },
+        success: function (response) {
+            console.log(">>> Devolución registrada de entrada correctamente");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+
+
+
+
+
+
+
+
 });
+
+
+//GUARDAR FECHA DE ENTRADA EN DEPARTAMENTO
+var borrarEntradaDepartamento = () => {
+
+
+
+
+}
+
+
+
+
+//OBTENER TIPO DE LOCKER
+var generarReturId = (code) => {
+    var depcode = code;
+    var date = new Date();
+    var day = updatefechahora(date.getDate()).toString();
+    var mounth = updatefechahora((date.getMonth() + 1)).toString();
+    var year = date.getFullYear().toString();
+    var hour = updatefechahora(date.getHours()).toString();
+    var minute = updatefechahora(date.getMinutes()).toString();
+    var digitocontrol = Math.floor(Math.random() * (9 - 0 + 1) + 0);
+
+    var Return_ID = depcode + year + mounth + day + hour + minute + digitocontrol;
+
+    if (Return_ID.length == 16) {
+        return Return_ID;
+    } else {
+        Return_ID = "";
+        return Return_ID;
+    }
+}
+
 
 
 //CANTIDAD DE ITEMS PARA ABONAR
@@ -151,6 +212,7 @@ var obtenerDetalleOrdenAsociada = (order) => {
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
             document.getElementById("cantidadreturns").value = jsparse[0].Qty + " uds.";
+            document.getElementById("item-id-returns").value = jsparse[0].Item_ID;
             cantidadItemsAbonar(jsparse[0].Qty);
             obtenerDescripcionItem(jsparse[0].Item_ID);
             console.log(">>> Importados todos los elementos");
@@ -162,7 +224,6 @@ var obtenerDetalleOrdenAsociada = (order) => {
 }
 
 //OBTENER DESCRIPCION DEL ITEMS
-
 var obtenerDescripcionItem = (item) => {
     var itemref = item;
     $.ajax({
@@ -268,7 +329,6 @@ var obtenerLocker = (tipo) => {
 
 //BLOQUEO DEL LOCKER SELECCIONADO
 var bloquearLocker = (lockerid, name) => {
-    /* var locker = document.getElementById("id-locker").value; */
     var locker = lockerid;
     var status = 1;
     $.ajax({

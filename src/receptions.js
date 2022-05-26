@@ -46,7 +46,6 @@ close.addEventListener('click', () => {
         return;
     } else {
         flag2 = true;
-
     }
 
     if (flag == true && flag2 == true) {
@@ -59,8 +58,7 @@ close.addEventListener('click', () => {
 
         document.getElementById("num-recogida").value = pickupId;
         document.getElementById("tipo-embalaje").value = type;
-        /* Obtenemos la ID del departamento y el nombre */
-
+    
         obtenterDepartamento(pickupId);
         obtenerLocker(type);
         importarListaDepartamentos();
@@ -89,7 +87,7 @@ var generarNumeroRecepcion = (codigcliente) => {
         return Reception_ID;
     } else {
         Reception_ID = "";
-        return PickUp_ID;
+        return Reception_ID;
     }
 }
 
