@@ -9,7 +9,6 @@ open.addEventListener('click', () => {
     modal_container.classList.add('show');
     document.getElementById("cliente").focus();
     document.getElementById("open").style.visibility = "hidden";
-    //document.getElementById("fecha-recogida").value = "";
     importarCodigosCliente();   //Listado de códigos de cliente
 });
 

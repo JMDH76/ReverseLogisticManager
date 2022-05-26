@@ -52,7 +52,7 @@
                             <h3>Gestión de devoluciones</h3>
                         </div>
                         <div>
-                            <select title="select-recepcionespend" id="recepciones-pendientes" required></select>
+                            <select title="select-recepcionespend" id="devoluciones-pendientes" required></select>
                         </div>
                         <div>
                             <button id="close" class="boton2">Aceptar</button>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <script src="../src/returns.js"></script>
-                <!-- <script src="../src/functions.js"></script> -->
+                <script src="../src/functions.js"></script>
                 <!-- contar pedidos en espera de entrar en departamento -->
             </div>
         </aside>
@@ -74,12 +74,11 @@
                         <h3>Gestión de devoluciones</h3>
                     </div>
 
-                    <!-- LOCKER -->
+                    <!-- LOCKER INICIAL-->
                     <div class="cajaformulario-locker-returns">
-
                         <div id="locker-returns">
                             <h4 class="titulo-campo">Casillero</h4>
-                            <input type="text" id="id-inputLocker1" readonly required />
+                            <input type="text" id="locker-in-returns" readonly required />
                         </div>
                         <div id="vacio-locker-returns">
                             <h4 class="titulo-campo">Nombre campo</h4>
@@ -87,19 +86,17 @@
                         </div>
                     </div>
 
-
-
                     <!-- CC + Nº RECOGIDA-->
                     <h4 class="titulo-campo" style="margin-top: 40px;">Datos cliente</h4>
                     <div class="cajaformulario-returns">
 
                         <div id="codigocliente-returns">
                             <!-- <h4 class="titulo-campo">Código cliente</h4> -->
-                            <input type="text" id="id-input1" placeholder="Código cliente" readonly required />
+                            <input type="text" id="codigoclientereturns" placeholder="Código cliente" readonly required />
                         </div>
                         <div id="numero-recepcion-returns">
                             <!-- <h4 class="titulo-campo">Nº Recepción</h4> -->
-                            <input type="text" id="id-input2" placeholder="Nº Recepción" readonly required />
+                            <input type="text" id="numerorecepcio-returns" placeholder="Nº Recepción" readonly required />
                         </div>
                     </div>
 
@@ -119,27 +116,29 @@
                     <!-- PEDIDO ASOCIADO -->
                     <div class="cajaformulario-titulo-returns">
                         <div id="pedido-asociado-returns">
-                            <h4 class="titulo-campo" >Pedido asociado</h4>
-                            <input type="text" id="id-input5" placeholder="pedido asociado" readonly required />
+                            <h4 class="titulo-campo">Pedido asociado</h4>
+                            <input type="text" id="pedido-asociado" placeholder="Pedido asociado" readonly required />
                         </div>
-                         <div id="vacia2-returns">
+                        <div id="vacia2-returns">
                         </div>
                     </div>
 
                     <!-- DETALLE PEDIDO -->
                     <div class="cajaformulario-textarea-returns">
                         <!--   <h4 class="titulo-campo">Detalle del pedido</h4> -->
-                        <textarea type="text" id="detalle-pedido-returns" placeholder="Detalle pedido"></textarea>
+                        <textarea type="text" id="detalle-pedido-returns" placeholder="Detalle pedido" readonly></textarea>
                     </div>
-                    <!-- COMENTARIOS -->
+
+                    <!-- COMENTARIOS CLIENTE-->
                     <div class="cajaformulario-textarea2-returns">
-                        <h4 class="titulo-campo" style="margin-bottom: 5px;">Comentarios / Observaciones del cliente</h4>
+                        <h4 class="titulo-campo" style="margin-bottom: 5px;">Comentarios / Observaciones del cliente
+                        </h4>
                         <textarea type="text" id="comentarios-cliente-returns"
-                            placeholder="Comentarios sobre la devolución"></textarea>
+                            placeholder="Comentarios sobre la devolución" readonly></textarea>
                     </div>
+
                     <!-- CONTENEDOR DATOS OCULTOS -->
                     <div class="cajaformulario-datos">
-                        <!-- PROXIMO DEPARTAMENTO -->
                         <div id="div1">
                             <input type="text" id="id1" readonly required />
                         </div>
@@ -166,13 +165,14 @@
         <section>
             <div class="contenedor-formulario" id="cont2">
                 <div class="cajaformulario-rellenar-titulo-returns">
-                    <!--  CAMPO INPUT  -->
+                    <!--  REFERERENCIA ITEM  -->
                     <div id="item-returns">
                         <h4 class="titulo-campo">Mercancía para abonar</h4>
-                        <input type="text" name="List" list="inputList" id="id item" required>
+                        <input type="text" name="List" list="inputList" id="mercancia-abonar" required>
                         <datalist id="inputList"></datalist>
                     </div>
-                    <!-- CAMPO LISTA -->
+
+                    <!-- CANTIDAD ITEMS-->
                     <div id="cantidad-returns">
                         <h4 class="titulo-campo">Cantidad</h4>
                         <input type="text" name="List2" list="inputList2" id="id-cantidad" required>
@@ -180,6 +180,7 @@
                     </div>
                 </div>
 
+                <!-- DESCRIPCION ITEMS -->
                 <div class="cajaformulario-rellenar-returns">
                     <div id="descripcion-item-returns">
                         <input type="text" id="id-descripciion-item" required>
@@ -204,24 +205,20 @@
                         <input type="text" id="id-inputLocker1" readonly required />
                     </div>
                 </div>
+            </div>
 
-
+            <!-- BOTONERA -->
+            <div>
+                <div id="botonera-returns">
+                    <button id="btcancel" class="boton" onclick="cancel()">
+                        Cancelar
+                    </button>
+                    <button class="boton" id="btsend2" onclick="confirmarRecepcion()">
+                        Confirmar
+                    </button>
+                </div>
             </div>
         </section>
-
-
-        <!-- BOTONERA -->
-        <div>
-            <div id="botonera">
-                <button id="btcancel" class="boton" onclick="cancel()">
-                    Cancelar solicitud
-                </button>
-                <button class="boton" id="btsend2" onclick="confirmarRecepcion()">
-                    Confirmar
-                </button>
-            </div>
-        </div>
-
 
 
         </form>

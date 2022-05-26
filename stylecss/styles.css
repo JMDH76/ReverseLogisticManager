@@ -230,7 +230,7 @@ section {
   margin-top: 25px;
   padding: 5px;
   text-align: left;
-  visibility: visible; /* /////////// */
+  visibility: hidden; /* /////////// */
 }
 
 #titulo-formulario {
@@ -265,7 +265,7 @@ section {
   margin-top: 0;
   padding: 0;
   width: 485px;
-  display: flexbox;
+  display: flex;
 
   /* flex-direction: row; */
   /* border: solid 2px green;  */
@@ -602,8 +602,8 @@ footer {
 
 textarea {
   padding: 5px;
-  color: lightseagreen;
-  font-weight: normal;
+  color: rgb(20, 20, 20);
+  font-weight: 600;
   font-style: italic;
   font-size: 16px;
   resize: none;
@@ -861,6 +861,7 @@ textarea {
   display: flex;
   width: 500px;
   height: 70px;
+ /*  text-align: center; */
   /* align-items: center; */
   /*  border: solid 1px white; */
 }
@@ -989,7 +990,7 @@ textarea {
 }
 
 #vacia2-returns {
-  flex: 1;
+  flex: 0;
 }
 #pedido-asociado-returns {
   flex: 1;
@@ -1006,3 +1007,11 @@ textarea {
 #descripcion-item-returns {
   flex: 1;
 }
+
+
+#botonera-returns {
+    margin-top:70px;
+    visibility: hidden;
+    margin-left: 20px;
+    /* border: solid 1px white; */
+  }
