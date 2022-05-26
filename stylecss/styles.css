@@ -881,15 +881,22 @@ textarea {
 }
 
 .cajaformulario-textarea2-returns {
-  margin-top: 0px;
+  margin-top: 10px;
   width: 100%;
   height: 120px;
   align-items: center;
   /* border: solid 1px white; */
 }
+.cajaformulario-textarea3-returns {
+    margin-top: 60px;
+    width: 100%;
+    height: 120px;
+    align-items: center;
+    /* border: solid 1px white; */
+  }
 
 .cajaformulario-rellenar-titulo-returns {
-  margin-top: 115px;
+  margin-top: 175px;
   display: flex;
   width: 500px;
   height: 70px;
@@ -905,6 +912,7 @@ textarea {
   /* border: solid 1px white; */
 }
 
+#comentarios-tecnico-returns
 #comentarios-cliente-returns,
 #detalle-pedido-returns {
   color: rgb(20, 20, 20);
@@ -947,6 +955,7 @@ textarea {
 .cajaformulario-returns > div > h4 {
   margin: 0px;
 }
+
 .cajaformulario-locker-returns > div > h4 {
   margin-top: 10px;
 }
@@ -954,7 +963,6 @@ textarea {
   flex: 0.2;
   height: 100%;
 }
-
 #vacio-locker-returns {
   flex: 0.8;
   height: 100%;
