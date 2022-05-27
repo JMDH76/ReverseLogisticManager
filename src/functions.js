@@ -22,6 +22,10 @@ var solicitudesPendientes = () => {
 }
 solicitudesPendientes();
 
+
+
+
+
 //CANCELACION DEL FORMULARIO. Sale al principio (No deja volver a acceder al formulario)
 /* var cancel = (page) => {
 

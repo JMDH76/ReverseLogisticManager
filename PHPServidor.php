@@ -289,6 +289,38 @@
         mysqli_close($conexion);
     }    
 
+    //CONSULTA Solicitudes pendientes de recepcionar
+    if(isset($_POST["LastStatus"])){
+        
+        $LastStatus = $_POST["LastStatus"];      
+
+        $servidor = "localhost";
+        $usuario = "root";
+        $password = "";
+        $dbname = "reverselogisticsmng";
+        $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+        
+        if (!$conexion) {
+            echo(alert("Fallo en la conexion"));
+            echo "MySQL connection error: ".mysqli_connect_error();
+            exit();
+
+        } else {
+            echo("Conexion establecida correctamente.");
+        }
+
+        $sql = "SELECT count(Reception_ID) FROM tracking WHERE LastStatus = $LastStatus";      
+        $select = mysqli_query($conexion, $sql);
+
+        $dat=mysqli_fetch_assoc($select);
+        echo json_encode($dat);     
+
+        if (mysqli_query($conexion, $sql)) {
+        } else {
+            echo "Error: ".mysqli_error($conexion);
+        }
+        mysqli_close($conexion);
+    }    
 
     //CONSULTA USUARIO / CONTRASEÑA
     if(isset($_POST["UsuarioActivo"])){
@@ -310,7 +342,7 @@
             echo("Conexion establecida correctamente.");
         }
         
-        $sql = "SELECT User, Password, Name FROM users WHERE UsuarioActivo = $UsuarioActivo";      
+        $sql = "SELECT User, Password, Name, User_ID FROM users WHERE UsuarioActivo = $UsuarioActivo";      
         $select = mysqli_query($conexion, $sql);
 
         while ($dat=mysqli_fetch_assoc($select)){
@@ -483,8 +515,8 @@ if(isset($_POST["Return"], $_POST["Reception"])){
         echo("Conexion establecida correctamente.");
     }
 
-    $sql = "INSERT INTO returns (Reception_ID, Return_ID, User_ID)
-    VALUES ('".addslashes($Reception_ID)."', '".addslashes($Return_ID)."','".addslashes($User_ID)."')";
+    $sql = "INSERT INTO returns (Reception_ID, Return_ID)
+    VALUES ('".addslashes($Reception_ID)."', '".addslashes($Return_ID)."')";
 
     if (mysqli_query($conexion, $sql)) {
         echo "\nRegistros guardados.";

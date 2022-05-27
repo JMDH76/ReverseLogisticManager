@@ -141,9 +141,9 @@ if(isset($_POST["ActivePackage"])){
 
 /* returns */
 //IMPORTAR LISTA RECEPCIONES PENDIENTES 
-if(isset($_POST["NextTrackingStatus"])){
+if(isset($_POST["LastStatus"])){
         
-    $NextTrackingStatus = $_POST["NextTrackingStatus"];      
+    $LastStatus = $_POST["LastStatus"];      
 
     $servidor = "localhost";
     $usuario = "root";
@@ -160,7 +160,8 @@ if(isset($_POST["NextTrackingStatus"])){
         echo("Conexion establecida correctamente.");
     }
 
-    $sql = "SELECT Reception_ID, Locker_ID, Comments, PackageType FROM receptions WHERE NextTrackingStatus = $NextTrackingStatus ORDER BY DateReception ASC";      
+   /*  $sql = "SELECT Reception_ID, Locker_ID, Comments, PackageType FROM receptions WHERE NextTrackingStatus = $NextTrackingStatus ORDER BY DateReception ASC";   */
+   $sql = "SELECT Reception_ID, Locker_ID FROM tracking WHERE LastStatus = $LastStatus ORDER BY Tracking_ID ASC"; 
     $select = mysqli_query($conexion, $sql);
 
     while ($dat=mysqli_fetch_assoc($select)){
@@ -195,7 +196,7 @@ if(isset($_POST["Recepcion"])){
         echo("Conexion establecida correctamente.");
     }
 
-    $sql = "SELECT AssociatedOrder_ID FROM pickups WHERE PickUp_ID = (SELECT PickUp_ID FROM receptions WHERE Reception_ID=$Reception_ID)"; 
+    $sql = "SELECT AssociatedOrder_ID, MerchandiseRemarks FROM pickups WHERE PickUp_ID = (SELECT PickUp_ID FROM receptions WHERE Reception_ID=$Reception_ID)"; 
     $select = mysqli_query($conexion, $sql);
 
     while ($dat=mysqli_fetch_assoc($select)){
@@ -246,6 +247,8 @@ if(isset($_POST["Orden"])){
     mysqli_close($conexion);
 }    
 
+
+
 //OBTENER EL ITEM Y CANTIDAD DE UNA ORDEN
 if(isset($_POST["Cliente"])){
         
@@ -281,6 +284,8 @@ if(isset($_POST["Cliente"])){
     mysqli_close($conexion);
 }    
 
+
+
 //OBTENER LA DESCRIPCION DE UN ITEM
 if(isset($_POST["Item"])){
         
@@ -315,6 +320,8 @@ if(isset($_POST["Item"])){
     }
     mysqli_close($conexion);
 }    
+
+
 
 //OBTENER MOTIVOS DE DEVOLUCION
 if(isset($_POST["ReturnReason_ID"])){

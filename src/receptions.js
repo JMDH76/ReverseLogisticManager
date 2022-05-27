@@ -9,6 +9,7 @@ open.addEventListener('click', () => {
     document.getElementById("open").style.visibility = "hidden";
     importarPickUpsIds();       //importamos todas las recogidas sin recepcionar
     importarTiposEmbalaje();    //importamos todos los tipos de embalaje disponibles
+
 });
 
 //CANCELACION DEL FORMULARIO. Sale al principio (No deja volver a acceder al formulario)
@@ -18,7 +19,6 @@ var cancel = () => {
 }
 
 close.addEventListener('click', () => {
-
     //VALIDACION NUMERO DE RECOGIDA
     var pickupId = document.getElementById('pickup-num').value;
     var arrayRecogidas = importarPickUpsIds().split(",");
@@ -58,16 +58,16 @@ close.addEventListener('click', () => {
 
         document.getElementById("num-recogida").value = pickupId;
         document.getElementById("tipo-embalaje").value = type;
-    
+
         obtenterDepartamento(pickupId);
         obtenerLocker(type);
         importarListaDepartamentos();
+        obtenerUsuario();
 
     } else {
         return;
     }
 });
-
 
 //GENERA NUMERO DE RECEPCION 
 var generarNumeroRecepcion = (codigcliente) => {
@@ -82,7 +82,7 @@ var generarNumeroRecepcion = (codigcliente) => {
     var digitocontrol = Math.floor(Math.random() * (9 - 0 + 1) + 0);
 
     var Reception_ID = year + mounth + day + hour + minute + customer + digitocontrol;
-    
+
     if (Reception_ID.length == 20) {
         return Reception_ID;
     } else {
@@ -96,7 +96,8 @@ var confirmarRecepcion = () => {
     var PickUp_ID = document.getElementById("num-recogida").value;
     var Customer_ID = document.getElementById("cod_cliente").value;
     var Reception_ID = generarNumeroRecepcion(Customer_ID);
-    var User_ID = 1;
+    var User_ID = document.getElementById("iduser").value;
+    /* var User_ID = document.getElementById("iduser").value; */
     var PackageType = document.getElementById("tipo-embalaje").value;
 
     //VALIDACION DEPARTAMENTO:
@@ -122,7 +123,7 @@ var confirmarRecepcion = () => {
         }
 
     } else return;
-
+    /*  var Locker_ID = document.getElementById("id-locker").value; */
     var Locker_ID = document.getElementById("locker-recepciones").value;
     var Comments = document.getElementById("obser").value;
 
@@ -164,6 +165,30 @@ var confirmarRecepcion = () => {
     });
     marcarMercaniaRecibida(PickUp_ID);
 }
+
+var obtenerUsuario = () => {
+    var user = 1;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor3.php",
+        data: {
+            User: user,
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+            document.getElementById("iduser").value = jsparse[0].User_ID;
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+
+
+
 
 //MARCA EN TABLA PICKUPS LA RECOGIDA COMO RECEPCIONADA
 var marcarMercaniaRecibida = (pickupid) => {

@@ -8,6 +8,7 @@ open.addEventListener('click', () => {
     document.getElementById("devoluciones-pendientes").focus();
     document.getElementById("open").style.visibility = "hidden";
     importarListaRecepcionesPendientes();
+    
 });
 
 //CANCELACION DEL FORMULARIO. Sale al principio (No deja volver a acceder al formulario)
@@ -22,6 +23,7 @@ var cancelmodal = () => {
     window.location.replace("../forms/returns.html");
 }
 
+//EJECUCION CUANDO PULSAMOS ACEPTAR
 close.addEventListener('click', () => {
     var reception_id = document.getElementById("devoluciones-pendientes").value;
     document.getElementById("numerorecepcio-returns").value = "Recepción:    " + reception_id;
@@ -32,11 +34,7 @@ close.addEventListener('click', () => {
     var arrayreceptionsinfo = importarListaRecepcionesPendientes();
     var index1 = arrayreceptionsinfo.indexOf(".");
     var arrayreceptionsid = arrayreceptionsinfo.substring(0, index1).split(",");
-
-    var substring2 = arrayreceptionsinfo.substring(index1 + 1);
-    var index2 = substring2.indexOf(".");
-    var arraylockers = substring2.substring(0, index2).split(",");
-    var arraycomments = substring2.substring(index2 + 1).split(",");
+    var arraylockers = arrayreceptionsinfo.substring(index1 + 1).split(",");
 
     //SACAMOS NUMERO DE CLIENTE
     var codigocliente = reception_id.substring(12, 19);
@@ -58,11 +56,7 @@ close.addEventListener('click', () => {
     } else {
         return
     }
-
-    var comments = arraycomments[index3];
     document.getElementById("locker-in-returns").value = locker;
-    document.getElementById("comentarios-cliente-returns").value = comments;
-
     modal_container.classList.remove('show');
     document.getElementById('cont1').style.visibility = "visible";
     document.getElementById('cont2').style.visibility = "visible";
@@ -73,8 +67,9 @@ close.addEventListener('click', () => {
     obtenerDatosCliente(codigocliente);
     obtenerLocker(packagetype);  //Reserva un locker al abrir la gestión
     obtenerMotivosDevolucion();
-    var userid = 1;
-
+    devolucionesEsperaReturns();
+    obtenerUsuario();
+    
     //Graba la entrada en tabla returns, luego añadimos datos.
     $.ajax({
         type: "POST",
@@ -82,7 +77,7 @@ close.addEventListener('click', () => {
         data: {
             Return: returnid,
             Reception: reception_id,
-            User: userid
+            /* User: userid */
         },
         success: function (response) {
             console.log(">>> Devolución " + returnid + " registrada de entrada correctamente");
@@ -102,7 +97,9 @@ var confirmarGestion = () => {
     var locker = document.getElementById("nextlocker-id-returns").value;
     var returnid = document.getElementById("returnid").value;
     var reception = document.getElementById("devoluciones-pendientes").value;
-
+    var user = document.getElementById("iduser").value;
+    console.log("User: " + user)
+    //var fecha = now();
     $.ajax({
         type: "POST",
         url: "../PHPServidor3.php",
@@ -113,34 +110,34 @@ var confirmarGestion = () => {
             NextTrackingStatus: nexttrack,
             Locker_ID: locker,
             Return_ID: returnid,
+            User: user,
         },
         success: function (response) {
             console.log(">>> Devolución " + returnid + " registrada de salida correctamente");
-            $.ajax({
-                type: "POST",
-                url: "../PHPServidor3.php",
-                data: {
-                    Reception_ID: reception,
-                    LastStatus: nexttrack,
-                    Locker_ID: locker,
-                    Return_ID: returnid
-                },
-                success: function (response) {
-                    console.log("Tracking iniciado");
-                },
-                error: function () {
-                    alert("Error");
-                }
-            });
         },
         error: function () {
             alert("Error");
         }
     });
-    
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor3.php",
+        data: {
+            Reception_ID: reception,
+            LastStatus: nexttrack,
+            Locker_ID: locker,
+            Return_ID: returnid,
+           /*  LastMovement: fecha, */
+        },
+        success: function (response) {
+            console.log(">>> Tracking actualizado");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+
 }
-
-
 
 //GUARDAR FECHA DE ENTRADA EN DEPARTAMENTO
 var borrarEntradaDepartamento = (returnid) => {
@@ -242,6 +239,7 @@ var obtenerOrdenAsociada = (recepcion) => {
             var index = response.indexOf("[");
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
+            document.getElementById("comentarios-cliente-returns").value = jsparse[0].MerchandiseRemarks;
             document.getElementById("pedidoasociado-returns").value = jsparse[0].AssociatedOrder_ID;
             obtenerDetalleOrdenAsociada(jsparse[0].AssociatedOrder_ID);
         },
@@ -298,7 +296,26 @@ var obtenerDescripcionItem = (item) => {
         }
     });
 }
-
+//OBTENEMOR EL USUARIO QUE SE HA LOGEADO 
+var obtenerUsuario = () => {
+    var user = 1;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor3.php",
+        data: {
+            User: user,
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+            document.getElementById("iduser").value = jsparse[0].User_ID;
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
 
 //OBTENER MOTIVOS DE DEVOLLUCION >>> Select
 var obtenerMotivosDevolucion = () => {
@@ -342,21 +359,19 @@ var obtenerMotivosDevolucion = () => {
 }
 
 
-
-
 //IMPORTA LISTA DE RECEPCIONES EN ESPERA DE ENTRAR EN DEPARTAMENTO + ARRAY CON LOCKER Y COMENTARIOS
 var importarListaRecepcionesPendientes = () => {
     var proximodep = 1;
     window.pickups = [];
     window.lockers = [];
-    window.comentarios = [];
-    window.packagetype = [];
+    //window.customers = [];
+    //window.packagetype = [];
     window.stringrecepionespendientes;
     $.ajax({
         type: "POST",
         url: "../PHPServidor2.php",
         data: {
-            NextTrackingStatus: proximodep,
+            LastStatus: proximodep,
         },
         success: function (response) {
             var index = response.indexOf("[");
@@ -379,15 +394,14 @@ var importarListaRecepcionesPendientes = () => {
                     valor = jsparse[i].Reception_ID;
                     texto = jsparse[i].Reception_ID;
                     lockers.push(jsparse[i].Locker_ID);
-                    comentarios.push(jsparse[i].Comments);
+                    //customers.push(jsparse[i].Customer_ID);
                     pickups.push(valor);
-                    packagetype.push(jsparse[i].PackageType);
                 }
                 option.value = valor;
                 option.text = texto;
                 $select.appendChild(option);
             }
-            stringrecepionespendientes = pickups.toString() + "." + lockers.toString() + "." + comentarios.toString() + "." + packagetype.toString();
+            stringrecepionespendientes = pickups.toString() + "." + lockers.toString() /* + "." + customers.toString() */;
         },
         error: function () {
             alert("Error");
