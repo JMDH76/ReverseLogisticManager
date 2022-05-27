@@ -167,7 +167,6 @@ if(isset($_POST["UserID"])){
 
 
 //OBTENER USUARIO ACTUAL
-//IMPORTAR LISTA RECEPCIONES PENDIENTES 
 if(isset($_POST["User"])){
         
     $Identificador = $_POST["User"];      
@@ -188,6 +187,41 @@ if(isset($_POST["User"])){
     }
 
    $sql = "SELECT User_ID FROM actual_user WHERE Identificador = $Identificador"; 
+    $select = mysqli_query($conexion, $sql);
+
+    while ($dat=mysqli_fetch_assoc($select)){
+        $arr[]=$dat;
+    }
+    echo json_encode($arr);    
+
+    if (mysqli_query($conexion, $sql)) {
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}  
+
+//OBTENER LOCKER POR SU ID
+if(isset($_POST["ID_Locker"])){
+        
+    $Locker_ID = $_POST["ID_Locker"];      
+
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+   $sql = "SELECT Name FROM lockers WHERE Locker_ID = $Locker_ID"; 
     $select = mysqli_query($conexion, $sql);
 
     while ($dat=mysqli_fetch_assoc($select)){

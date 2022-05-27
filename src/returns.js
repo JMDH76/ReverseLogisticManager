@@ -8,7 +8,6 @@ open.addEventListener('click', () => {
     document.getElementById("devoluciones-pendientes").focus();
     document.getElementById("open").style.visibility = "hidden";
     importarListaRecepcionesPendientes();
-    
 });
 
 //CANCELACION DEL FORMULARIO. Sale al principio (No deja volver a acceder al formulario)
@@ -30,6 +29,7 @@ close.addEventListener('click', () => {
 
     var returnid = generarReturId(100);
     document.getElementById("returnid").value = returnid;
+    
 
     var arrayreceptionsinfo = importarListaRecepcionesPendientes();
     var index1 = arrayreceptionsinfo.indexOf(".");
@@ -136,7 +136,7 @@ var confirmarGestion = () => {
 
 }
 
-//GUARDAR FECHA DE ENTRADA EN DEPARTAMENTO
+//BORRARR REGISTR DE ENTRADA EN DEPARTAMENTO
 var borrarEntradaDepartamento = (returnid) => {
     $.ajax({
         type: "POST",
@@ -154,7 +154,7 @@ var borrarEntradaDepartamento = (returnid) => {
 }
 
 
-//OBTENER TIPO DE LOCKER
+//CREAR NUMERO DE DEVOLUCION
 var generarReturId = (code) => {
     var depcode = code;
     var date = new Date();

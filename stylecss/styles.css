@@ -196,6 +196,11 @@ section {
   margin-right: auto;
 }
 
+/* #botonera-quality {
+    visibility: hidden;
+    margin-left: auto;
+    margin-right: auto;
+  } */
 #btcancel {
   margin-left: 40px;
 }
@@ -803,7 +808,7 @@ textarea {
 
 /* CONTENEDOR DATOS OCULTOS RETURNS */
 .cajaformulario-datos {
-  visibility: hidden; /* ///// */
+  visibility: visible; /* ///// */
   margin-top: 30px;
   display: flex;
   width: 500px;
@@ -1046,6 +1051,7 @@ textarea {
  flex:1;
 } */
 
+#botonera-quality,
 #botonera-returns {
   margin-top: 35px;
   visibility: hidden;

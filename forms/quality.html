@@ -37,8 +37,9 @@
         <aside>
             <div>
 
-                <h2 id="titulopagina">GESTIÓN DE CALIDAD</h2>
-                <h3 class="h3aside">Gestión</h3>
+                <h2 id="titulopagina">GESTIÓN</h2>
+                <h2 id="titulopagina">DE CALIDAD</h2>
+                <h3 class="h3aside">Controles</h3>
                 <input type="text" id="contador-devolucionesreturns" style="border: 0px;" onlyread>
                 <h4 class="h4aside">Devoluciones en espera de control de calidad</h4>
             </div>
@@ -78,7 +79,7 @@
                     <div class="cajaformulario-locker-returns">
                         <div id="locker-returns">
                             <h4 class="titulo-campo">Casillero</h4>
-                            <input type="text" id="locker-in-returns" readonly required />
+                            <input type="text" id="locker-in-quality" readonly required />
                         </div>
                         <div id="vacio-locker-returns">
                             <h4 class="titulo-campo">Nombre campo</h4>
@@ -97,7 +98,7 @@
                         </div>
                         <div id="numero-recepcion-returns">
                             <!-- <h4 class="titulo-campo">Nº Recepción</h4> -->
-                            <input type="text" id="numerorecepcio-returns" placeholder="Nº Recepción" readonly
+                            <input type="text" id="numerorecepcio-quality" placeholder="Nº Recepción" readonly
                                 required />
                         </div>
                     </div>
@@ -160,10 +161,10 @@
                     <!-- CONTENEDOR DATOS OCULTOS -->
                     <div class="cajaformulario-datos">
                         <div id="div1">
-                            <input class="vacio" type="text" id="nextlocker-id-returns" readonly required />
+                            <input class="vacio" type="text" id="quality-id" readonly required />
                         </div>
                         <div id="div2">
-                            <input class="vacio"  type="text" id="item-id-returns" readonly required />
+                            <input class="vacio"  type="text" id="locker-id" readonly required />
                         </div>
                         <div id="div3">
                             <input class="vacio" type="text" id="returnid" readonly required />
@@ -184,7 +185,7 @@
         <!-- SECTION2 -->
         <section>
             <div class="contenedor-formulario" id="cont2">
-
+                <!-- NEXT LOCKER -->
                 <div class="cajaformulario-locker-quality">
                     <div id="vacio-locker-quality">
                         <h4 class="titulo-campo">Nombre campo</h4>
@@ -207,7 +208,7 @@
                 <!-- ANALISIS TECNICO -->
                 <div class="cajaformulario-textarea2-quality">
                     <h4 class="titulo-campo">Análisis técnico</h4>
-                    <textarea type="text" id="comentarios-cliente-quality" placeholder="Análisis técnico"
+                    <textarea type="text" id="analisis-tecnico-quality" placeholder="Análisis técnico"
                         readonly></textarea>
                 </div>
 
@@ -236,7 +237,7 @@
 
             <!-- BOTONERA -->
             <div>
-                <div id="botonera-returns">
+                <div id="botonera-quality">
                     <button id="btcancel" class="boton" onclick="cancel()">
                         Cancelar
                     </button>
