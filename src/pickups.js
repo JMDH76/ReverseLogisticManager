@@ -47,7 +47,6 @@ close.addEventListener('click', () => {
             importarAgencias();
             importarDepartamentos();
             importarOrdenes();
-            //solicitudesPendientes();
 
             //Mostramos el formulario oculto y ponemos focua en el primer campo a rellenar
             document.getElementById('cont1').style.visibility = "visible";

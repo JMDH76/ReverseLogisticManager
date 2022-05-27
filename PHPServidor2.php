@@ -66,8 +66,6 @@
         mysqli_close($conexion);
     }    
 
-
-
     //SOLICITUDES YA RECIBIDAS
     if(isset($_POST["PickUp_ID"])){
            
@@ -138,7 +136,6 @@ if(isset($_POST["ActivePackage"])){
     mysqli_close($conexion);
 }    
 
-
 /* returns */
 //IMPORTAR LISTA RECEPCIONES PENDIENTES 
 if(isset($_POST["LastStatus"])){
@@ -160,7 +157,6 @@ if(isset($_POST["LastStatus"])){
         echo("Conexion establecida correctamente.");
     }
 
-   /*  $sql = "SELECT Reception_ID, Locker_ID, Comments, PackageType FROM receptions WHERE NextTrackingStatus = $NextTrackingStatus ORDER BY DateReception ASC";   */
    $sql = "SELECT Reception_ID, Locker_ID FROM tracking WHERE LastStatus = $LastStatus ORDER BY Tracking_ID ASC"; 
     $select = mysqli_query($conexion, $sql);
 

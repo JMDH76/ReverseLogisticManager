@@ -791,29 +791,6 @@ textarea {
   margin-left: 80px;
 }
 
-/* Contenedor con datos ocultos */
-/* .cajaformulario-datos {
-  visibility: visible; 
-  margin-top: 30px;
-  display: flex;
-  width: 500px;
-  height: 30px;
-  align-items: center;
-}
-
-.cajaformulario-datos > div {
-  height: 100%;
-}
-
-.cajaformulario-datos > div > input {
-  width: 100%;
-  height: 100%;
-  color: rgb(20, 20, 20);
-  font-size: 10px;
-  text-align: center;
-  margin: 10px;
-} */
-
 .vacio,
 #id-locker,
 #cod-cli,
@@ -826,8 +803,7 @@ textarea {
 
 /* CONTENEDOR DATOS OCULTOS RETURNS */
 .cajaformulario-datos {
-  visibility: visible;
-  /* ///// */
+  visibility: hidden;/* ///// */
   margin-top: 30px;
   display: flex;
   width: 500px;
@@ -910,6 +886,15 @@ textarea {
   /* border: solid 1px white; */
 }
 
+.cajaformulario-rellenar-returns2 {
+margin-top: 8px;
+  width: 100%;
+  height: 120px;
+  align-items: center;
+  /* border: solid 1px white; */
+}
+
+
 .cajaformulario-rellenar-titulo-returns {
   margin-top: 175px;
   display: flex;
@@ -922,7 +907,7 @@ textarea {
   display: flex;
   width: 500px;
   height: 40px;
-  margin-top: 10px;
+  margin-top: 5px;
   /* align-items: center; */
   /* border: solid 1px white; */
 }
@@ -937,6 +922,7 @@ textarea {
   margin-top: 5px;
 }
 
+.cajaformulario-rellenar-returns2 >div,
 .cajaformulario-returns > div,
 .cajaformulario-rellenar-titulo-returns > div,
 .cajaformulario-rellenar-returns > div,
@@ -995,7 +981,7 @@ textarea {
 #vacio-locker-returns {
   flex: 0.8;
   height: 100%;
-  margin-left: 15px;
+  /* margin-left: 15px; */
   visibility: hidden;
 }
 
@@ -1058,12 +1044,12 @@ textarea {
     visibility: hidden;
   }
 
-/* #cantidadreturns {
- 
+/* #nextlocker-returns {
+ flex:1;
 } */
 
 #botonera-returns {
-  margin-top: 40px;
+  margin-top: 35px;
   visibility: hidden;
   margin-left: 20px;
   /* border: solid 1px white; */

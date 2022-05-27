@@ -45,7 +45,6 @@
         $LastStatus = $_POST["LastStatus"];
         $Locker_ID = $_POST["Locker_ID"];
         $Return_ID =$_POST["Return_ID"];
-        /* $LastMovement = $_POST["LastMovement"]; */
       
         $servidor = "localhost";
         $usuario = "root";
@@ -63,7 +62,6 @@
         }
 
         $sql = "UPDATE tracking SET Return_ID=$Return_ID,LastStatus=$LastStatus, Locker_ID=$Locker_ID WHERE Reception_ID=$Reception_ID";
-        /* $sql = "UPDATE tracking SET Return_ID=$Return_ID,LastStatus=$LastStatus, Locker_ID=$Locker_ID, LastMovement=$LastMovement WHERE Reception_ID=$Reception_ID"; */
         if (mysqli_query($conexion, $sql)) {
             echo "\nRegistros guardados.";
             
@@ -72,9 +70,6 @@
         }
         mysqli_close($conexion);
     }
-
-
-
 
 //GRABAR DATOS EN RETURNS
 if(isset($_POST["Item"])){
@@ -86,7 +81,6 @@ if(isset($_POST["Item"])){
     $Qty = $_POST["Qty"];
     $Item = $_POST["Item"];
     $User_ID = $_POST["User"];
-
 
     $servidor = "localhost";
     $usuario = "root";
@@ -103,7 +97,6 @@ if(isset($_POST["Item"])){
     }
 
     $sql ="UPDATE returns SET User_ID = $User_ID, Item=$Item,Qty=$Qty, Remarks=$Remarks, NextTrackingStatus=$NextTrackingStatus, Locker_ID=$Locker_ID WHERE Return_ID=$Return_ID";
-   /* $sql = "UPDATE returns SET Item=$Item, Qty=$Qty, Remarks=$Remarks, NextTrackingStatus=$NextTrackingStatus, Locker_ID=$Locker_ID WHERE Return_ID=$Return_ID";  */
    
     if (mysqli_query($conexion, $sql)) {
         echo "\nRegistro modificados.";

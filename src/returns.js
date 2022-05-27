@@ -73,7 +73,7 @@ close.addEventListener('click', () => {
     //Graba la entrada en tabla returns, luego añadimos datos.
     $.ajax({
         type: "POST",
-        url: "../PHPServidor.php",  //dirección del servidor
+        url: "../PHPServidor.php",
         data: {
             Return: returnid,
             Reception: reception_id,
@@ -88,7 +88,7 @@ close.addEventListener('click', () => {
     });
 });
 
-//CONFIRMAR Y GRABAR 
+//CONFIRMAR Y GRABAR EN TABLA
 var confirmarGestion = () => {
     var item = document.getElementById("item-id-returns").value;
     var qty = document.getElementById("cantidadabono-returns").value;
@@ -98,8 +98,6 @@ var confirmarGestion = () => {
     var returnid = document.getElementById("returnid").value;
     var reception = document.getElementById("devoluciones-pendientes").value;
     var user = document.getElementById("iduser").value;
-    console.log("User: " + user)
-    //var fecha = now();
     $.ajax({
         type: "POST",
         url: "../PHPServidor3.php",
@@ -127,7 +125,6 @@ var confirmarGestion = () => {
             LastStatus: nexttrack,
             Locker_ID: locker,
             Return_ID: returnid,
-           /*  LastMovement: fecha, */
         },
         success: function (response) {
             console.log(">>> Tracking actualizado");
@@ -296,6 +293,7 @@ var obtenerDescripcionItem = (item) => {
         }
     });
 }
+
 //OBTENEMOR EL USUARIO QUE SE HA LOGEADO 
 var obtenerUsuario = () => {
     var user = 1;
@@ -409,8 +407,6 @@ var importarListaRecepcionesPendientes = () => {
     });
     return window.stringrecepionespendientes;
 }
-
-
 
 /* ----------------------LOCKERS-------------------------------- */
 //IMPORTAR LOCKER LIBRE LO BLOQUEA PARA QUE NO SE DUPLIQUE

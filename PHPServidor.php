@@ -152,7 +152,6 @@
         mysqli_close($conexion);
     }
 
-
     //BUSCAR NOMBRE DE DEPARTAMENTO POR ID
     if(isset($_POST["Department_ID"])){
        
@@ -357,44 +356,42 @@
         mysqli_close($conexion);
     }    
 
+    //CONSULTA LOCKER VACIO
+    if(isset($_POST["PackageType"], $_POST["Status"])){
+            
+        $PackageType = $_POST["PackageType"];   
+        $Status = $_POST["Status"];     
 
-    
-//CONSULTA LOCKER VACIO
- if(isset($_POST["PackageType"], $_POST["Status"])){
+        $servidor = "localhost";
+        $usuario = "root";
+        $password = "";
+        $dbname = "reverselogisticsmng";
+        $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
         
-    $PackageType = $_POST["PackageType"];   
-    $Status = $_POST["Status"];     
+        if (!$conexion) {
+            echo(alert("Fallo en la conexion"));
+            echo "MySQL connection error: ".mysqli_connect_error();
+            exit();
 
-    $servidor = "localhost";
-    $usuario = "root";
-    $password = "";
-    $dbname = "reverselogisticsmng";
-    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+        } else {
+            echo("Conexion establecida correctamente.");
+        }
+
+        $sql = "SELECT Locker_ID, Name FROM lockers WHERE PackageType = $PackageType AND Status = $Status LIMIT 1";      
+        $select = mysqli_query($conexion, $sql);
     
-    if (!$conexion) {
-        echo(alert("Fallo en la conexion"));
-        echo "MySQL connection error: ".mysqli_connect_error();
-        exit();
+        while ($dat=mysqli_fetch_assoc($select)){
+            $arr[]=$dat;
+        }
+        echo json_encode($arr);   
 
-    } else {
-        echo("Conexion establecida correctamente.");
-    }
+        if (mysqli_query($conexion, $sql)) {
+        } else {
+            echo "Error: ".mysqli_error($conexion);
+        }
+        mysqli_close($conexion);
 
-    $sql = "SELECT Locker_ID, Name FROM lockers WHERE PackageType = $PackageType AND Status = $Status LIMIT 1";      
-    $select = mysqli_query($conexion, $sql);
-  
-    while ($dat=mysqli_fetch_assoc($select)){
-        $arr[]=$dat;
-    }
-    echo json_encode($arr);   
-
-    if (mysqli_query($conexion, $sql)) {
-    } else {
-        echo "Error: ".mysqli_error($conexion);
-    }
-    mysqli_close($conexion);
-
-}    
+    }    
 
    //OBTENER PROXIMO DEPARTAMENTO Y CODIGO DE CLIENTE
    if(isset($_POST["PickUp_ID"])){
@@ -440,6 +437,7 @@ if(isset($_POST["Activo"])){
     $usuario = "root";
     $password = "";
     $dbname = "reverselogisticsmng";
+
     $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
     if (!$conexion) {
         echo(alert("Fallo en la conexion"));
@@ -514,7 +512,6 @@ if(isset($_POST["Return"], $_POST["Reception"])){
     } else {
         echo("Conexion establecida correctamente.");
     }
-
     $sql = "INSERT INTO returns (Reception_ID, Return_ID)
     VALUES ('".addslashes($Reception_ID)."', '".addslashes($Return_ID)."')";
 
