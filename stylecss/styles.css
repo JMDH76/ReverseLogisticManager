@@ -542,34 +542,34 @@ a {
   color: #0b0213;
 }
 #contador-devolucionesreturns {
-    margin-right: -30px;
-    width: 150px;
-    height: 100px;
-    color: orange;
-    /* color: lightseagreen; */
-    font-weight: 700;
-    font-size: 70px;
-    text-align: center;
-    font-style: italic;
-    background-color: #0b0213;
-    box-shadow: none;
-    /* text-shadow: 1px 2px rgb(209, 204, 204); */
-  }
+  margin-right: -30px;
+  width: 150px;
+  height: 100px;
+  color: orange;
+  /* color: lightseagreen; */
+  font-weight: 700;
+  font-size: 70px;
+  text-align: center;
+  font-style: italic;
+  background-color: #0b0213;
+  box-shadow: none;
+  /* text-shadow: 1px 2px rgb(209, 204, 204); */
+}
 
 #contador-pendientes {
-    margin-right: -30px;
-    width: 150px;
-    height: 100px;
-    color: orange;
-    /* color: lightseagreen; */
-    font-weight: 700;
-    font-size: 70px;
-    text-align: center;
-    font-style: italic;
-    background-color: #0b0213;
-    box-shadow: none;
-    /* text-shadow: 1px 2px rgb(209, 204, 204); */
-  }
+  margin-right: -30px;
+  width: 150px;
+  height: 100px;
+  color: orange;
+  /* color: lightseagreen; */
+  font-weight: 700;
+  font-size: 70px;
+  text-align: center;
+  font-style: italic;
+  background-color: #0b0213;
+  box-shadow: none;
+  /* text-shadow: 1px 2px rgb(209, 204, 204); */
+}
 .h3aside {
   color: lightseagreen;
   font-weight: 700;
@@ -803,7 +803,7 @@ textarea {
 
 /* CONTENEDOR DATOS OCULTOS RETURNS */
 .cajaformulario-datos {
-  visibility: hidden;/* ///// */
+  visibility: hidden; /* ///// */
   margin-top: 30px;
   display: flex;
   width: 500px;
@@ -861,7 +861,7 @@ textarea {
   width: 500px;
   height: 105px;
   /* align-items: center; */
-  /*  border: solid 1px white; */
+   /* border: solid 1px white; */
 }
 .cajaformulario-textarea-returns {
   margin-top: 10px;
@@ -887,13 +887,12 @@ textarea {
 }
 
 .cajaformulario-rellenar-returns2 {
-margin-top: 8px;
+  margin-top: 8px;
   width: 100%;
   height: 120px;
   align-items: center;
   /* border: solid 1px white; */
 }
-
 
 .cajaformulario-rellenar-titulo-returns {
   margin-top: 175px;
@@ -922,7 +921,7 @@ margin-top: 8px;
   margin-top: 5px;
 }
 
-.cajaformulario-rellenar-returns2 >div,
+.cajaformulario-rellenar-returns2 > div,
 .cajaformulario-returns > div,
 .cajaformulario-rellenar-titulo-returns > div,
 .cajaformulario-rellenar-returns > div,
@@ -946,7 +945,7 @@ margin-top: 8px;
   margin-top: 5px;
 }
 
-.cajaformulario-rellenar-returns2 > div > select{
+.cajaformulario-rellenar-returns2 > div > select {
   width: 100%;
   height: 30px;
   color: rgb(20, 20, 20);
@@ -957,7 +956,6 @@ margin-top: 8px;
   /* margin-bottom: 15px; */
 }
 
-
 .cajaformulario-locker-returns > div > input {
   width: 100%;
   height: 60px;
@@ -966,6 +964,7 @@ margin-top: 8px;
   text-align: center;
   font-weight: 600;
   margin-top: 5px;
+  
 }
 .cajaformulario-returns > div > h4 {
   margin: 0px;
@@ -1026,23 +1025,22 @@ margin-top: 8px;
   text-align: center;
 }
 
-
-#cantidadabono-returns{
-    flex:0.6;
+#cantidadabono-returns {
+  flex: 0.6;
 }
-#mercancia-abonar{
-    flex:0.4;
+#mercancia-abonar {
+  flex: 0.4;
 }
 
-#comentariostecnico-returns{
-    flex:0.6;
+#comentariostecnico-returns {
+  flex: 0.6;
 }
 #vacio-form-returns {
-    flex: 0.4;
-    height: 100%;
-    margin-left: 15px;
-    visibility: hidden;
-  }
+  flex: 0.4;
+  height: 100%;
+  margin-left: 15px;
+  visibility: hidden;
+}
 
 /* #nextlocker-returns {
  flex:1;
@@ -1054,3 +1052,140 @@ margin-top: 8px;
   margin-left: 20px;
   /* border: solid 1px white; */
 }
+
+/* ---------------QUALITY------------------------ */
+
+.cajaformulario-rellenar-quality {
+  display: flex;
+  width: 500px;
+  height: 40px;
+  /*   border: solid 1px white; */
+}
+
+.cajaformulario-rellenar-quality > div {
+  height: 100%;
+  margin-top: 20px;
+}
+
+.cajaformulario-rellenar-quality > div > input {
+  width: 100%;
+  height: 30px;
+  color: rgb(20, 20, 20);
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+
+
+.cajaformulario-rellenar-titulo-quality {
+  margin-top: 8px;
+  display: flex;
+  width: 500px;
+  height: 70px;
+  /* border: solid 1px white; */
+}
+
+.cajaformulario-rellenar-titulo-quality > div {
+  height: 100%;
+}
+
+.cajaformulario-rellenar-titulo-quality > div > input,
+.cajaformulario-rellenar-titulo-quality > div > select {
+  width: 100%;
+  height: 30px;
+  color: rgb(20, 20, 20);
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+#item-quality {
+  flex: 0.7;
+}
+#cantidad-quality {
+  flex: 0.3;
+  margin-left: 15px;
+}
+
+.cajaformulario-rellenar-quality {
+  margin-top: -9px;
+  width: 100%;
+  height: 75px;
+  /* border: solid 1px white; */
+}
+
+.cajaformulario-rellenar-quality > div {
+  height: 100%;
+}
+
+.cajaformulario-rellenar-quality > div > select {
+  width: 100%;
+  height: 30px;
+  color: rgb(20, 20, 20);
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+
+#comentariostecnico-quality {
+  flex: 1;
+}
+
+.cajaformulario-textarea2-quality {
+  margin-top: 50px;
+  width: 100%;
+  height: 120px;
+  align-items: center;
+  /* border: solid 1px white; */
+}
+
+#comentarios-cliente-quality {
+  width: 30px;
+  color: rgb(20, 20, 20);
+  font-size: 16px;
+  text-align: left;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+#procede-quality {
+  flex: 0.3;
+}
+#destino-quality {
+  flex: 0.7;
+  margin-left: 15px;
+}
+
+.cajaformulario-locker-quality {
+    margin-top: 38px;
+    display: flex;
+    width: 500px;
+    height: 125px;
+    /* align-items: center; */
+     /* border: solid 1px white; */
+}
+  .cajaformulario-locker-quality > div {
+    height: 100%;
+  }
+  .cajaformulario-locker-quality > div > input {
+    width: 100%;
+    height: 60px;
+    color: rgb(20, 20, 20);
+    font-size: 40px;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 5px;
+    
+  }
+ 
+
+  #locker-quality {
+    flex: 0.2;
+    height: 100%;
+  }
+  #vacio-locker-quality {
+    flex: 0.8;
+    height: 100%;
+    visibility: hidden;
+  }
