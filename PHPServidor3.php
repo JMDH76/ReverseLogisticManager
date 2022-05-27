@@ -36,6 +36,41 @@
         mysqli_close($conexion);
     }
 
+//GRABAR DATOS EN RETURNS
+if(isset($_POST["Item"])){
+        
+    $Return_ID = $_POST["Return_ID"];
+    $Locker_ID = $_POST["Locker_ID"];
+    $NextTrackingStatus = $_POST["NextTrackingStatus"];
+    $Remarks = $_POST["Remarks"];
+    $Qty = $_POST["Qty"];
+    $Item = $_POST["Item"];
 
+   
+    
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+    $sql ="UPDATE returns SET Item=$Item, Qty=$Qty, Remarks=$Remarks, NextTrackingStatus=$NextTrackingStatus, Locker_ID=$Locker_ID WHERE Return_ID=$Return_ID";
+   /* $sql = "UPDATE returns SET Item=$Item, Qty=$Qty, Remarks=$Remarks, NextTrackingStatus=$NextTrackingStatus, Locker_ID=$Locker_ID WHERE Return_ID=$Return_ID";  */
+   
+    if (mysqli_query($conexion, $sql)) {
+        echo "\nRegistro modificados.";
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}
 
 ?>

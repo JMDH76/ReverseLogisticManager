@@ -56,7 +56,7 @@
                         </div>
                         <div>
                             <button id="close" class="boton2">Aceptar</button>
-                            <button id="cancelwindow" class="boton2" onclick="cancel()">Cancelar</button>
+                            <button id="cancelwindow" class="boton2" onclick="cancelmodal()">Cancelar</button>
                         </div>
                     </div>
                 </div>
@@ -184,8 +184,6 @@
                     <div id="cantidad-returns">
                         <h4 class="titulo-campo">Cantidad</h4>
                         <select title="select-cantidadabono" id="cantidadabono-returns" required></select>
-                        <!-- <input type="text" name="List2" list="cantidadabonoList" id="id-cantidad" required>
-                        <datalist id="cantidadabonoList"></datalist> -->
                     </div>
                 </div>
 
@@ -199,8 +197,8 @@
                 <!-- COMENTARIOS TECNICOS-->
                 <div class="cajaformulario-textarea3-returns">
                     <h4 class="titulo-campo" style="margin-bottom: 5px;">Observaciones del técnico</h4>
-                    <textarea type="text" id="comentarios-tecnico-returns"
-                        placeholder="Comentarios técnicos"></textarea>
+                    <textarea type="textarea" id="comentarios-tecnico-returns"
+                        placeholder="Comentarios técnicos" required></textarea>
                 </div>
 
                 <!-- NUEVO LOCKER -->
@@ -222,7 +220,7 @@
                     <button id="btcancel" class="boton" onclick="cancel()">
                         Cancelar
                     </button>
-                    <button class="boton" id="btsend2" onclick="confirmarRecepcion()">
+                    <button class="boton" id="btsend2" onclick="confirmarGestion()">
                         Confirmar
                     </button>
                 </div>

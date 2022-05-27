@@ -12,18 +12,23 @@ open.addEventListener('click', () => {
 
 //CANCELACION DEL FORMULARIO. Sale al principio (No deja volver a acceder al formulario)
 var cancel = () => {
+    console.log(">>> Operación cancelada")
     desbloquearLocker();
     borrarEntradaDepartamento(document.getElementById("returnid").value);
+    window.location.replace("../forms/returns.html");
+}
+
+var cancelmodal = () => {
     window.location.replace("../forms/returns.html");
 }
 
 close.addEventListener('click', () => {
     var reception_id = document.getElementById("devoluciones-pendientes").value;
     document.getElementById("numerorecepcio-returns").value = "Recepción:    " + reception_id;
-    
+
     var returnid = generarReturId(100);
     document.getElementById("returnid").value = returnid;
-    
+
     var arrayreceptionsinfo = importarListaRecepcionesPendientes();
     var index1 = arrayreceptionsinfo.indexOf(".");
     var arrayreceptionsid = arrayreceptionsinfo.substring(0, index1).split(",");
@@ -69,9 +74,8 @@ close.addEventListener('click', () => {
     obtenerLocker(packagetype);  //Reserva un locker al abrir la gestión
 
     var userid = 1;
-    
+
     //Graba la entrada en tabla returns, luego añadimos datos.
-    //TODO: borrar al cancelar
     $.ajax({
         type: "POST",
         url: "../PHPServidor.php",  //dirección del servidor
@@ -81,7 +85,7 @@ close.addEventListener('click', () => {
             User: userid
         },
         success: function (response) {
-            console.log(">>> Devolución registrada de entrada correctamente");
+            console.log(">>> Devolución " + returnid + " registrada de entrada correctamente");
         },
         error: function () {
             alert("Error");
@@ -89,18 +93,48 @@ close.addEventListener('click', () => {
     });
 });
 
+//CONFIRMAR Y GRABAR 
+var confirmarGestion = () => {
+    var item = document.getElementById("item-id-returns").value;
+    var qty = document.getElementById("cantidadabono-returns").value;
+    var remarks = document.getElementById("comentarios-tecnico-returns").value;
+    const nexttrack = 2;
+    var locker = document.getElementById("nextlocker-id-returns").value;
+    var returnid = document.getElementById("returnid").value;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor3.php",  
+        data: {
+            Item: item,
+            Qty: qty,
+            Remarks: remarks,
+            NextTrackingStatus: nexttrack,
+            Locker_ID: locker,   
+            Return_ID: returnid
+        },
+        success: function (response) {
+            console.log(">>> Devolución " + returnid + " eliminada del registro correctamente");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+
+
+
+
+}
 
 //GUARDAR FECHA DE ENTRADA EN DEPARTAMENTO
 var borrarEntradaDepartamento = (returnid) => {
-    console.log(returnid);
     $.ajax({
         type: "POST",
-        url: "../PHPServidor.php",  //dirección del servidor
+        url: "../PHPServidor.php",  
         data: {
             Devolucion: returnid,
         },
         success: function (response) {
-            console.log(">>> Devolución borrada del registro correctamente");
+            console.log(">>> Devolución " + returnid + " eliminada del registro correctamente");
         },
         error: function () {
             alert("Error");
@@ -123,24 +157,12 @@ var generarReturId = (code) => {
     var Return_ID = depcode + year + mounth + day + hour + minute + digitocontrol;
 
     if (Return_ID.length == 16) {
-        console.log("reutnid ok");
         return Return_ID;
     } else {
         Return_ID = "";
-        console.log("Error al generar Return_ID");
         return Return_ID;
     }
 }
-
-//CONFIGURACION digitos fecha y hora. Añade ceros a los parámetros de la fecha u hora cuando son menores de 10
-var updatefechahora = (datetime) => {
-    if (datetime < 10) {
-        return "0" + datetime;
-    } else {
-        return datetime;
-    }
-}
-
 
 //CANTIDAD DE ITEMS PARA ABONAR
 var cantidadItemsAbonar = (unidades) => {
@@ -164,7 +186,6 @@ var cantidadItemsAbonar = (unidades) => {
     }
 }
 
-
 //OBTENER NOMBRE Y TELEFONO DEL CLIENTE
 var obtenerDatosCliente = (codigo) => {
     var cliente = codigo;
@@ -180,7 +201,6 @@ var obtenerDatosCliente = (codigo) => {
             var jsparse = JSON.parse(json);
             document.getElementById("nombrecliente-returns").value = jsparse[0].Name;
             document.getElementById("telefono1-returns").value = jsparse[0].Phone1;
-            /* console.log("Obtenidos datos del cliente"); */
         },
         error: function () {
             alert("Error");
@@ -202,7 +222,6 @@ var obtenerOrdenAsociada = (recepcion) => {
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
             document.getElementById("pedidoasociado-returns").value = jsparse[0].AssociatedOrder_ID;
-            /*  console.log("Orden asociada >>> " + jsparse[0].AssociatedOrder_ID); */
             obtenerDetalleOrdenAsociada(jsparse[0].AssociatedOrder_ID);
         },
         error: function () {
@@ -228,7 +247,7 @@ var obtenerDetalleOrdenAsociada = (order) => {
             document.getElementById("item-id-returns").value = jsparse[0].Item_ID;
             cantidadItemsAbonar(jsparse[0].Qty);
             obtenerDescripcionItem(jsparse[0].Item_ID);
-            console.log(">>> Importados todos los elementos");
+            console.log(">>> Importados todos los elementos...");
         },
         error: function () {
             alert("Error");
@@ -372,7 +391,7 @@ var desbloquearLocker = () => {
             Status: status
         },
         success: function (response) {
-            console.log(">>> Gestión cancelada. Casillero " + name + " desbloqueado");
+            console.log(">>> Casillero " + name + " liberado");
         },
         error: function () {
             alert("Error");
