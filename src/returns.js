@@ -72,7 +72,7 @@ close.addEventListener('click', () => {
     obtenerOrdenAsociada(reception_id);
     obtenerDatosCliente(codigocliente);
     obtenerLocker(packagetype);  //Reserva un locker al abrir la gestión
-
+    obtenerMotivosDevolucion();
     var userid = 1;
 
     //Graba la entrada en tabla returns, luego añadimos datos.
@@ -97,39 +97,56 @@ close.addEventListener('click', () => {
 var confirmarGestion = () => {
     var item = document.getElementById("item-id-returns").value;
     var qty = document.getElementById("cantidadabono-returns").value;
-    var remarks = document.getElementById("comentarios-tecnico-returns").value;
+    var remarks = document.getElementById("cantidadabono-returns").value;
     const nexttrack = 2;
     var locker = document.getElementById("nextlocker-id-returns").value;
     var returnid = document.getElementById("returnid").value;
+    var reception = document.getElementById("devoluciones-pendientes").value;
+
     $.ajax({
         type: "POST",
-        url: "../PHPServidor3.php",  
+        url: "../PHPServidor3.php",
         data: {
             Item: item,
             Qty: qty,
             Remarks: remarks,
             NextTrackingStatus: nexttrack,
-            Locker_ID: locker,   
-            Return_ID: returnid
+            Locker_ID: locker,
+            Return_ID: returnid,
         },
         success: function (response) {
-            console.log(">>> Devolución " + returnid + " eliminada del registro correctamente");
+            console.log(">>> Devolución " + returnid + " registrada de salida correctamente");
+            $.ajax({
+                type: "POST",
+                url: "../PHPServidor3.php",
+                data: {
+                    Reception_ID: reception,
+                    LastStatus: nexttrack,
+                    Locker_ID: locker,
+                    Return_ID: returnid
+                },
+                success: function (response) {
+                    console.log("Tracking iniciado");
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
         },
         error: function () {
             alert("Error");
         }
     });
-
-
-
-
+    
 }
+
+
 
 //GUARDAR FECHA DE ENTRADA EN DEPARTAMENTO
 var borrarEntradaDepartamento = (returnid) => {
     $.ajax({
         type: "POST",
-        url: "../PHPServidor.php",  
+        url: "../PHPServidor.php",
         data: {
             Devolucion: returnid,
         },
@@ -171,6 +188,10 @@ var cantidadItemsAbonar = (unidades) => {
     var option;
     var valor;
     var texto;
+
+    for (var i = 0; i > $select.options.length; i++) {
+        $select.remove(i);
+    }
     for (var i = -1; i < cantidad; i++) {
         option = document.createElement('option');
         if (i == -1) {
@@ -279,6 +300,47 @@ var obtenerDescripcionItem = (item) => {
 }
 
 
+//OBTENER MOTIVOS DE DEVOLLUCION >>> Select
+var obtenerMotivosDevolucion = () => {
+    var reasonid = 1;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor2.php",
+        data: {
+            ReturnReason_ID: reasonid,
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+
+            const $select = document.getElementById("comentarios-tecnico-returns");
+            for (var i = 0; i > $select.options.length; i++) {
+                $select.remove(i);
+            }
+            var option;
+            var valor;
+            var texto;
+            for (var i = -1; i < jsparse.length; i++) {
+                option = document.createElement('option');
+                if (i == -1) {
+                    valor = "";
+                    texto = "Seleccione un motivo";
+                } else {
+                    valor = jsparse[i].ReturnReason_ID;
+                    texto = jsparse[i].Description;
+                }
+                option.value = valor;
+                option.text = texto;
+                $select.appendChild(option);
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
 
 
 
@@ -302,6 +364,9 @@ var importarListaRecepcionesPendientes = () => {
             var jsparse = JSON.parse(json);
 
             const $select = document.getElementById("devoluciones-pendientes");
+            for (var i = 0; i > $select.options.length; i++) {
+                $select.remove(i);
+            }
             var option;
             var valor;
             var texto;
@@ -309,7 +374,7 @@ var importarListaRecepcionesPendientes = () => {
                 option = document.createElement('option');
                 if (i == -1) {
                     valor = "";
-                    texto = "Selecciones una devolución";
+                    texto = "Seleccione una devolución";
                 } else {
                     valor = jsparse[i].Reception_ID;
                     texto = jsparse[i].Reception_ID;
