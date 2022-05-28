@@ -341,7 +341,7 @@
             echo("Conexion establecida correctamente.");
         }
         
-        $sql = "SELECT User, Password, Name, User_ID FROM users WHERE UsuarioActivo = $UsuarioActivo";      
+        $sql = "SELECT User, Password, Name, User_ID, Surname1 FROM users WHERE UsuarioActivo = $UsuarioActivo";      
         $select = mysqli_query($conexion, $sql);
 
         while ($dat=mysqli_fetch_assoc($select)){

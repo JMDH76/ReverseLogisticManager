@@ -5,7 +5,7 @@ const close2 = document.getElementById('close2');
 //VENTANA MODAL. Insertamospara indicar nº cliente
 open2.addEventListener('click', () => {
     modal_container2.classList.add('show');
-     document.getElementById("usuario").focus();
+    document.getElementById("usuario").focus();
     document.getElementById("open2").style.visibility = "hidden";
 });
 
@@ -19,14 +19,14 @@ close2.addEventListener('click', () => {
     var password = document.getElementById('password').value;
 
     importarUsuarios(usuario, password);    //Pasamos los datos a la función para compararlos
-    
+
     if (document.getElementById("confirmuserpassword")) {
-        
+
         document.getElementById("seccionbienvenida").style.visibility = "visible";
         modal_container2.classList.remove('show');
         document.getElementById("lineaencabezado").style.visibility = "hidden";
         document.getElementById("indexmenu").style.visibility = "visible";
-          
+
     } else {
         alert("Usuario o contraseña incorrectos");
         usuario = document.getElementById('usuario').value = "";
@@ -49,13 +49,12 @@ var importarUsuarios = (user, pass) => {
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
             for (var i = 0; i < jsparse.length; i++) {
+                borrarUsuarioActivo(jsparse[i].User_ID);
                 if (jsparse[i].User == user && jsparse[i].Password == pass) {
                     document.getElementById("confirmuserpassword").value = true;
                     document.getElementById("username").value = jsparse[i].Name;
                     document.getElementById("confirmuser").value = jsparse[i].User;
-                    //document.getElementById("nombreusuario").value = jsparse[i].User_ID;
-                    borrarUsuarioActivo(jsparse[i].User_ID);
-                    guardarUsuarioActivo(jsparse[i].User_ID); 
+                    guardarUsuarioActivo(jsparse[i].User_ID, jsparse[i].Name, jsparse[i].Surname1);
                 }
             }
         },
@@ -64,6 +63,7 @@ var importarUsuarios = (user, pass) => {
         }
     });
 }
+
 
 var borrarUsuarioActivo = (iduser) => {
     var id = iduser;
@@ -81,7 +81,7 @@ var borrarUsuarioActivo = (iduser) => {
     });
 }
 
-var guardarUsuarioActivo = (iduser) => {
+var guardarUsuarioActivo = (iduser, name, surname) => {
     var id = iduser;
     $.ajax({
         type: "POST",
@@ -90,7 +90,7 @@ var guardarUsuarioActivo = (iduser) => {
             UserID: id
         },
         success: function (response) {
-            console.log(">>> usuario registrado")
+            console.log(">>> Usuario " + name + " " + surname + " logueado");
         },
         error: function () {
             alert("Error");

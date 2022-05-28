@@ -66,7 +66,7 @@
         mysqli_close($conexion);
     }    
 
-    //SOLICITUDES YA RECIBIDAS
+    //SOLICITUDES YA RECIBIDAS MARCA UN 1 EN PICUPS
     if(isset($_POST["PickUp_ID"])){
            
         $PickUp_ID = $_POST["PickUp_ID"];
@@ -245,7 +245,7 @@ if(isset($_POST["Orden"])){
 
 
 
-//OBTENER EL ITEM Y CANTIDAD DE UNA ORDEN
+//OBTENER EL NOMBRE Y TELEFONO DE UN CLIENTE
 if(isset($_POST["Cliente"])){
         
     $Customer_ID = $_POST["Cliente"];      

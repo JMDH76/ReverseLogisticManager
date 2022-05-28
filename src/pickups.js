@@ -47,6 +47,7 @@ close.addEventListener('click', () => {
             importarAgencias();
             importarDepartamentos();
             importarOrdenes();
+            obtenerUsuario();
 
             //Mostramos el formulario oculto y ponemos focua en el primer campo a rellenar
             document.getElementById('cont1').style.visibility = "visible";
@@ -123,7 +124,7 @@ var enviarsolicitud = () => {
         }
     }
     var Customer_ID = document.getElementById("codigo-cliente").value;  //Ya validado
-    var ID_User = "1";
+    var ID_User = document.getElementById("iduser").value;
 
     //VALIDACION NÚMERO DE ORDEN
     var AssociatedOrder_ID = document.getElementById("pedido-asociado").value;
@@ -202,7 +203,7 @@ var enviarsolicitud = () => {
             PickUpRemarks: PickUpRemarks
         },
         success: function (response) {
-            console.log("Solicitud registrada correctamente");
+            console.log(">>> Solicitud registrada correctamente");
         },
         error: function () {
             alert("Error");
@@ -237,6 +238,26 @@ var generarNumeroRecogida = (code) => {
         PickUp_ID = "";
         return PickUp_ID;
     }
+}
+
+var obtenerUsuario = () => {
+    var user = 1;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor3.php",
+        data: {
+            User: user,
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+            document.getElementById("iduser").value = jsparse[0].User_ID;
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
 }
 
 //CONSTRUCTOR FICHERO TRANSPORTISTA (txt, separado por ; para poder importar como CSV)

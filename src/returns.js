@@ -29,7 +29,7 @@ close.addEventListener('click', () => {
 
     var returnid = generarReturId(100);
     document.getElementById("returnid").value = returnid;
-    
+
 
     var arrayreceptionsinfo = importarListaRecepcionesPendientes();
     var index1 = arrayreceptionsinfo.indexOf(".");
@@ -43,19 +43,8 @@ close.addEventListener('click', () => {
     //SACAMOS CASILLERO, COMENTARIOS Y OBTENEMOS TIPO DE EMBALAJE
     var index3 = arrayreceptionsid.indexOf(reception_id);
     var locker = arraylockers[index3];
-    var lockertype = locker.substring(0, 1)
-    var packagetype;
-    if (lockertype == "A" || lockertype == "B" || lockertype == "C" || lockertype == "D") {
-        packagetype = 1
-    } else if (lockertype == "E" || lockertype == "F" || lockertype == "G" || lockertype == "H") {
-        packagetype = 2;
-    } else if (lockertype == "I" || lockertype == "J") {
-        packagetype = 3;
-    } else if (locker.substring(0, 1) == "K") {
-        packagetype = 4;
-    } else {
-        return
-    }
+    lockerName(locker);
+
     document.getElementById("locker-in-returns").value = locker;
     modal_container.classList.remove('show');
     document.getElementById('cont1').style.visibility = "visible";
@@ -65,10 +54,9 @@ close.addEventListener('click', () => {
 
     obtenerOrdenAsociada(reception_id);
     obtenerDatosCliente(codigocliente);
-    obtenerLocker(packagetype);  //Reserva un locker al abrir la gestión
     obtenerMotivosDevolucion();
     devolucionesEsperaReturns();
-    obtenerUsuario();
+    //obtenerUsuario();
     
     //Graba la entrada en tabla returns, luego añadimos datos.
     $.ajax({
@@ -87,6 +75,52 @@ close.addEventListener('click', () => {
         }
     });
 });
+
+//OBTENER EL TIPO DE EMBALAJE
+var obtenerTipoEmbalaje = (lockertype) => {
+    var packagetype;
+    if (lockertype == "A" || lockertype == "B" || lockertype == "C" || lockertype == "D") {
+        packagetype = 1
+    } else if (lockertype == "E" || lockertype == "F" || lockertype == "G" || lockertype == "H") {
+        packagetype = 2;
+    } else if (lockertype == "I" || lockertype == "J") {
+        packagetype = 3;
+    } else if (locker.substring(0, 1) == "K") {
+        packagetype = 4;
+    } else {
+        return
+    }
+    return packagetype;
+}
+
+//OBTENER NOMBRE DEL LOCKER
+var lockerName = (id) => {
+    var lockerid = id;
+    window.casillero;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor3.php",
+        data: {
+            ID_Locker: lockerid,
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+            casillero = jsparse[0].Name;
+            document.getElementById("locker-in-returns").value = jsparse[0].Name;
+            
+            var letter = casillero.substring(0, 1);
+            var type = obtenerTipoEmbalaje(letter);
+            document.getElementById("pack-type").value = type;
+            obtenerLocker(type);
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+    return window.casillero;
+}
 
 //CONFIRMAR Y GRABAR EN TABLA
 var confirmarGestion = () => {
@@ -136,7 +170,7 @@ var confirmarGestion = () => {
 
 }
 
-//BORRARR REGISTR DE ENTRADA EN DEPARTAMENTO
+//BORRARR REGISTRO DE ENTRADA EN DEPARTAMENTO
 var borrarEntradaDepartamento = (returnid) => {
     $.ajax({
         type: "POST",
@@ -182,7 +216,6 @@ var cantidadItemsAbonar = (unidades) => {
     var option;
     var valor;
     var texto;
-
     for (var i = 0; i > $select.options.length; i++) {
         $select.remove(i);
     }
@@ -377,7 +410,7 @@ var importarListaRecepcionesPendientes = () => {
             var jsparse = JSON.parse(json);
 
             const $select = document.getElementById("devoluciones-pendientes");
-            for (var i = 0; i > $select.options.length; i++) {
+            for (var i = 0; i > $select.options.length; i--) {
                 $select.remove(i);
             }
             var option;

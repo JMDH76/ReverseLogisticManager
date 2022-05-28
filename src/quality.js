@@ -29,39 +29,36 @@ close.addEventListener('click', () => {
     var qualityid = generarQualityId(200);
     document.getElementById("quality-id").value = qualityid;
 
-    var stringreceptionsinfo = importarListaControlesPendientes();
-    var index1 = stringreceptionsinfo.indexOf(".");
-    var arrayreceptionsid = stringreceptionsinfo.substring(0, index1).split(",");
-    var arraylockers = stringreceptionsinfo.substring(index1 + 1).split(",");
     var codigocliente = reception_id.substring(12, 19);
     document.getElementById("codigoclientereturns").value = codigocliente;
 
-    
+    var stringreceptionsinfo = importarListaControlesPendientes();
+    console.log(stringreceptionsinfo);
+
+
+    var index1 = stringreceptionsinfo.indexOf(".");
+    var arrayreceptionsid = stringreceptionsinfo.substring(0, index1).split(",");
+    var arraylockers = stringreceptionsinfo.substring(index1 + 1).split(",");
+
     var index3 = arrayreceptionsid.indexOf(reception_id);
     var locker = arraylockers[index3];
     lockerName(locker);
-    obtenerTipoEmbalaje();
-    
-    
-    var lockername = document.getElementById("locker-in-quality").value;
-    console.log(lockername)
-   
+    //obtenerTipoEmbalaje();
+
+
+    /* var lockername = document.getElementById("locker-in-quality").value;
+    console.log("Nombre Locker: " + lockername) */
+
     document.getElementById("locker-id").value = locker;
     modal_container.classList.remove('show');
     document.getElementById('cont1').style.visibility = "visible";
     document.getElementById('cont2').style.visibility = "visible";
     document.getElementById('botonera-quality').style.visibility = "visible";
     document.getElementById('analisis-tecnico-quality').focus();
-
-
-
 });
 
 //OBTENER EL TIPO DE EMBALAJE
-var obtenerTipoEmbalaje = () => {
-    var locker = document.getElementById("locker-in-quality").value;
-    console.log("Locker: " + locker)
-    var lockertype = (document.getElementById("locker-in-quality").value).substring(0, 1)
+var obtenerTipoEmbalaje = (lockertype) => {
     var packagetype;
     if (lockertype == "A" || lockertype == "B" || lockertype == "C" || lockertype == "D") {
         packagetype = 1
@@ -74,32 +71,8 @@ var obtenerTipoEmbalaje = () => {
     } else {
         return
     }
-    console.log(packagetype) 
+    return packagetype;
 }
-
-
-//OBTENER NOMBRE DEL LOCKER
-var lockerName = (id) => {
-    var lockerid = id;
-    $.ajax({
-        type: "POST",
-        url: "../PHPServidor3.php",
-        data: {
-            ID_Locker: lockerid,
-        },
-        success: function (response) {
-            var index = response.indexOf("[");
-            var json = response.substring(index, response.length);
-            var jsparse = JSON.parse(json);
-            document.getElementById("locker-in-quality").value = jsparse[0].Name;
-        },
-        error: function () {
-            alert("Error");
-        }
-    });
-}
-
-
 
 //CREAR NUMERO DE DEVOLUCION
 var generarQualityId = (code) => {
@@ -120,6 +93,37 @@ var generarQualityId = (code) => {
         Quality_ID = "";
         return Quality_ID;
     }
+}
+
+
+//OBTENER NOMBRE DEL LOCKER
+var lockerName = (id) => {
+    var lockerid = id;
+    window.casillero;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor3.php",
+        data: {
+            ID_Locker: lockerid,
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+            casillero = jsparse[0].Name;
+            document.getElementById("locker-in-quality").value = jsparse[0].Name;
+            
+            var letter = casillero.substring(0, 1);
+            var type = obtenerTipoEmbalaje(letter);
+            document.getElementById("pack-type").value = type;
+            obtenerLocker(type);
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+    console.log("casillero: " + window.casillero);
+    return window.casillero;
 }
 
 
@@ -161,7 +165,7 @@ importarListaControlesPendientes = () => {
                 option.text = texto;
                 $select.appendChild(option);
             }
-            stringcontrolespendientes = pickups.toString() + "." + lockers.toString() /* + "." + customers.toString() */;
+            stringcontrolespendientes = pickups.toString() + "." + lockers.toString();
         },
         error: function () {
             alert("Error");
@@ -171,23 +175,7 @@ importarListaControlesPendientes = () => {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//BORRARR REGISTR DE ENTRADA EN DEPARTAMENTO
+//BORRARR REGISTRO DE ENTRADA EN DEPARTAMENTO
 var borrarEntradaDepartamento = (returnid) => {
     $.ajax({
         type: "POST",
@@ -197,6 +185,72 @@ var borrarEntradaDepartamento = (returnid) => {
         },
         success: function (response) {
             console.log(">>> Devolución " + returnid + " eliminada del registro correctamente");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+/* ----------------------LOCKERS-------------------------------- */
+//IMPORTAR LOCKER LIBRE LO BLOQUEA PARA QUE NO SE DUPLIQUE
+var obtenerLocker = (tipo) => {
+    var Tipo = tipo;
+    var status = 0;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            PackageType: Tipo,
+            Status: status
+        },
+        success: function (response) {
+            var index = response.indexOf("[");
+            var json = response.substring(index, response.length);
+            var jsparse = JSON.parse(json);
+            document.getElementById("nextlocker-q").value = jsparse[0].Locker_ID;
+            document.getElementById("nextlocker-quality").value = jsparse[0].Name;
+            bloquearLocker(jsparse[0].Locker_ID, jsparse[0].Name);
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+//BLOQUEO DEL LOCKER SELECCIONADO
+var bloquearLocker = (lockerid, name) => {
+    var locker = lockerid;
+    var status = 1;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            Locker_ID: locker,
+            Status: status
+        },
+        success: function (response) {
+            console.log(">>> Casillero " + name + " bloqueado");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+var desbloquearLocker = () => {
+    var locker = document.getElementById("nextlocker-id-returns").value;
+    var name = document.getElementById("nextlocker-returns").value;
+    var status = 0;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            Locker_ID: locker,
+            Status: status
+        },
+        success: function (response) {
+            console.log(">>> Casillero " + name + " liberado");
         },
         error: function () {
             alert("Error");

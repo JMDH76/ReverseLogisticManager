@@ -31,7 +31,6 @@ close.addEventListener('click', () => {
         }
     }
 
-    /* if (flag) console.log("Nº de Recogida correcto >>> " + pickupId); */
     if (flag == false) {
         document.getElementById('pickup-number').value = "";
         alert('Introduzca un número de recogida válido');
@@ -54,7 +53,7 @@ close.addEventListener('click', () => {
         modal_container.classList.remove('show');
         document.getElementById('cont1').style.visibility = "visible";
         document.getElementById('botonera').style.visibility = "visible";
-        document.getElementById('proximo-departamento').focus();
+        document.getElementById('obser').focus();
 
         document.getElementById("num-recogida").value = pickupId;
         document.getElementById("tipo-embalaje").value = type;
@@ -123,8 +122,8 @@ var confirmarRecepcion = () => {
         }
 
     } else return;
-    /*  var Locker_ID = document.getElementById("id-locker").value; */
-    var Locker_ID = document.getElementById("locker-recepciones").value;
+    var Locker_ID = document.getElementById("id-locker").value; 
+    //var Locker_ID = document.getElementById("locker-recepciones").value;
     var Comments = document.getElementById("obser").value;
 
     //GUARDA DATOS EN RECEPTION Y TRACKING
@@ -141,7 +140,7 @@ var confirmarRecepcion = () => {
             Comments: Comments
         },
         success: function (response) {
-            console.log("Recepción registrada correctamente");
+            console.log(">>> Recepción registrada correctamente");
         },
         error: function () {
             alert("Error");
@@ -157,7 +156,7 @@ var confirmarRecepcion = () => {
             Locker_ID: Locker_ID
         },
         success: function (response) {
-            console.log("Tracking iniciado");
+            console.log(">>> Tracking iniciado");
         },
         error: function () {
             alert("Error");
@@ -202,7 +201,7 @@ var marcarMercaniaRecibida = (pickupid) => {
             Received: recibido
         },
         success: function (response) {
-            console.log("Mercancía de la recogida: " + pickupid + " >>> Recepcionada");
+            //console.log(">>> Recogida: " + pickupid + " >>> Recepcionada");
         },
         error: function () {
             alert("Error");
@@ -378,6 +377,7 @@ var importarTiposEmbalaje = () => {
 
 //IMPORTAR LOCKER LIBRE LO BLOQUEA PARA QUE NO SE DUPLIQUE
 var obtenerLocker = (tipo) => {
+   
     var Tipo = tipo;
     var status = 0;
     $.ajax({
@@ -415,7 +415,7 @@ var bloquearLocker = (lockerid, name) => {
             Status: status
         },
         success: function (response) {
-            console.log("Casillero " + name + " bloqueado");
+            console.log(">>> Casillero " + name + " bloqueado");
         },
         error: function () {
             alert("Error");
@@ -435,7 +435,7 @@ var desbloquearLocker = () => {
             Status: status
         },
         success: function (response) {
-            console.log("Recepción cancelada. Casillero " + name + " desbloqueado");
+            console.log(">>> Recepción cancelada. Casillero " + name + " liberado");
         },
         error: function () {
             alert("Error");
