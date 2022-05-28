@@ -1051,7 +1051,7 @@ textarea {
  flex:1;
 } */
 
-#botonera-quality,
+
 #botonera-returns {
   margin-top: 35px;
   visibility: hidden;
@@ -1059,6 +1059,12 @@ textarea {
   /* border: solid 1px white; */
 }
 
+#botonera-quality {
+  margin-top: 50px;
+  visibility: hidden;
+  margin-left: 20px;
+  /* border: solid 1px white; */
+}
 /* ---------------QUALITY------------------------ */
 
 .cajaformulario-rellenar-quality {
@@ -1161,6 +1167,7 @@ textarea {
 #destino-quality {
   flex: 0.7;
   margin-left: 15px;
+  
 }
 
 .cajaformulario-locker-quality {

@@ -33,15 +33,12 @@ close.addEventListener('click', () => {
     document.getElementById("codigoclientereturns").value = codigocliente;
 
     var stringreceptionsinfo = importarListaControlesPendientes();
-    console.log(stringreceptionsinfo);
+    var index = stringreceptionsinfo.indexOf(".");
+    var arrayreceptionsid = stringreceptionsinfo.substring(0, index).split(",");
+    var arraylockers = stringreceptionsinfo.substring(index + 1).split(",");
 
-
-    var index1 = stringreceptionsinfo.indexOf(".");
-    var arrayreceptionsid = stringreceptionsinfo.substring(0, index1).split(",");
-    var arraylockers = stringreceptionsinfo.substring(index1 + 1).split(",");
-
-    var index3 = arrayreceptionsid.indexOf(reception_id);
-    var locker = arraylockers[index3];
+    var index2 = arrayreceptionsid.indexOf(reception_id);
+    var locker = arraylockers[index2];
     lockerName(locker);
     //obtenerTipoEmbalaje();
 
