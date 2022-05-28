@@ -496,7 +496,6 @@ if(isset($_POST["Return"], $_POST["Reception"])){
         
     $Reception_ID =$_POST["Reception"];
     $Return_ID = $_POST["Return"];
-    $User_ID = $_POST["User"];
     
     $servidor = "localhost";
     $usuario = "root";
@@ -524,7 +523,40 @@ if(isset($_POST["Return"], $_POST["Reception"])){
     mysqli_close($conexion);
 }
 
-//BORRAR REGISTROS AL CANCELAR
+
+//GUARDAR DATOS TABLA QUALITY
+if(isset($_POST["Quality_ID"], $_POST["ReceptionQ"])){
+        
+    $Reception_ID =$_POST["ReceptionQ"];
+    $Quality_ID = $_POST["Quality_ID"];
+    
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+    $sql = "INSERT INTO quality (Reception_ID, Quality_ID)
+    VALUES ('".addslashes($Reception_ID)."', '".addslashes($Quality_ID)."')";
+
+    if (mysqli_query($conexion, $sql)) {
+        echo "\nRegistros guardados.";
+        
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}
+
+//BORRAR REGISTROS DE RETURNS AL CANCELAR 
 if(isset($_POST["Devolucion"])){
         
     $Return_ID = $_POST["Devolucion"];
@@ -551,6 +583,35 @@ if(isset($_POST["Devolucion"])){
     }
     mysqli_close($conexion);
 }
+
+//BORRAR REGISTROS DE quality AL CANCELAR 
+if(isset($_POST["ControlQ"])){
+        
+    $Quality_ID = $_POST["ControlQ"];
+    
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+    $sql = "DELETE FROM quality WHERE Quality_ID = $Quality_ID";
+
+    if (mysqli_query($conexion, $sql)) {
+        echo "\nRegistro modificados.";
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}
+
 
 
 

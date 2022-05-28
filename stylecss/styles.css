@@ -479,7 +479,8 @@ section {
 
 #codigo-agencia,
 #id-codigo-agencia,
-#num-orden {
+#num-orden,
+#iduser {
   height: 30px;
   width: 60px;
   margin-top: 20px;
@@ -546,6 +547,7 @@ a {
   text-decoration: none;
   color: #0b0213;
 }
+
 #contador-devolucionesreturns {
   margin-right: -30px;
   width: 150px;
@@ -832,12 +834,13 @@ textarea {
   margin-top: 5px;
 }
 
-#id1,
+/* #id1,
 #id2,
 #id3,
 #id4,
 #id5,
-#id6 {
+#id6, */
+.idoculto {
   flex: 1;
 }
 

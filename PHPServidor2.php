@@ -192,7 +192,7 @@ if(isset($_POST["Recepcion"])){
         echo("Conexion establecida correctamente.");
     }
 
-    $sql = "SELECT AssociatedOrder_ID, MerchandiseRemarks FROM pickups WHERE PickUp_ID = (SELECT PickUp_ID FROM receptions WHERE Reception_ID=$Reception_ID)"; 
+    $sql = "SELECT AssociatedOrder_ID, MerchandiseRemarks FROM pickups WHERE PickUp_ID = (SELECT PickUp_ID FROM receptions WHERE Reception_ID=$Reception_ID LIMIT 1)"; 
     $select = mysqli_query($conexion, $sql);
 
     while ($dat=mysqli_fetch_assoc($select)){
@@ -243,7 +243,40 @@ if(isset($_POST["Orden"])){
     mysqli_close($conexion);
 }    
 
+//OBTENER EL ITEM Y CANTIDAD DESDE PICKUPS >>> Las que hay que abonar
+if(isset($_POST["detalleAbono"])){
+        
+    $Reception_ID = $_POST["detalleAbono"];      
 
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+    $sql = "SELECT Item, Remarks, Qty FROM returns WHERE Reception_ID = $Reception_ID";     
+    $select = mysqli_query($conexion, $sql);
+
+    while ($dat=mysqli_fetch_assoc($select)){
+        $arr[]=$dat;
+    }
+    echo json_encode($arr);    
+
+    if (mysqli_query($conexion, $sql)) {
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}    
 
 //OBTENER EL NOMBRE Y TELEFONO DE UN CLIENTE
 if(isset($_POST["Cliente"])){
@@ -353,5 +386,45 @@ if(isset($_POST["ReturnReason_ID"])){
     }
     mysqli_close($conexion);
 }    
+
+//OBTENER MOTIVOS DEVOLUCION POR ID
+if(isset($_POST["CodeDev"])){
+        
+    $ReturnReason_ID = $_POST["CodeDev"];      
+
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+
+    $sql = "SELECT Description FROM returnreasons WHERE ReturnReason_ID >= $ReturnReason_ID";     
+    $select = mysqli_query($conexion, $sql);
+
+    while ($dat=mysqli_fetch_assoc($select)){
+        $arr[]=$dat;
+    }
+    echo json_encode($arr);    
+
+    if (mysqli_query($conexion, $sql)) {
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+}    
+
+
+
+
+
 
 ?>

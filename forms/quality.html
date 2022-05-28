@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <script src="../src/quality.js"></script>
-                <script src="../src/counterreturns.js"></script>
+                <script src="../src/countercontrols.js"></script>
                 <!-- contar pedidos en espera de entrar en departamento -->
             </div>
         </aside>
@@ -108,12 +108,12 @@
 
                         <div id="nombre-cliente-returns">
                             <!-- <h4 class="titulo-campo">Nombre</h4> -->
-                            <input type="text" id="nombrecliente-returns" placeholder="Nombre cliente" readonly
+                            <input type="text" id="nombrecliente-quality" placeholder="Nombre cliente" readonly
                                 required />
                         </div>
                         <div id="numero-telefono-returns">
                             <!--  <h4 class="titulo-campo">Teléfono</h4> -->
-                            <input type="text" id="telefono1-returns" placeholder="Teléfono" readonly required />
+                            <input type="text" id="telefono1-quality" placeholder="Teléfono" readonly required />
                         </div>
                     </div>
 
@@ -121,7 +121,7 @@
                     <div class="cajaformulario-titulo-returns">
                         <div id="pedido-asociado-returns">
                             <h4 class="titulo-campo">Pedido asociado</h4>
-                            <input type="text" id="pedidoasociado-returns" placeholder="Pedido asociado" readonly
+                            <input type="text" id="pedidoasociado-quality" placeholder="Pedido asociado" readonly
                                 required />
                         </div>
                         <div id="vacia2-returns">
@@ -130,22 +130,22 @@
 
                     <!--  REFERERENCIA ITEM  -->
                     <div class="cajaformulario-returns" style="margin-top: 12px;">
-                        <div id="item-returns">
+                        <div id="item-quality">
                             <!-- <h4 class="titulo-campo">Referencia</h4> -->
-                            <input type="text" id="detalle-pedido-returns" required readonly placeholder="Item">
+                            <input type="text" id="detalle-pedido-quality" required readonly placeholder="Item">
                         </div>
 
                         <!-- CANTIDAD ITEMS-->
-                        <div id="cantidad-returns">
+                        <div id="cantidad-quality">
                             <!--  <h4 class="titulo-campo">Cantidad</h4> -->
-                            <input type="text" id="cantidadreturns" placeholder="Cantidad" readonly required>
+                            <input type="text" id="cantidadquality" placeholder="Cantidad" readonly required>
                         </div>
                     </div>
 
                     <!-- DESCRIPCION ITEMS -->
                     <div class="cajaformulario-rellenar-returns">
                         <div id="descripcion-item-returns">
-                            <input type="text" id="descripctionItem-returns" readonly required>
+                            <input type="text" id="descripctionItem-quality" readonly required>
                         </div>
                     </div>
 
@@ -153,7 +153,7 @@
                     <div class="cajaformulario-textarea2-returns">
                         <h4 class="titulo-campo">Comentarios / Observaciones del cliente
                         </h4>
-                        <textarea type="text" id="comentarios-cliente-returns"
+                        <textarea type="text" id="comentarios-cliente-quality"
                             placeholder="Comentarios sobre la devolución" readonly></textarea>
                     </div>
 
@@ -161,23 +161,28 @@
                     <!-- CONTENEDOR DATOS OCULTOS -->
                     <div class="cajaformulario-datos">
                         <div id="div1">
-                            <input class="vacio" type="text" id="quality-id" readonly required />
+                            <input  type="text" id="quality-id" readonly required />
                         </div>
                         <div id="div2">
-                            <input class="vacio"  type="text" id="locker-id" readonly required />
+                            <input  type="text" id="locker-id" readonly required />
                         </div>
                         <div id="div3">
-                            <input class="vacio" type="text" id="returnid" readonly required />
+                            <input type="text" id="item-id-quality" readonly required />
                         </div>
                         <div id="div4">
-                            <input class="vacio" type="text" id="iduser" readonly required />
+                            <input  type="text" id="iduser" readonly required />
                         </div>
                         <div id="div5">
-                            <input class="vacio" type="text" id="pack-type" readonly required />
+                            <input  type="text" id="pack-type" readonly required />
                         </div>
                         <div id="div6">
-                            <input class="vacio" type="text" id="nextlocker-q" readonly required />
+                            <input type="text" id="nextlocker-q" readonly required />
                         </div>
+                        <div id="div7">
+                            <input type="text" id="cant-q" readonly required />
+                        </div>
+                        
+
                     </div>
                 </div>
         </section>
@@ -201,15 +206,14 @@
                 <div class="cajaformulario-rellenar-quality">
                     <div id="comentariostecnico-quality">
                         <h4 class="titulo-campo" >Ánalisis preliminar</h4>
-                        <input id="comentarios-tecnico-quality" placeholder="Análisis preliminar" required />
+                        <input id="comentarios-tecnico-quality2" placeholder="Análisis preliminar" readonly required />
                     </div>
                 </div>
 
                 <!-- ANALISIS TECNICO -->
                 <div class="cajaformulario-textarea2-quality">
                     <h4 class="titulo-campo" style="margin-bottom: 5px;">Análisis técnico</h4>
-                    <textarea type="text" id="analisis-tecnico-quality" placeholder="Análisis técnico"
-                        readonly></textarea>
+                    <textarea type="text" id="analisis-tecnico-quality" placeholder="Análisis técnico"></textarea>
                 </div>
 
                 <!-- COMENTARIOS TECNICOS-->
@@ -220,17 +224,17 @@
                     </div>
                 </div>
 
-
+                <!-- PROCEDE -->
                 <div class="cajaformulario-rellenar-titulo-quality" style="margin-top: 20px;">
                     <div id="procede-quality">
                         <h4 class="titulo-campo" style="margin-bottom: 5px;">Procede</h4>
-                        <select title="select-cantidadabono" id="cantidadabono-quality" required></select>
+                        <select title="select-cantidadabono" id="procedequality" required></select>
                     </div>
 
                    
                     <div id="destino-quality">
                         <h4 class="titulo-campo" style="margin-bottom: 5px;">Destino</h4>
-                        <select title="select-cantidadabono" id="cantidadabono-quality" required></select>
+                        <select title="select-cantidadabono" id="dest-quality" required></select>
                     </div>
                 </div>
             </div>
