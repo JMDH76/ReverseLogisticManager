@@ -168,12 +168,13 @@ var confirmarGestion = () => {
         },
         success: function (response) {
             console.log(">>> Devolución " + returnid + " registrada de salida correctamente");
+            actualizaTracking();
         },
         error: function () {
             alert("Error");
         }
     });
-    actualizaTracking();
+    
 }
 
 var actualizaTracking = () => {
@@ -182,14 +183,13 @@ var actualizaTracking = () => {
     var returnid = document.getElementById("returnid").value;
     var reception = document.getElementById("devoluciones-pendientes").value;
 
-    var completartrack = 1;
     $.ajax({
         type: "POST",
-        url: "../PHPServidor3.php",
+        url: "../PHPServidor4.php",
         data: {
            
             Reception_ID: reception,
-            NextTrack: nexttrack,
+            LastStatus: nexttrack,
             Locker_ID: locker,
             Return_ID: returnid
         },
