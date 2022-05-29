@@ -78,7 +78,7 @@ var confirmarControl = () => {
     var item = document.getElementById("item-id-quality").value
     var qty = document.getElementById("cant-q").value;
     var locker = document.getElementById("nextlocker-q").value;
-    var recepcion = document.getElementById("controles-pendientes").value;;
+    var recepcion = (document.getElementById("controles-pendientes").value).toString();
     var procede = document.getElementById("procedequality").value;
     var qualityid = document.getElementById("quality-id").value;
     var motivo = document.getElementById("comentarios-tecnico-quality").value;

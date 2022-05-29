@@ -35,7 +35,7 @@
 
 
  //ACTUALIZAR DATOS DE TRACKING DESDE RECEPCIONES (returns)
- if(isset($_POST["Recep"], $_POST["Lock"])){
+ /* if(isset($_POST["Recep"], $_POST["Lock"])){
         
     $Reception_ID = $_POST["Recep"];
     $LastStatus = $_POST["LastStatus"];
@@ -65,13 +65,17 @@
         echo "Error: ".mysqli_error($conexion);
     }
     mysqli_close($conexion);
-}
+} */
 
+ //RELLENAR DATOS DE TRACKING DESDE RECEPCIONES II FINAL
+ if(isset($_POST["Recep"], $_POST["Lock"])){
+            
+    $Reception_ID = $_POST["Recep"];
+    $Customer_ID = $_POST["Customer_ID"];
+    $LastStatus = $_POST["LastStatus"];
+    $Locker_ID = $_POST["Lock"];
+    $Return_ID = $_POST["Return_ID"];
 
-if(isset($_POST["DevolucionReturn"])){
-        
-    $Reception_ID = $_POST["DevolucionReturn"];
-    
     $servidor = "localhost";
     $usuario = "root";
     $password = "";
@@ -85,14 +89,18 @@ if(isset($_POST["DevolucionReturn"])){
     } else {
         echo("Conexion establecida correctamente.");
     }
-    $sql = "DELETE FROM tracking WHERE Reception_ID = $Reception_ID";
+    $sql = "INSERT INTO tracking (Reception_ID, Return_ID, Customer_ID, LastStatus,Locker_ID)
+    VALUES ('".addslashes($Reception_ID)."','".addslashes($Return_ID)."','".addslashes($Customer_ID)."', 
+    '".addslashes($LastStatus)."', '".addslashes($Locker_ID)."')";
 
     if (mysqli_query($conexion, $sql)) {
-        echo "\nRegistro modificados.";
+        echo "\nRegistros guardados.";
     } else {
         echo "Error: ".mysqli_error($conexion);
     }
     mysqli_close($conexion);
 }
+
+
 
 ?>

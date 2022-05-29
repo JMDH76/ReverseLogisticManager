@@ -71,8 +71,33 @@
         mysqli_close($conexion);
     }  */
 
-
-
+   /*  //BORRAR TRACKING
+    if(isset($_POST["cust"])){
+        
+        $Customer_ID = $_POST["cust"];
+        
+        $servidor = "localhost";
+        $usuario = "root";
+        $password = "";
+        $dbname = "reverselogisticsmng";
+    
+        $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+        if (!$conexion) {
+            echo(alert("Fallo en la conexion"));
+            echo "MySQL connection error: ".mysqli_connect_error();
+            exit();
+        } else {
+            echo("Conexion establecida correctamente.");
+        }
+        $sql = "DELETE FROM tracking WHERE Customer_ID = $Customer_ID";
+    
+        if (mysqli_query($conexion, $sql)) {
+            echo "\nRegistro modificados.";
+        } else {
+            echo "Error: ".mysqli_error($conexion);
+        }
+        mysqli_close($conexion);
+    } */
     
 
 

@@ -130,7 +130,9 @@ var confirmarGestion = () => {
     const nexttrack = 2;
     var locker = document.getElementById("nextlocker-id-returns").value;
     var returnid = document.getElementById("returnid").value;
-    var recepcion = document.getElementById("devoluciones-pendientes").value;
+    var recepcion = document.getElementById("devoluciones-pendientes").value.toString();
+
+    var cust = document.getElementById("codigoclientereturns").value;
     var user = document.getElementById("iduser").value;
     //actualiza la tabla returns
     $.ajax({
@@ -148,30 +150,21 @@ var confirmarGestion = () => {
         },
         success: function (response) {
             console.log(">>> Devolución " + returnid + " registrada de salida correctamente");
+            
         },
         error: function () {
             alert("Error");
         }
     });
-    //actualizaTracking();
-    borrarTracking(recepcion);
-}
-
-/* var actualizaTracking = () => {
-    var nexttrack = 2;
-    var locker = document.getElementById("nextlocker-id-returns").value;
-    var returnid = document.getElementById("returnid").value;
-    var reception = document.getElementById("devoluciones-pendientes").value;
-
     $.ajax({
         type: "POST",
         url: "../PHPServidor5.php",
         data: {
-           
-            Recep: reception,
+            Recep: recepcion,
+            Customer_ID: cust,
+            Return_ID: returnid,
             LastStatus: nexttrack,
             Lock: locker,
-            Return_ID: returnid
         },
         success: function (response) {
             console.log(">>> Tracking actualizado");
@@ -180,53 +173,8 @@ var confirmarGestion = () => {
             alert("Error");
         }
     });
-} */
-
-
-var borrarTracking = (recepcion) => {
-   
-    var devolucionreturn = recepcion;
-    console.log("Borrando....")
-    $.ajax({
-        type: "POST",
-        url: "../PHPServidor5.php",
-        data: {
-            DevolucionReturn: devolucionreturn,
-        },
-        success: function (response) {
-            console.log(">>> Tracking borrado");
-        },
-        error: function () {
-            alert("Error");
-        }
-    });
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

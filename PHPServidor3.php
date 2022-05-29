@@ -1,13 +1,12 @@
 <?php
 
-    
-    //RELLENAR DATOS DE TRACKING DESDE RECEPCIONES
+    //RELLENAR DATOS DE TRACKING DESDE RECEPCIONES 
     if(isset($_POST["Reception_ID"], $_POST["Locker_ID"])){
             
-        $Reception_ID = $_POST["Reception_ID"];
+        $Reception_ID = $_POST["Reception"];
         $Customer_ID = $_POST["Customer_ID"];
         $LastStatus = $_POST["LastStatus"];
-        $Locker_ID = $_POST["Locker_ID"];
+        $Locker_ID = $_POST["Locker"];
     
         $servidor = "localhost";
         $usuario = "root";
