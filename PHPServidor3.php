@@ -1,12 +1,12 @@
 <?php
-
-    //RELLENAR DATOS DE TRACKING DESDE RECEPCIONES 
+    
+    //RELLENAR DATOS DE TRACKING DESDE RECEPCIONES
     if(isset($_POST["Reception_ID"], $_POST["Locker_ID"])){
             
-        $Reception_ID = $_POST["Reception"];
+        $Reception_ID = $_POST["Reception_ID"];
         $Customer_ID = $_POST["Customer_ID"];
         $LastStatus = $_POST["LastStatus"];
-        $Locker_ID = $_POST["Locker"];
+        $Locker_ID = $_POST["Locker_ID"];
     
         $servidor = "localhost";
         $usuario = "root";
@@ -34,7 +34,7 @@
     }
 
 
-    //GRABAR DATOS EN RETURNS AL ACEPTAR
+    //GRABAR DATOS EN RETURNS
     if(isset($_POST["Item"])){
             
         $Return_ID = $_POST["Return_ID"];
@@ -59,7 +59,7 @@
             echo("Conexion establecida correctamente.");
         }
 
-        $sql ="UPDATE returns SET User_ID = $User_ID, Item=$Item, Qty=$Qty, Remarks=$Remarks, NextTrackingStatus=$NextTrackingStatus, Locker_ID=$Locker_ID WHERE Return_ID=$Return_ID";
+        $sql ="UPDATE returns SET User_ID = $User_ID, Item=$Item,Qty=$Qty, Remarks=$Remarks, NextTrackingStatus=$NextTrackingStatus, Locker_ID=$Locker_ID WHERE Return_ID=$Return_ID";
     
         if (mysqli_query($conexion, $sql)) {
             echo "\nRegistro modificados.";
@@ -68,9 +68,6 @@
         }
         mysqli_close($conexion);
     }
-
-
-
 
 
 //BORRAR USUARIO

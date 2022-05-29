@@ -21,28 +21,6 @@ var devolucionesEsperaReturns = () => {
 }
 devolucionesEsperaReturns();
 
-
-/* var borrarTracking = () => {
-    var cust =0;
-    console.log("Borrando....")
-    $.ajax({
-        type: "POST",
-        url: "../PHPServidor4.php",
-        data: {
-            Customer_ID: cust,
-        },
-        success: function (response) {
-            console.log(">>> Tracking borrado");
-        },
-        error: function () {
-            alert("Error");
-        }
-    });
-}
-borrarTracking(); */
-
-
-
 var updatefechahora = (datetime) => {
     if (datetime < 10) {
         return "0" + datetime;

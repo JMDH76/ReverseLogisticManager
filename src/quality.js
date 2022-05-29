@@ -74,16 +74,16 @@ close.addEventListener('click', () => {
 
 
 var confirmarControl = () => {
-    var user = document.getElementById("iduser-q").value;
+    var user = document.getElementById("iduser3").value;
     var item = document.getElementById("item-id-quality").value
     var qty = document.getElementById("cant-q").value;
-    var locker = document.getElementById("nextlocker-q").value;
-    var recepcion = (document.getElementById("controles-pendientes").value).toString();
+    var locker = document.getElementById("locker-id").value;
+    var recepcion = document.getElementById("controles-pendientes").value;;
     var procede = document.getElementById("procedequality").value;
     var qualityid = document.getElementById("quality-id").value;
     var motivo = document.getElementById("comentarios-tecnico-quality").value;
-    var analisis = (document.getElementById("analisis-tecnico-quality").value).toString();
-    var nexttrack = document.getElementById("dest-quality").value;
+    var analisis = document.getElementById("analisis-tecnico-quality").value;
+    var nexttrack = document.getElementById("nextlocker-q").value;
 
     console.log(user);
     console.log(item);
@@ -95,26 +95,24 @@ var confirmarControl = () => {
     console.log(motivo);
     console.log(analisis);
     console.log(nexttrack);
-
     $.ajax({
         type: "POST",
         url: "../PHPServidor4.php",
         data: {
+
             User_ID: user,
             Item_ID: item,
             Qty: qty,
-            Analysis: analisis,
+            /* Ana: analisis, */
             Proceded: procede,
             Reason: motivo,
             NextTrackingStatus: nexttrack,
             Locker_ID: locker,
             Quality_ID: qualityid,
-            Reception_ID: recepcion,
         },
         success: function (response) {
             if (response.length > 0) {
                 console.log(">>> Devolución " + qualityid + " registrada de salida correctamente");
-
             }
         },
         error: function () {
@@ -137,7 +135,6 @@ var confirmarControl = () => {
             alert("Error");
         }
     });
-
 }
 
 
@@ -217,8 +214,7 @@ var obtenerUsuario = () => {
             var index = response.indexOf("[");
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
-            document.getElementById("iduser-q").value = jsparse[0].User_ID;
-            console.log("Usuario: " + jsparse[0].User_ID)
+            document.getElementById("iduser3").value = jsparse[0].User_ID;
         },
         error: function () {
             alert("Error");

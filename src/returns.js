@@ -26,9 +26,10 @@ var cancelmodal = () => {
 close.addEventListener('click', () => {
     var reception_id = document.getElementById("devoluciones-pendientes").value;
     document.getElementById("numerorecepcio-returns").value = reception_id;
-    
+    ;
     var returnid = generarReturId(100);
     document.getElementById("returnid").value = returnid;
+
 
     var arrayreceptionsinfo = importarListaRecepcionesPendientes();
     var index1 = arrayreceptionsinfo.indexOf(".");
@@ -57,6 +58,7 @@ close.addEventListener('click', () => {
     devolucionesEsperaReturns();
     obtenerUsuario();
    
+
     //Graba la entrada en tabla returns, luego añadimos datos.
     $.ajax({
         type: "POST",
@@ -73,6 +75,25 @@ close.addEventListener('click', () => {
         }
     });
 });
+
+/* //Borrar doble entrada en Tracking
+var borrarDobleEntrada = () => {
+    console.log("dentro de borrar")
+    var ActualizarTabla = "0";
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            ActualizarTabla: ActualizarTabla,
+        },
+        success: function (response) {
+           // console.log(">>> Devolución " + returnid + " registrada de entrada correctamente");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+} */
 
 
 
@@ -130,10 +151,8 @@ var confirmarGestion = () => {
     const nexttrack = 2;
     var locker = document.getElementById("nextlocker-id-returns").value;
     var returnid = document.getElementById("returnid").value;
-    var recepcion = document.getElementById("devoluciones-pendientes").value.toString();
-
-    var cust = document.getElementById("codigoclientereturns").value;
-    var user = document.getElementById("iduser").value;
+    // var reception = document.getElementById("devoluciones-pendientes").value;
+    var user = document.getElementById("iduser2").value;
     //actualiza la tabla returns
     $.ajax({
         type: "POST",
@@ -146,25 +165,33 @@ var confirmarGestion = () => {
             Locker_ID: locker,
             Return_ID: returnid,
             User: user,
-            Reception_ID: recepcion,
         },
         success: function (response) {
             console.log(">>> Devolución " + returnid + " registrada de salida correctamente");
-            
+            actualizaTracking();
         },
         error: function () {
             alert("Error");
         }
     });
+    
+}
+
+var actualizaTracking = () => {
+    var nexttrack = 2;
+    var locker = document.getElementById("nextlocker-id-returns").value;
+    var returnid = document.getElementById("returnid").value;
+    var reception = document.getElementById("devoluciones-pendientes").value;
+
     $.ajax({
         type: "POST",
-        url: "../PHPServidor5.php",
+        url: "../PHPServidor4.php",
         data: {
-            Recep: recepcion,
-            Customer_ID: cust,
-            Return_ID: returnid,
+           
+            Reception_ID: reception,
             LastStatus: nexttrack,
-            Lock: locker,
+            Locker_ID: locker,
+            Return_ID: returnid
         },
         success: function (response) {
             console.log(">>> Tracking actualizado");
@@ -175,9 +202,6 @@ var confirmarGestion = () => {
     });
     
 }
-
-
-
 
 //BORRARR REGISTRO DE ENTRADA EN DEPARTAMENTO
 var borrarEntradaDepartamento = (returnid) => {
@@ -349,7 +373,7 @@ var obtenerUsuario = () => {
             var index = response.indexOf("[");
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
-            document.getElementById("iduser").value = jsparse[0].User_ID;
+            document.getElementById("iduser2").value = jsparse[0].User_ID;
         },
         error: function () {
             alert("Error");
