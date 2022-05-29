@@ -1309,3 +1309,17 @@ textarea {
   font-weight: 600;
   margin-top: 5px;
 }
+
+
+#contador-expediciones {
+    margin-right: -30px;
+    width: 150px;
+    height: 100px;
+    color: orange;
+    font-weight: 700;
+    font-size: 70px;
+    text-align: center;
+    font-style: italic;
+    background-color: #0b0213;
+    box-shadow: none;
+  }
