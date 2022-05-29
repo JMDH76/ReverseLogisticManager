@@ -45,6 +45,7 @@ header {
   text-align: center;
   min-width: 200px;
 }
+
 #logo {
   width: 180px;
   align-items: center;
@@ -165,6 +166,7 @@ ol {
   top: -38px;
   max-width: 250px;
 }
+
 .alingmenu {
   height: 36px;
   line-height: 36px;
@@ -235,7 +237,8 @@ section {
   margin-top: 25px;
   padding: 5px;
   text-align: left;
-  visibility: hidden; /* /////////// */
+  visibility: visible;
+  /* /////////// */
 }
 
 #titulo-formulario {
@@ -243,6 +246,7 @@ section {
   margin-bottom: 10px;
   font-size: 25px;
 }
+
 .show {
   pointer-events: auto;
   opacity: 1;
@@ -260,6 +264,7 @@ section {
   text-align: left;
   margin-top: 20px;
 }
+
 .contenedor-simple {
   padding: 0;
   width: 485px;
@@ -309,6 +314,7 @@ section {
   text-align: left;
   font-weight: 700;
 }
+
 #poblacion-cliente {
   margin-left: 5px;
   color: rgb(20, 20, 20);
@@ -404,11 +410,13 @@ section {
   float: left;
   width: 200px;
 }
+
 #a02 {
   margin-left: 10px;
   float: left;
   width: 200px;
 }
+
 #a1 {
   float: left;
   width: 200px;
@@ -485,7 +493,8 @@ section {
   width: 60px;
   margin-top: 20px;
   margin-left: 10px;
-  visibility: visible;  /* ///// */
+  visibility: visible;
+  /* ///// */
 }
 
 input {
@@ -501,6 +510,7 @@ input {
   border-width: 1px;
   box-shadow: inset 1px 1px lightgray;
 }
+
 select {
   border-radius: 5px;
   font-weight: normal;
@@ -510,6 +520,7 @@ select {
   background-color: white;
   box-shadow: inset 1px 1px lightgray;
 }
+
 option {
   font-weight: normal;
   font-style: italic;
@@ -521,11 +532,13 @@ option {
   border-color: lightseagreen;
   border-width: 1px;
 }
+
 .separador {
   border: 0;
   height: 0;
   margin: 0;
 }
+
 /* FIN FORMULARIO */
 
 /* aside */
@@ -577,6 +590,7 @@ a {
   box-shadow: none;
   /* text-shadow: 1px 2px rgb(209, 204, 204); */
 }
+
 .h3aside {
   color: lightseagreen;
   font-weight: 700;
@@ -594,6 +608,7 @@ a {
   font-style: italic;
   margin-bottom: 50px;
 }
+
 footer {
   border: solid 1px black;
   width: 100%;
@@ -611,6 +626,7 @@ footer {
   color: orange;
   /* text-shadow: 3px 5px rgb(209, 204, 204); */
 }
+
 .underconstruction {
   height: 400px;
   /*  text-shadow: 2px 2px 5px red; */
@@ -636,6 +652,7 @@ textarea {
   background-color: white;
   box-shadow: inset 1px 1px lightgray;
 }
+
 #text2 {
   max-height: 50px;
   min-height: 50px;
@@ -659,6 +676,7 @@ textarea {
 #indexmenu {
   visibility: hidden;
 }
+
 #lineaencabezado {
   margin-top: 5px;
   width: 100%;
@@ -810,7 +828,8 @@ textarea {
 
 /* CONTENEDOR DATOS OCULTOS RETURNS */
 .cajaformulario-datos {
-  visibility: visible; /* ///// */
+  visibility: visible;
+  /* ///// */
   margin-top: 30px;
   display: flex;
   width: 500px;
@@ -839,9 +858,8 @@ textarea {
 #id3,
 #id4,
 #id5,
-#id6, 
-#id7
-.idoculto {
+#id6,
+#id7 .idoculto {
   flex: 1;
 }
 
@@ -855,6 +873,7 @@ textarea {
   /* align-items: center; */
   /* border: solid 1px white; */
 }
+
 .cajaformulario-titulo-returns {
   /* margin-top: 30px; */
   display: flex;
@@ -864,14 +883,16 @@ textarea {
   /* align-items: center; */
   /*  border: solid 1px white; */
 }
+
 .cajaformulario-locker-returns {
   /* margin-top: 30px; */
   display: flex;
   width: 500px;
   height: 105px;
   /* align-items: center; */
-   /* border: solid 1px white; */
+  /* border: solid 1px white; */
 }
+
 .cajaformulario-textarea-returns {
   margin-top: 10px;
   width: 100%;
@@ -887,6 +908,7 @@ textarea {
   align-items: center;
   /* border: solid 1px white; */
 }
+
 .cajaformulario-textarea3-returns {
   margin-top: 60px;
   width: 100%;
@@ -911,6 +933,7 @@ textarea {
   /* align-items: center; */
   /*  border: solid 1px white; */
 }
+
 .cajaformulario-rellenar-returns {
   display: flex;
   width: 500px;
@@ -931,7 +954,6 @@ textarea {
 }
 
 .cajaformulario-rellenar-returns2 > div,
-.cajaformulario-returns > div,
 .cajaformulario-rellenar-titulo-returns > div,
 .cajaformulario-rellenar-returns > div,
 .cajaformulario-titulo-returns > div,
@@ -973,8 +995,8 @@ textarea {
   text-align: center;
   font-weight: 600;
   margin-top: 5px;
-  
 }
+
 .cajaformulario-returns > div > h4 {
   margin: 0px;
 }
@@ -986,10 +1008,10 @@ textarea {
   flex: 0.2;
   height: 100%;
 }
+
 #vacio-locker-returns {
   flex: 0.8;
   height: 100%;
-  /* margin-left: 15px; */
   visibility: hidden;
 }
 
@@ -1014,6 +1036,7 @@ textarea {
 #vacia2-returns {
   flex: 0;
 }
+
 #pedidoasociado-returns {
   flex: 1;
 }
@@ -1021,6 +1044,7 @@ textarea {
 #item-returns {
   flex: 0.7;
 }
+
 #cantidad-returns {
   flex: 0.3;
   margin-left: 15px;
@@ -1037,6 +1061,7 @@ textarea {
 #cantidadabono-returns {
   flex: 0.6;
 }
+
 #mercancia-abonar {
   flex: 0.4;
 }
@@ -1044,6 +1069,7 @@ textarea {
 #comentariostecnico-returns {
   flex: 0.6;
 }
+
 #vacio-form-returns {
   flex: 0.4;
   height: 100%;
@@ -1054,7 +1080,6 @@ textarea {
 /* #nextlocker-returns {
  flex:1;
 } */
-
 
 #botonera-returns {
   margin-top: 35px;
@@ -1069,6 +1094,7 @@ textarea {
   margin-left: 20px;
   /* border: solid 1px white; */
 }
+
 /* ---------------QUALITY------------------------ */
 
 .cajaformulario-rellenar-quality {
@@ -1093,8 +1119,6 @@ textarea {
   margin-top: 5px;
 }
 
-
-
 .cajaformulario-rellenar-titulo-quality {
   margin-top: 8px;
   display: flex;
@@ -1116,9 +1140,11 @@ textarea {
   text-align: center;
   font-weight: 600;
 }
+
 #item-quality {
   flex: 0.7;
 }
+
 #cantidad-quality {
   flex: 0.3;
   margin-left: 15px;
@@ -1168,41 +1194,118 @@ textarea {
 #procede-quality {
   flex: 0.3;
 }
+
 #destino-quality {
   flex: 0.7;
   margin-left: 15px;
-  
 }
 
 .cajaformulario-locker-quality {
-    margin-top: 38px;
-    display: flex;
-    width: 500px;
-    height: 125px;
-    /* align-items: center; */
-     /* border: solid 1px white; */
+  margin-top: 38px;
+  display: flex;
+  width: 500px;
+  height: 125px;
+  /* align-items: center; */
+  /* border: solid 1px white; */
 }
-  .cajaformulario-locker-quality > div {
-    height: 100%;
-  }
-  .cajaformulario-locker-quality > div > input {
-    width: 100%;
-    height: 60px;
-    color: rgb(20, 20, 20);
-    font-size: 40px;
-    text-align: center;
-    font-weight: 600;
-    margin-top: 5px;
-    
-  }
- 
 
-  #locker-quality {
-    flex: 0.2;
-    height: 100%;
-  }
-  #vacio-locker-quality {
-    flex: 0.8;
-    height: 100%;
-    visibility: hidden;
-  }
+.cajaformulario-locker-quality > div {
+  height: 100%;
+}
+
+.cajaformulario-locker-quality > div > input {
+  width: 100%;
+  height: 60px;
+  color: rgb(20, 20, 20);
+  font-size: 40px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+#locker-quality {
+  flex: 0.2;
+  height: 100%;
+}
+
+#vacio-locker-quality {
+  flex: 0.8;
+  height: 100%;
+  visibility: hidden;
+}
+
+/* ------------------EXPEDICIONES------------------------- */
+
+#codigocliente-exp {
+  flex: 0.2;
+}
+
+#numero-recepcion-exp {
+  flex: 0.8;
+  margin-left: 15px;
+}
+
+#direccion2-exp,
+#direccion1-exp,
+#nombre-cliente-exp {
+  flex: 1;
+}
+
+#cp-exp {
+  flex: 0.2;
+}
+#poblacion-exp {
+  flex: 0.4;
+  margin-left: 15px;
+}
+#prov-exp {
+  flex: 0.4;
+  margin-left: 15px;
+}
+#email-exp {
+  flex: 1;
+}
+
+#tlf1-exp {
+  flex: 0.5;
+}
+#tlf2-exp {
+  flex: 0.5;
+  margin-left: 15px;
+}
+#peso-exp2 {
+  flex: 0.7;
+  visibility: hidden;
+}
+#peso-exp {
+  flex: 0.3;
+}
+
+.cajaformulario-exp {
+  /* margin-top: 30px; */
+  display: flex;
+  width: 500px;
+  height: 40px;
+  align-items: flex-end;
+  /* border: solid 1px white; */
+}
+.cajaformulario-exp > div {
+  height: 100%;
+  text-align: center;
+}
+
+.cajaformulario-exp > div > h4 {
+  margin: 0px;
+}
+
+
+
+.cajaformulario-exp > div > input {
+  width: 100%;
+  height: 30px;
+  color: rgb(20, 20, 20);
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 5px;
+}

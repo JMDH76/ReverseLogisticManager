@@ -83,7 +83,7 @@ var confirmarControl = () => {
     var qualityid = document.getElementById("quality-id").value;
     var motivo = document.getElementById("comentarios-tecnico-quality").value;
     var analisis = document.getElementById("analisis-tecnico-quality").value;
-    var nexttrack = document.getElementById("nextlocker-q").value;
+    var nexttrack = document.getElementById("dest-quality").value;
 
     console.log(user);
     console.log(item);
