@@ -83,7 +83,7 @@ var confirmarControl = () => {
     var qualityid = document.getElementById("quality-id").value;
     var motivo = document.getElementById("comentarios-tecnico-quality").value;
     var analisis = document.getElementById("analisis-tecnico-quality").value;
-    var nexttrack = document.getElementById("dest-quality").value;
+    var nexttrack = document.getElementById("nextlocker-q").value;
 
     console.log(user);
     console.log(item);
@@ -136,8 +136,6 @@ var confirmarControl = () => {
         }
     });
 }
-
-
 
 //CONFIRMACION SI/NO
 var selectorProcede = () => {
@@ -356,8 +354,6 @@ var obtenerDescripcionDevolucion = (code) => {
     });
 }
 
-
-
 //OBTENER DESCRIPCION DEL ITEMS
 var obtenerDescripcionItem = (item) => {
     var itemref = item;
@@ -401,7 +397,6 @@ var generarQualityId = (code) => {
     }
 }
 
-
 //IMPORTAR LISTADO DE CONTROLES PENDIENTES DE ENTRAR EN EL DEPARTAMENTO
 importarListaControlesPendientes = () => {
     var proximodep = 2;
@@ -441,7 +436,6 @@ importarListaControlesPendientes = () => {
                 option.text = texto;
                 $select.appendChild(option);
             }
-
             stringcontrolespendientes = pickups.toString() + "." + lockers.toString();
         },
         error: function () {

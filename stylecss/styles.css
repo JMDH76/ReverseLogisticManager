@@ -198,11 +198,6 @@ section {
   margin-right: auto;
 }
 
-/* #botonera-quality {
-    visibility: hidden;
-    margin-left: auto;
-    margin-right: auto;
-  } */
 #btcancel {
   margin-left: 40px;
 }
@@ -493,7 +488,7 @@ section {
   width: 60px;
   margin-top: 20px;
   margin-left: 10px;
-  visibility: visible;
+  visibility: hidden;
   /* ///// */
 }
 
@@ -987,6 +982,7 @@ textarea {
   /* margin-bottom: 15px; */
 }
 
+.cajaformulario-locker-returns > div > select ,
 .cajaformulario-locker-returns > div > input {
   width: 100%;
   height: 60px;
@@ -1077,10 +1073,6 @@ textarea {
   visibility: hidden;
 }
 
-/* #nextlocker-returns {
- flex:1;
-} */
-
 #botonera-returns {
   margin-top: 35px;
   visibility: hidden;
@@ -1088,14 +1080,14 @@ textarea {
   /* border: solid 1px white; */
 }
 
+/* ---------------QUALITY------------------------ */
+
 #botonera-quality {
   margin-top: 50px;
   visibility: hidden;
   margin-left: 20px;
   /* border: solid 1px white; */
 }
-
-/* ---------------QUALITY------------------------ */
 
 .cajaformulario-rellenar-quality {
   display: flex;
@@ -1280,6 +1272,9 @@ textarea {
 #peso-exp {
   flex: 0.3;
 }
+#nombrecontacto-exp {
+  flex: 1;
+}
 
 .cajaformulario-exp {
   /* margin-top: 30px; */
@@ -1298,8 +1293,6 @@ textarea {
   margin: 0px;
 }
 
-
-
 .cajaformulario-exp > div > input {
   width: 100%;
   height: 30px;
@@ -1310,16 +1303,38 @@ textarea {
   margin-top: 5px;
 }
 
-
 #contador-expediciones {
-    margin-right: -30px;
-    width: 150px;
-    height: 100px;
-    color: orange;
-    font-weight: 700;
-    font-size: 70px;
-    text-align: center;
-    font-style: italic;
-    background-color: #0b0213;
-    box-shadow: none;
-  }
+  margin-right: -30px;
+  width: 150px;
+  height: 100px;
+  color: orange;
+  font-weight: 700;
+  font-size: 70px;
+  text-align: center;
+  font-style: italic;
+  background-color: #0b0213;
+  box-shadow: none;
+}
+
+#botonera-exp {
+  margin-top: 30px;
+  /* visibility: hidden; */
+}
+
+#locker-exp {
+  flex: 0.3;
+}
+#agenciaenvios-exp {
+  flex: 0.7;
+  margin-left: 200px;
+  /* align-self: flex-end; */
+}
+#list-agencias {
+  font-size: unset;
+  font-size: 16px;
+  color: #0b0213;
+
+  height: 35px;
+  margin-top: 10px;
+  width: 100%;
+}
