@@ -45,21 +45,38 @@ close.addEventListener('click', () => {
     lockerName(locker);
     obtenerDatosCliente(codigocliente);
     obtenerUsuario();
-    console.log(">>> Datos cargados correctamente")
+    console.log(">>> Datos cargados correctamente");
 
     modal_container.classList.remove('show');
     document.getElementById('cont1').style.visibility = "visible";
     document.getElementById('botonera-exp').style.visibility = "visible";
     document.getElementById('pesoexp').focus();
+
+     $.ajax({
+        type: "POST",
+        url: "../PHPServidor6.php",
+        data: {
+            Expedition_ID: expeditionid,
+            ReceptionQ: reception_id,
+        },
+        success: function (response) {
+            console.log(">>> Mercancía " + expeditionid + " registrada de entrada correctamente");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
 });
 
 
-//GUARDA DATOS EN LA TABLA distributionarea;
+//ACTUALIZA DATOS EN LA TABLA distributionarea;
 var generarAlbaran = () => {
     var Expedition_ID = document.getElementById("exp-id").value;
+    var Reception_ID = document.getElementById("numerorecepcion-exp").value;
     var Customer_ID = document.getElementById("codigoclienteexp").value;
     var User_ID = document.getElementById("iduser3").value;
     var Agency_ID = document.getElementById("list-agencias").value;
+    console.log(Agency_ID);
     var Name = document.getElementById('nombrecliente-exp').value;
     var Direction1= document.getElementById('direccion1exp').value;
     var Direction2 = document.getElementById('direccion2exp').value
@@ -71,10 +88,12 @@ var generarAlbaran = () => {
     var Phone2 = document.getElementById('tlf2exp').value;
     var ContactPerson = document.getElementById('nombrecontactoexp').value;
     var Weigth = document.getElementById("pesoexp").value;
+
+
     
     $.ajax({
         type: "POST",
-        url: "../PHPServidor4.php",
+        url: "../PHPServidor6.php",
         data: {
             Expedition_ID: Expedition_ID,
             Customer_ID:Customer_ID,
@@ -94,15 +113,33 @@ var generarAlbaran = () => {
         },
         success: function (response) {
             if (response.length > 0) {
-                console.log(">>> Devolución " + qualityid + " registrada de salida correctamente");
+                console.log(">>> Mercancía " + Expedition_ID + " registrada de salida correctamente");
+                
+                var lockerout = "";
+                var nexttrack = 16;
+                $.ajax({
+                    type: "POST",
+                    url: "../PHPServidor5.php",
+                    data: {
+                        Reception_ID: Reception_ID,
+                        LastStatus: nexttrack,
+                        Locker_ID: lockerout,
+                        Expedition_ID: Expedition_ID,
+                    },
+                    success: function (response) {
+                        console.log(">>> Tracking actualizado");
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+
             }
         },
         error: function () {
             alert("Error");
         }
     });
-
-
 }
 
 
