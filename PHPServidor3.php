@@ -35,11 +35,7 @@
     }
 
 
-
-
-
-
-    //GRABAR DATOS EN RETURNS
+    //GRABAR DATOS EN RETURNS AL ACEPTAR
     if(isset($_POST["Item"])){
             
         $Return_ID = $_POST["Return_ID"];
@@ -64,7 +60,7 @@
             echo("Conexion establecida correctamente.");
         }
 
-        $sql ="UPDATE returns SET User_ID = $User_ID, Item=$Item,Qty=$Qty, Remarks=$Remarks, NextTrackingStatus=$NextTrackingStatus, Locker_ID=$Locker_ID WHERE Return_ID=$Return_ID";
+        $sql ="UPDATE returns SET User_ID = $User_ID, Item=$Item, Qty=$Qty, Remarks=$Remarks, NextTrackingStatus=$NextTrackingStatus, Locker_ID=$Locker_ID WHERE Return_ID=$Return_ID";
     
         if (mysqli_query($conexion, $sql)) {
             echo "\nRegistro modificados.";
@@ -75,43 +71,7 @@
     }
 
 
-//GRABAR DATOS EN QUALITY
-if(isset($_POST["perro"])){
-       
-    $Perr = $_POST["perro"];
-    $User_ID = $_POST["User"];
-    $Item_ID = $_POST["Item"];
-    $Qty = $_POST["Qt"];
-    $Analysis = $_POST["Ana"];
-    $Proceded =$_POST["Proc"];
-    $Reason = $_POST["Reas"];
-    $NextTrackingStatus = $_POST["NextT"];
-    $Locker_ID = $_POST["Locker"];
-    $Quality_ID = $POST["Quality"];
 
-    $servidor = "localhost";
-    $usuario = "root";
-    $password = "";
-    $dbname = "reverselogisticsmng";
-
-    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
-    if (!$conexion) {
-        echo(alert("Fallo en la conexion"));
-        echo "MySQL connection error: ".mysqli_connect_error();
-        exit();
-    } else {
-        echo("Conexion establecida correctamente.");
-    }
-
-    $sql ="UPDATE quality SET  Item_ID=$Item_ID, User_ID=$User_ID, Analysis=$Analysis, Qty=$Qty, Reason=$Reason, Proceded=$Proceded, NextTrackingStatus=$NextTrackingStatus, Locker_ID=$Locker_ID WHERE Quality_ID=$Quality_ID";
-   
-    if (mysqli_query($conexion, $sql)) {
-        echo "\nRegistro modificados.";
-    } else {
-        echo "Error: ".mysqli_error($conexion);
-    }
-    mysqli_close($conexion);
-}
 
 
 //BORRAR USUARIO

@@ -485,7 +485,7 @@ section {
   width: 60px;
   margin-top: 20px;
   margin-left: 10px;
-  visibility: hidden;
+  visibility: visible;  /* ////OCULTAR/// */
 }
 
 input {
@@ -834,12 +834,14 @@ textarea {
   margin-top: 5px;
 }
 
-/* #id1,
+#id1,
 #id2,
 #id3,
 #id4,
-#id5,*/
+#id5,
 #id6, 
+#id7,
+#id8
 .idoculto {
   flex: 1;
 }
