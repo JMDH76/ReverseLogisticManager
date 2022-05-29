@@ -73,9 +73,7 @@ close.addEventListener('click', () => {
 });
 
 
-
 var confirmarControl = () => {
-
     var user = document.getElementById("iduser").value;
     var item = document.getElementById("item-id-quality").value
     var qty = document.getElementById("cant-q").value;

@@ -584,6 +584,36 @@ if(isset($_POST["Devolucion"])){
     mysqli_close($conexion);
 }
 
+
+/* //BORRAR dobles REGISTROS DE TRACKING 
+if(isset($_POST["ActualizarTabla"])){
+        
+    $Costumer_ID = $_POST["ActualizarTabla"];
+    
+    $servidor = "localhost";
+    $usuario = "root";
+    $password = "";
+    $dbname = "reverselogisticsmng";
+
+    $conexion = mysqli_connect($servidor, $usuario, $password, $dbname);
+    if (!$conexion) {
+        echo(alert("Fallo en la conexion"));
+        echo "MySQL connection error: ".mysqli_connect_error();
+        exit();
+    } else {
+        echo("Conexion establecida correctamente.");
+    }
+    $sql = "DELETE FROM tracking WHERE Customer_ID = $Customer_ID";
+
+    if (mysqli_query($conexion, $sql)) {
+        echo "\nRegistro modificados.";
+    } else {
+        echo "Error: ".mysqli_error($conexion);
+    }
+    mysqli_close($conexion);
+} */
+
+
 //BORRAR REGISTROS DE quality AL CANCELAR 
 if(isset($_POST["ControlQ"])){
         

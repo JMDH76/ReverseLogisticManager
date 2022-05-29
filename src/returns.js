@@ -57,6 +57,7 @@ close.addEventListener('click', () => {
     obtenerMotivosDevolucion();
     devolucionesEsperaReturns();
     obtenerUsuario();
+   
 
     //Graba la entrada en tabla returns, luego añadimos datos.
     $.ajax({
@@ -74,6 +75,27 @@ close.addEventListener('click', () => {
         }
     });
 });
+
+/* //Borrar doble entrada en Tracking
+var borrarDobleEntrada = () => {
+    console.log("dentro de borrar")
+    var ActualizarTabla = "0";
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            ActualizarTabla: ActualizarTabla,
+        },
+        success: function (response) {
+           // console.log(">>> Devolución " + returnid + " registrada de entrada correctamente");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+} */
+
+
 
 //OBTENER EL TIPO DE EMBALAJE
 var obtenerTipoEmbalaje = (lockertype) => {
@@ -129,34 +151,33 @@ var confirmarGestion = () => {
     const nexttrack = 2;
     var locker = document.getElementById("nextlocker-id-returns").value;
     var returnid = document.getElementById("returnid").value;
-   // var reception = document.getElementById("devoluciones-pendientes").value;
+    // var reception = document.getElementById("devoluciones-pendientes").value;
     var user = document.getElementById("iduser").value;
+    //actualiza la tabla returns
     $.ajax({
         type: "POST",
         url: "../PHPServidor3.php",
         data: {
-            Item_ID: item,
+            Item: item,
             Qty: qty,
             Remarks: remarks,
-            NextTrackingStatus: nexttrack,
+            NextTrack: nexttrack,
             Locker_ID: locker,
             Return_ID: returnid,
             User: user,
         },
         success: function (response) {
             console.log(">>> Devolución " + returnid + " registrada de salida correctamente");
-
         },
         error: function () {
             alert("Error");
         }
-
     });
     actualizaTracking();
 }
-var actualizaTracking = () => {
 
-    const nexttrack = 2;
+var actualizaTracking = () => {
+    var nexttrack = 2;
     var locker = document.getElementById("nextlocker-id-returns").value;
     var returnid = document.getElementById("returnid").value;
     var reception = document.getElementById("devoluciones-pendientes").value;
@@ -166,11 +187,11 @@ var actualizaTracking = () => {
         type: "POST",
         url: "../PHPServidor3.php",
         data: {
-            CompletarTrack: completartrack,
+           
             Reception_ID: reception,
-            LastStatus: nexttrack,
+            NextTrack: nexttrack,
             Locker_ID: locker,
-            Return_ID: returnid,
+            Return_ID: returnid
         },
         success: function (response) {
             console.log(">>> Tracking actualizado");
@@ -179,6 +200,7 @@ var actualizaTracking = () => {
             alert("Error");
         }
     });
+    
 }
 
 //BORRARR REGISTRO DE ENTRADA EN DEPARTAMENTO
@@ -270,7 +292,6 @@ var obtenerDatosCliente = (codigo) => {
 //IMPORTAR PEDIDO ASOCIADO
 var obtenerOrdenAsociada = (recepcion) => {
     var reception = recepcion;
-    console.log(reception)
     $.ajax({
         type: "POST",
         url: "../PHPServidor2.php",
@@ -279,7 +300,6 @@ var obtenerOrdenAsociada = (recepcion) => {
         },
         success: function (response) {
             var index = response.indexOf("[");
-            console.log(index)
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
             document.getElementById("comentarios-cliente-returns").value = jsparse[0].MerchandiseRemarks;
