@@ -26,17 +26,13 @@ close.addEventListener('click', () => {
 
     var reception_id = document.getElementById("envios-pendientes").value;
     document.getElementById("numerorecepcion-exp").value = "Recepción:    " + reception_id;
-    console.log(reception_id);
-
+   
     var expeditionid = generarExpeditionId(500);
     document.getElementById("exp-id").value = expeditionid;
-    console.log(expeditionid);
-
+   
     var codigocliente = reception_id.substring(12, 19);
     document.getElementById("codigoclienteexp").value = codigocliente;
-    console.log(codigocliente);
-
-
+   
     var stringreceptionsinfo = importarListaEnviosPendientes();
     var index = stringreceptionsinfo.indexOf(".");
     var arrayreceptionsid = stringreceptionsinfo.substring(0, index).split(",");
@@ -45,23 +41,73 @@ close.addEventListener('click', () => {
     var index2 = arrayreceptionsid.indexOf(reception_id);
     var locker = arraylockers[index2];
     document.getElementById("locker-id").value = locker;
-    console.log(locker);
-
+  
     lockerName(locker);
     obtenerDatosCliente(codigocliente);
     obtenerUsuario();
+    console.log(">>> Datos cargados correctamente")
 
     modal_container.classList.remove('show');
     document.getElementById('cont1').style.visibility = "visible";
-    //document.getElementById('cont2').style.visibility = "visible";
     document.getElementById('botonera-exp').style.visibility = "visible";
     document.getElementById('pesoexp').focus();
 });
 
 
+//GUARDA DATOS EN LA TABLA distributionarea;
+var generarAlbaran = () => {
+    var Expedition_ID = document.getElementById("exp-id").value;
+    var Customer_ID = document.getElementById("codigoclienteexp").value;
+    var User_ID = document.getElementById("iduser3").value;
+    var Agency_ID = document.getElementById("list-agencias").value;
+    var Name = document.getElementById('nombrecliente-exp').value;
+    var Direction1= document.getElementById('direccion1exp').value;
+    var Direction2 = document.getElementById('direccion2exp').value
+    var ZIPCode = document.getElementById('cpexp').value;
+    var Town = document.getElementById('poblacionexp').value;
+    var Province = document.getElementById('provexp').value;
+    var Email =document.getElementById('emailexp').value;
+    var Phone1 = document.getElementById('tlf1exp').value;
+    var Phone2 = document.getElementById('tlf2exp').value;
+    var ContactPerson = document.getElementById('nombrecontactoexp').value;
+    var Weigth = document.getElementById("pesoexp").value;
+    
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor4.php",
+        data: {
+            Expedition_ID: Expedition_ID,
+            Customer_ID:Customer_ID,
+            User_ID: User_ID,
+            Agency_ID: Agency_ID,
+            Name: Name,
+            Direction1: Direction1,
+            Direction2: Direction2,
+            ZIPCode: ZIPCode,
+            Town: Town,
+            Province: Province,
+            Email: Email,
+            Phone1: Phone1,
+            Phone2: Phone2,
+            ContactPerson: ContactPerson,
+            Weigth: Weigth
+        },
+        success: function (response) {
+            if (response.length > 0) {
+                console.log(">>> Devolución " + qualityid + " registrada de salida correctamente");
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
 
+
+}
+
+
+//Obtiene los datos del cliente y su agencia por defecto
 var obtenerDatosCliente = (codigocliente) => {
-
     var Customer_ID = codigocliente;
     $.ajax({
         type: "POST",
@@ -92,7 +138,6 @@ var obtenerDatosCliente = (codigocliente) => {
             }
             document.getElementById('nombrecontactoexp').value = jsparse.ContactPerson;
             importarAgencias(jsparse.Agency_ID);
-            
         },
         error: function () {
             alert("Error");
@@ -115,7 +160,7 @@ var importarAgencias = (agencia) => {
             var jsparse = JSON.parse(json);
 
             //Creamos los 'option' del select
-            const $select = document.getElementById("list-agencias")
+            const $select = document.getElementById("list-agencias");
             //Borramos los anteriores
             for (var i = 0; i > $select.options.length; i++) {
                 $select.remove(i);
@@ -140,12 +185,6 @@ var importarAgencias = (agencia) => {
         }
     });
 }
-
-
-
-
-
-
 
 
 //CREAR NUMERO DE EXPEDICION

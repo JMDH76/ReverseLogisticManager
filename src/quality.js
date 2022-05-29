@@ -84,8 +84,7 @@ var confirmarControl = () => {
     var motivo = document.getElementById("comentarios-tecnico-quality").value;
     var analisis = document.getElementById("analisis-tecnico-quality").value;
     var nexttrack = document.getElementById("nextlocker-q").value;
-
-    console.log(user);
+    /* console.log(user);
     console.log(item);
     console.log(qty);
     console.log(locker);
@@ -94,7 +93,7 @@ var confirmarControl = () => {
     console.log(procede);
     console.log(motivo);
     console.log(analisis);
-    console.log(nexttrack);
+    console.log(nexttrack); */
     $.ajax({
         type: "POST",
         url: "../PHPServidor4.php",
