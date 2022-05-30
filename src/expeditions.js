@@ -58,7 +58,6 @@ close.addEventListener('click', () => {
     }
 });
 
-
 //IMPORTACIÓN NUMEROS DE RECOGIDA pendientes de recepcionar >>> Desplegable y Array de verificación
 var importarListaPendientesEnvio = () => {
     window.expeditions = [];
