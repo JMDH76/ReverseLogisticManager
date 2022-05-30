@@ -53,7 +53,7 @@ close.addEventListener('click', () => {
             return
         }
     }
-    for (var i = 0; i <= arrayExpeditions.length; i++) {
+    for (var i = 0; i <= arrayExpeditions.length + 1; i++) {
         enviarCliente();
     }
 });
