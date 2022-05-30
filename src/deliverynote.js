@@ -26,6 +26,7 @@ close.addEventListener('click', () => {
 
     var reception_id = document.getElementById("envios-pendientes").value;
     document.getElementById("numerorecepcion-exp").value = "Recepción:    " + reception_id;
+    document.getElementById("num_recep").value = reception_id;
 
     var expeditionid = generarExpeditionId(500);
     document.getElementById("exp-id").value = expeditionid;
@@ -72,11 +73,12 @@ close.addEventListener('click', () => {
 //ACTUALIZA DATOS EN LA TABLA distributionarea;
 var generarAlbaran = () => {
     var Expedition_ID = document.getElementById("exp-id").value;
-    var Reception_ID = document.getElementById("numerorecepcion-exp").value;
+    var Reception_ID = document.getElementById("num_recep").value;
     var Customer_ID = document.getElementById("codigoclienteexp").value;
     var User_ID = document.getElementById("iduser3").value;
     var Agency_ID = document.getElementById("list-agencias").value;
-    console.log(Agency_ID);
+
+
     var Name = document.getElementById('nombrecliente-exp').value;
     var Direction1 = document.getElementById('direccion1exp').value;
     var Direction2 = document.getElementById('direccion2exp').value
@@ -89,40 +91,44 @@ var generarAlbaran = () => {
     var ContactPerson = document.getElementById('nombrecontactoexp').value;
     var Weigth = document.getElementById("pesoexp").value;
 
-
-
-    $.ajax({
-        type: "POST",
-        url: "../PHPServidor6.php",
-        data: {
-            Expedition_ID: Expedition_ID,
-            Customer_ID: Customer_ID,
-            User_ID: User_ID,
-            Agency_ID: Agency_ID,
-            Name: Name,
-            Direction1: Direction1,
-            Direction2: Direction2,
-            ZIPCode: ZIPCode,
-            Town: Town,
-            Province: Province,
-            Email: Email,
-            Phone1: Phone1,
-            Phone2: Phone2,
-            ContactPerson: ContactPerson,
-            Weigth: Weigth
-        },
-        success: function (response) {
-            if (response.length > 0) {
-                console.log(">>> Mercancía " + Expedition_ID + " registrada de salida correctamente");
-            }
-        },
-        error: function () {
-            alert("Error");
-        }
-    });
-
-    var lockerout = "";
+      $.ajax({
+          type: "POST",
+          url: "../PHPServidor6.php",
+          data: {
+              Expedition_ID: Expedition_ID,
+              Customer_ID: Customer_ID,
+              User_ID: User_ID,
+              Agency_ID: Agency_ID,
+              Name: Name,
+              Direction1: Direction1,
+              Direction2: Direction2,
+              ZIPCode: ZIPCode,
+              Town: Town,
+              Province: Province,
+              Email: Email,
+              Phone1: Phone1,
+              Phone2: Phone2,
+              ContactPerson: ContactPerson,
+              Weigth: Weigth
+          },
+          success: function (response) {
+              if (response.length > 0) {
+                  console.log(">>> Mercancía " + Expedition_ID + " registrada de salida correctamente");
+              }
+          },
+          error: function () {
+              alert("Error");
+          }
+      });
+    
+    
+    var lockerout = 0;
     var nexttrack = 16;
+
+    /* console.log(Expedition_ID);
+    console.log(Reception_ID);
+    console.log(lockerout);
+    console.log(nexttrack); */
     $.ajax({
         type: "POST",
         url: "../PHPServidor5.php",
@@ -139,10 +145,24 @@ var generarAlbaran = () => {
             alert("Error");
         }
     });
-
-
 }
 
+//BORRARR REGISTRO DE ENTRADA EN DEPARTAMENTO
+var borrarEntradaDepartamento = (expeditionid) => {
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor.php",
+        data: {
+            Devolucion: expeditionid,
+        },
+        success: function (response) {
+            console.log(">>> Devolución " + expeditionid + " eliminada del registro correctamente");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
 
 //Obtiene los datos del cliente y su agencia por defecto
 var obtenerDatosCliente = (codigocliente) => {
