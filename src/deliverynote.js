@@ -26,13 +26,13 @@ close.addEventListener('click', () => {
 
     var reception_id = document.getElementById("envios-pendientes").value;
     document.getElementById("numerorecepcion-exp").value = "Recepción:    " + reception_id;
-   
+
     var expeditionid = generarExpeditionId(500);
     document.getElementById("exp-id").value = expeditionid;
-   
+
     var codigocliente = reception_id.substring(12, 19);
     document.getElementById("codigoclienteexp").value = codigocliente;
-   
+
     var stringreceptionsinfo = importarListaEnviosPendientes();
     var index = stringreceptionsinfo.indexOf(".");
     var arrayreceptionsid = stringreceptionsinfo.substring(0, index).split(",");
@@ -41,7 +41,7 @@ close.addEventListener('click', () => {
     var index2 = arrayreceptionsid.indexOf(reception_id);
     var locker = arraylockers[index2];
     document.getElementById("locker-id").value = locker;
-  
+
     lockerName(locker);
     obtenerDatosCliente(codigocliente);
     obtenerUsuario();
@@ -52,7 +52,7 @@ close.addEventListener('click', () => {
     document.getElementById('botonera-exp').style.visibility = "visible";
     document.getElementById('pesoexp').focus();
 
-     $.ajax({
+    $.ajax({
         type: "POST",
         url: "../PHPServidor6.php",
         data: {
@@ -78,25 +78,25 @@ var generarAlbaran = () => {
     var Agency_ID = document.getElementById("list-agencias").value;
     console.log(Agency_ID);
     var Name = document.getElementById('nombrecliente-exp').value;
-    var Direction1= document.getElementById('direccion1exp').value;
+    var Direction1 = document.getElementById('direccion1exp').value;
     var Direction2 = document.getElementById('direccion2exp').value
     var ZIPCode = document.getElementById('cpexp').value;
     var Town = document.getElementById('poblacionexp').value;
     var Province = document.getElementById('provexp').value;
-    var Email =document.getElementById('emailexp').value;
+    var Email = document.getElementById('emailexp').value;
     var Phone1 = document.getElementById('tlf1exp').value;
     var Phone2 = document.getElementById('tlf2exp').value;
     var ContactPerson = document.getElementById('nombrecontactoexp').value;
     var Weigth = document.getElementById("pesoexp").value;
 
 
-    
+
     $.ajax({
         type: "POST",
         url: "../PHPServidor6.php",
         data: {
             Expedition_ID: Expedition_ID,
-            Customer_ID:Customer_ID,
+            Customer_ID: Customer_ID,
             User_ID: User_ID,
             Agency_ID: Agency_ID,
             Name: Name,
@@ -114,32 +114,33 @@ var generarAlbaran = () => {
         success: function (response) {
             if (response.length > 0) {
                 console.log(">>> Mercancía " + Expedition_ID + " registrada de salida correctamente");
-                
-                var lockerout = "";
-                var nexttrack = 16;
-                $.ajax({
-                    type: "POST",
-                    url: "../PHPServidor5.php",
-                    data: {
-                        Reception_ID: Reception_ID,
-                        LastStatus: nexttrack,
-                        Locker_ID: lockerout,
-                        Expedition_ID: Expedition_ID,
-                    },
-                    success: function (response) {
-                        console.log(">>> Tracking actualizado");
-                    },
-                    error: function () {
-                        alert("Error");
-                    }
-                });
-
             }
         },
         error: function () {
             alert("Error");
         }
     });
+
+    var lockerout = "";
+    var nexttrack = 16;
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor5.php",
+        data: {
+            Reception_ID: Reception_ID,
+            LastStatus: nexttrack,
+            Locker_ID: lockerout,
+            Expedition_ID: Expedition_ID,
+        },
+        success: function (response) {
+            console.log(">>> Tracking actualizado");
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+
+
 }
 
 
@@ -363,8 +364,8 @@ var bloquearLocker = (lockerid, name) => {
 
 //LIBERAR LOCKER
 var desbloquearLocker = () => {
-    var locker = document.getElementById("nextlocker-q").value;
-    var name = document.getElementById("nextlocker-quality").value;
+    var locker = document.getElementById("locker-id").value;
+    var name = document.getElementById("locker-in-exp").value;
     var status = 0;
     $.ajax({
         type: "POST",

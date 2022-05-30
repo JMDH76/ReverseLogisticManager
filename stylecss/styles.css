@@ -232,7 +232,7 @@ section {
   margin-top: 25px;
   padding: 5px;
   text-align: left;
-  visibility: visible;
+  visibility: hidden;
   /* /////////// */
 }
 
@@ -823,7 +823,7 @@ textarea {
 
 /* CONTENEDOR DATOS OCULTOS RETURNS */
 .cajaformulario-datos {
-  visibility: visible;
+  visibility: hidden;
   /* ///// */
   margin-top: 30px;
   display: flex;
@@ -1318,7 +1318,7 @@ textarea {
 
 #botonera-exp {
   margin-top: 30px;
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 
 #locker-exp {
@@ -1330,7 +1330,7 @@ textarea {
   /* align-self: flex-end; */
 }
 #list-agencias {
-  font-size: unset;
+  /* font-size: unset; */
   font-size: 16px;
   color: #0b0213;
 
