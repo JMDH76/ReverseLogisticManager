@@ -215,6 +215,7 @@ var enviarsolicitud = () => {
     alert("Solicitud y fichero generados\n\n" + PickUp_ID);
     document.getElementById('cont1').style.visibility = "hidden";
     document.getElementById('cont2').style.visibility = "hidden";
+    document.getElementById('cont3').style.visibility = "hidden";
     document.getElementById('salirformulario').style.visibility = "hidden";
     document.getElementById("open").style.visibility = "visible";
 }
