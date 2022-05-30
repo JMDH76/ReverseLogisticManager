@@ -390,26 +390,6 @@ var lockerName = (id) => {
     });
 }
 
-/* //BLOQUEO DEL LOCKER SELECCIONADO
-var bloquearLocker = (lockerid, name) => {
-    var locker = lockerid;
-    var status = 1;
-    $.ajax({
-        type: "POST",
-        url: "../PHPServidor.php",
-        data: {
-            Locker_ID: locker,
-            Status: status
-        },
-        success: function (response) {
-            console.log(">>> Casillero " + name + " bloqueado");
-        },
-        error: function () {
-            alert("Error");
-        }
-    });
-} */
-
 //LIBERAR LOCKER
 var desbloquearLocker = () => {
     var locker = document.getElementById("locker-id").value;
@@ -423,7 +403,7 @@ var desbloquearLocker = () => {
             Status: status
         },
         success: function (response) {
-            console.log(">>> Casillero " + name + " liberado");
+            /* console.log(">>> Casillero " + name + " liberado"); */
         },
         error: function () {
             alert("Error");

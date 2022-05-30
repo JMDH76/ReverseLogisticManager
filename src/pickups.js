@@ -52,6 +52,7 @@ close.addEventListener('click', () => {
             //Mostramos el formulario oculto y ponemos focua en el primer campo a rellenar
             document.getElementById('cont1').style.visibility = "visible";
             document.getElementById('cont2').style.visibility = "visible";
+            document.getElementById('cont3').style.visibility = "visible";
             document.getElementById('salirformulario').style.visibility = "visible";
             document.getElementById('pedido-asociado').focus();
 

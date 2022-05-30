@@ -15,18 +15,15 @@ var cancel = () => {
 }
 
 close2.addEventListener('click', () => {
+    borrarUsuarioActivo();
     var usuario = document.getElementById('usuario').value;
     var password = document.getElementById('password').value;
-
     importarUsuarios(usuario, password);    //Pasamos los datos a la función para compararlos
-
     if (document.getElementById("confirmuserpassword")) {
-
         document.getElementById("seccionbienvenida").style.visibility = "visible";
         modal_container2.classList.remove('show');
         document.getElementById("lineaencabezado").style.visibility = "hidden";
         document.getElementById("indexmenu").style.visibility = "visible";
-
     } else {
         alert("Usuario o contraseña incorrectos");
         usuario = document.getElementById('usuario').value = "";
@@ -48,7 +45,6 @@ var importarUsuarios = (user, pass) => {
             var index = response.indexOf("[");
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
-            borrarUsuarioActivo();
             for (var i = 0; i < jsparse.length; i++) {
                 if (jsparse[i].User == user && jsparse[i].Password == pass) {
                     document.getElementById("confirmuserpassword").value = true;

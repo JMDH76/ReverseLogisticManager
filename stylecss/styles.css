@@ -260,6 +260,10 @@ section {
   align-items: center;
 }
 
+#salirformulario{
+margin-top: 40px;
+
+}
 #botonera {
   visibility: hidden;
   margin-left: auto;
@@ -267,25 +271,25 @@ section {
 }
 
 #btcancel {
-  margin-left: 40px;
+  margin-left: 50px;
 }
 
 #btreset {
   margin-left: 55px;
 }
 
-#btsend {
+/* #btsend {
   margin-left: auto;
   margin-right: auto;
 }
-
+ */
 #enviar-solicitud {
   margin-left: 155px;
 }
 
 #observaciones-recogidas {
-  width: 20px;
-}
+  width: 200px;
+} 
 
 /* FORMULARIO */
 ::placeholder {
@@ -296,13 +300,14 @@ section {
   /* border: solid 2px red; */
   width: 500px;
   min-width: 300px;
-  margin: 5px;
+  /* margin: 5px; */
   margin-top: 25px;
-  padding: 5px;
+  /* padding: 5px; */
   text-align: left;
   visibility: hidden;
   /* /////////// */
 }
+
 
 #titulo-formulario {
   margin-top: 5px;
@@ -319,7 +324,7 @@ section {
   margin-top: 5px;
   margin-bottom: 5px;
   width: 480px;
-  height: 25px;
+  height: 35px;
   /* color: rgb(150, 150, 150); */
 }
 
@@ -341,11 +346,12 @@ section {
   display: flex;
 
   /* flex-direction: row; */
-  /* border: solid 2px green;  */
+ /*  border: solid 2px green;  */
 }
 
 #fecha-recogida {
   width: 175px;
+  height: 30px;
   padding-left: 10px;
   color: rgb(20, 20, 20);
   text-align: left;
@@ -354,6 +360,7 @@ section {
 
 #agencia-transporte {
   width: 200px;
+  height: 30px;
   padding-left: 10px;
   color: rgb(20, 20, 20);
   text-align: left;
@@ -362,24 +369,22 @@ section {
 
 #codigo-cliente,
 #zip-cliente {
-  width: 90px;
+  width: 90px; 
   color: rgb(20, 20, 20);
   text-align: center;
   font-weight: 700;
 }
 
-#provincia-cliente,
-#poblacion-cliente {
-  margin-left: 5px;
+#provincia-clientee {
+ /*  margin-left: 5px; */
   color: rgb(20, 20, 20);
-  width: 145px;
+  width: 150px;
   padding-left: 10px;
   text-align: left;
   font-weight: 700;
 }
 
 #poblacion-cliente {
-  margin-left: 5px;
   color: rgb(20, 20, 20);
   width: 200px;
   padding-left: 10px;
@@ -393,9 +398,9 @@ section {
 }
 
 #nombre-cliente {
-  margin-left: 5px;
+  /* margin-left: 5px; */
   color: rgb(20, 20, 20);
-  width: 370px;
+  width: 380px;
   padding-left: 10px;
   text-align: left;
   font-weight: 700;
@@ -403,16 +408,27 @@ section {
 
 #tlf1-cliente,
 #etiqueta-pedido {
-  width: 225px;
+  width: 230px;
   padding-left: 10px;
-  margin: 0;
   color: rgb(20, 20, 20);
   text-align: left;
   font-weight: 700;
 }
 
+#tlf2-cliente {
+  width: 230px;
+  padding-left: 10px;
+  color: rgb(20, 20, 20);
+  text-align: left;
+  font-weight: 700;
+ 
+}
+
+
+
 #horario-recogida {
   width: 185px;
+  height: 30px;
   padding-left: 10px;
   margin: 0;
   color: rgb(20, 20, 20);
@@ -422,6 +438,7 @@ section {
 
 #urgente {
   width: 200px;
+  height: 30px;
   padding-left: 10px;
   margin: 0;
   color: rgb(20, 20, 20);
@@ -430,31 +447,26 @@ section {
   margin-left: 10px;
 }
 
-#tlf2-cliente {
-  width: 225px;
-  padding-left: 10px;
-  margin-left: 5px;
-  color: rgb(20, 20, 20);
-  text-align: left;
-  font-weight: 700;
-}
+
 
 #direccion-cliente,
 #direccion-cliente2,
 #email-cliente {
-  width: 470px;
+  width: 490px;
   padding-left: 10px;
   color: rgb(20, 20, 20);
   text-align: left;
   font-weight: 700;
 }
 
+
 #departamento-destino {
-  width: 270px;
+  width: 290px;
   padding-left: 10px;
   color: rgb(20, 20, 20);
   text-align: left;
   font-weight: 700;
+  
 }
 
 #pedido-asociado {
@@ -847,7 +859,7 @@ textarea {
 #codigo-cliente,
 #destino-recepcion {
   flex: 1;
-  margin-left: 15px;
+  /* margin-left: 15px; */
 }
 
 /* Clase TextArea */
@@ -899,7 +911,7 @@ textarea {
 }
 
 #btsend2 {
-  margin-left: 80px;
+  margin-left: 0px;
 }
 
 .vacio,

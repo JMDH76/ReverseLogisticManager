@@ -68,48 +68,61 @@
         </aside>
 
         <section>
-            <form>
-                <!-- DATOS CLIENTE -->
+            <form name="formulario">
                 <div class="contenedor-formulario" id="cont1">
                     <div id="titulo-formulario">
-                        <h3>Solicitud de recogida</h3>
-                    </div>
-                    <h4 class="titulo-campo">Datos del cliente</h4>
-                    <div class="contenedor-doble">
-
-                        <input type="text" id="codigo-cliente" maxlength="7" class="campos-formulario" placeholder="Cc."
-                            readonly />
-                        <input type="text" id="nombre-cliente" class="campos-formulario"
-                            placeholder="Nombre del cliente" />
-                    </div>
-                    <div class="contenedor-simple">
-                        <input type="text" id="direccion-cliente" class="campos-formulario"
-                            placeholder="Dirección del cliente" required />
-                    </div>
-                    <div class="contenedor-simple" id="dir2">
-                        <input name="dir2" type="text" id="direccion-cliente2" class="campos-formulario"
-                            placeholder="Dirección del cliente 2" />
+                        <h3>Solicitud de recogidas</h3>
                     </div>
 
-                    <div class="contenedor-doble">
-                        <input type="text" id="zip-cliente" maxlength="5" class="campos-formulario" placeholder="CP" />
-                        <input type="text" id="poblacion-cliente" class="campos-formulario" placeholder="Población" />
-                        <input type="text" id="provincia-cliente" class="campos-formulario" placeholder="Provincia" />
+                    <h4 class="titulo-campo" style="margin-top: 30px;">Datos cliente</h4>
+                    <div class="cajaformulario-returns">
+                        <div id="codigocliente-exp">
+                            <input type="text" id="codigo-cliente" placeholder="CC" readonly required />
+                        </div>
+                        <div id="numero-recepcion-exp">
+                            <input type="text" id="nombre-cliente" placeholder="Nombre cliente" onlyread required />
+                        </div>
+                    </div>
+                    <div class="cajaformulario-returns">
+                        <div id="nombre-cliente-exp">
+                            <input type="text" id="direccion-cliente" placeholder="Direccion 1" onlyread required />
+                        </div>
+                    </div>
+                    <div class="cajaformulario-returns">
+                        <div id="direccion1-exp">
+                            <input type="text" id="direccion-cliente2" placeholder="Dirección 2" onlyread required />
+                        </div>
                     </div>
 
-                    <div class="contenedor-simple">
-                        <input type="email" id="email-cliente" class="campos-formulario"
-                            placeholder="Correo electrónico" />
-                    </div>
-                    <div class="contenedor-doble">
-                        <input type="tel" id="tlf1-cliente" maxlength="9" class="campos-formulario"
-                            placeholder="Teléfono1" />
-                        <input name="tel2" type="tel" id="tlf2-cliente" maxlength="9" class="campos-formulario"
-                            placeholder="Telefono2" />
+                    <div class="cajaformulario-returns">
+                        <div id="cp-exp">
+                            <input type="text" id="zip-cliente" placeholder="CP" onlyread required>
+                        </div>
+                        <div id="poblacion-exp">
+                            <input type="text" id="poblacion-cliente" placeholder="Población" onlyread required>
+                        </div>
+                        <div id="prov-exp">
+                            <input type="text" id="provincia-cliente" placeholder="Provincia" onlyread required>
+                        </div>
                     </div>
 
-                    <form name="formulario">
-                        <!--  <div class="contenedor-doble"> -->
+                    <div class="cajaformulario-returns">
+                        <div id="email-exp">
+                            <input type="email" id="email-cliente" placeholder="email" required onlyread />
+                        </div>
+                    </div>
+
+                    <div class="cajaformulario-returns">
+                        <div id="tlf1-exp">
+                            <input type="tel" id="tlf1-cliente" placeholder="Teléfono1" onlyread required>
+                        </div>
+
+                        <div id="tlf2-exp">
+                            <input type="tel" id="tlf2-cliente" placeholder="Teléfono2" onlyread>
+                        </div>
+                    </div>
+
+                    <div class="contenedor-formulario" id="cont3">
                         <div id="a01">
                             <h4 class="titulo-campo">Pedido asociado</h4>
                             <input type="text" class="campos-formulario" name="orderlist" list="OrdersList"
@@ -125,44 +138,42 @@
                         <div class="contenedor-simple">
                             <input class="separador" readonly />
                         </div>
+
                         <div>
                             <h4 class="titulo-campo">Comentarios / Observaciones mercancía</h4>
-                            <div class="contenedor-doble">
+                            <div class="cajaformulario-returns">
                                 <textarea type="text" id="observaciones-mercancia" class="campos-formulario"
                                     placeholder="Comentarios sobre la devolución"></textarea>
                             </div>
-                            <div id="salirformulario">
-                                <button id="btcancel" class="boton" onclick="cancel()">
-                                    Cancelar solicitud
-                                </button>
-                                <input id="btreset" type="reset" value="Limpiar solicitud" class="boton">
-                            </div>
                         </div>
-                </div>
+
+                        <div id="salirformulario">
+                            <button id="btcancel" class="boton" onclick="cancel()">
+                                Cancelar solicitud
+                            </button>
+                            <input id="btreset" type="reset" value="Limpiar solicitud" class="boton">
+                        </div>
+                    </div>
         </section>
 
         <section>
             <!-- FORMULARIO -->
             <div class="contenedor-formulario" id="cont2">
-                <div class="contenedor-doble" style="margin-top:35px;">
+                <div class="contenedor-doble" style="margin-top:70px;">
                     <div id="a1">
                         <h4 class="titulo-campo">Fecha de recogida</h4>
                         <input type="date" id="fecha-recogida" class="campos-formulario" required
                             placeholder="Fecha recogida" />
                     </div>
-
                     <div id="a2">
                         <h4 class="titulo-campo">Agencia de transporte</h4>
                         <select title="agenciaselect" class="campos-formulario" id="agencia-transporte" required>
-                            <!-- <option value="">Elija una agencia</option> -->
                         </select>
                     </div>
                 </div>
-
                 <div class="contenedor-simple">
                     <input class="separador" readonly />
                 </div>
-
                 <div class="contenedor-doble">
                     <div id="a3">
                         <h4 class="titulo-campo" style="margin-bottom:5px;">Horario preferente</h4>
@@ -172,7 +183,6 @@
                             <option value="2">Tarde</option>
                         </select>
                     </div>
-
                     <div id="a4">
                         <h4 class="titulo-campo" style="margin-bottom:5px; padding-left: 10px;">Urgente</h4>
                         <select title="urgenteselect" class="campos-formulario" id="urgente" required>
@@ -182,13 +192,11 @@
                         </select>
                     </div>
                 </div>
-
                 <div>
-                    <h4 class="titulo-campo" style="margin-top: 120px;">Comentarios / Observaciones recogida</h4>
+                    <h4 class="titulo-campo" style="margin-top: 25px;">Comentarios / Observaciones recogida</h4>
                     <textarea type="text" id="observaciones-recogidas" class="campos-formulario"
-                        placeholder="Comentarios sobre la recogida"></textarea>
+                        style="margin-bottom: 10px;" placeholder="Comentarios sobre la recogida"></textarea>
                 </div>
-
                 <div class="contenedor-doble">
                     <div id="btsend">
                         <button class="boton" id="enviar-solicitud" onclick="enviarsolicitud()">
@@ -202,13 +210,13 @@
                 <input id="id-codigo-agencia" readonly />
                 <input id="iduser" readonly />
             </div>
+            </form>
         </section>
-        </form>
     </main>
 
     <footer>
         <script type="text/javascript" src="../src/footer.js"></script>
     </footer>
-
 </body>
+
 </html>
