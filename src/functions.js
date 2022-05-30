@@ -24,23 +24,6 @@ solicitudesPendientes();
 
 
 
-
-
-//CANCELACION DEL FORMULARIO. Sale al principio (No deja volver a acceder al formulario)
-/* var cancel = (page) => {
-
-    if (page == 'receptions') {
-        window.location.replace("../forms/receptions.html");
-    } else if (page == 1) {
-        window.location.replace("../forms/pickups.html");
-    } else if (page == 'index') {
-        window.location.replace("./forms/index.html");
-    } else if (page == 'returns') {
-        window.location.replace("../forms/returns.html");
-    }
-    
-} */
-
 //CONFIGURACION digitos fecha y hora. Añade ceros a los parámetros de la fecha u hora cuando son menores de 10
 var updatefechahora = (datetime) => {
     if (datetime < 10) {

@@ -604,12 +604,20 @@ a {
   margin-bottom: 50px;
 }
 
-footer {
-  border: solid 1px black;
+footer  {
+  border: solid 1px white;
+  color: lightseagreen;
   width: 100%;
-  height: 50px;
+  height: 25px;
   margin-left: auto;
   margin-right: auto;
+  display:flex;
+  align-items: flex-end;
+  
+}
+
+#idfooter{
+    flex:1;
 }
 
 .sorry {
@@ -982,7 +990,7 @@ textarea {
   /* margin-bottom: 15px; */
 }
 
-.cajaformulario-locker-returns > div > select ,
+.cajaformulario-locker-returns > div > select,
 .cajaformulario-locker-returns > div > input {
   width: 100%;
   height: 60px;

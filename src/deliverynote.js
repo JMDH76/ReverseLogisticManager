@@ -91,44 +91,37 @@ var generarAlbaran = () => {
     var ContactPerson = document.getElementById('nombrecontactoexp').value;
     var Weigth = document.getElementById("pesoexp").value;
 
-      $.ajax({
-          type: "POST",
-          url: "../PHPServidor6.php",
-          data: {
-              Expedition_ID: Expedition_ID,
-              Customer_ID: Customer_ID,
-              User_ID: User_ID,
-              Agency_ID: Agency_ID,
-              Name: Name,
-              Direction1: Direction1,
-              Direction2: Direction2,
-              ZIPCode: ZIPCode,
-              Town: Town,
-              Province: Province,
-              Email: Email,
-              Phone1: Phone1,
-              Phone2: Phone2,
-              ContactPerson: ContactPerson,
-              Weigth: Weigth
-          },
-          success: function (response) {
-              if (response.length > 0) {
-                  console.log(">>> Mercancía " + Expedition_ID + " registrada de salida correctamente");
-              }
-          },
-          error: function () {
-              alert("Error");
-          }
-      });
-    
-    
+    $.ajax({
+        type: "POST",
+        url: "../PHPServidor6.php",
+        data: {
+            Expedition_ID: Expedition_ID,
+            Customer_ID: Customer_ID,
+            User_ID: User_ID,
+            Agency_ID: Agency_ID,
+            Name: Name,
+            Direction1: Direction1,
+            Direction2: Direction2,
+            ZIPCode: ZIPCode,
+            Town: Town,
+            Province: Province,
+            Email: Email,
+            Phone1: Phone1,
+            Phone2: Phone2,
+            ContactPerson: ContactPerson,
+            Weigth: Weigth
+        },
+        success: function (response) {
+            if (response.length > 0) {
+                console.log(">>> Mercancía " + Expedition_ID + " registrada de salida correctamente");
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
     var lockerout = 0;
     var nexttrack = 16;
-
-    /* console.log(Expedition_ID);
-    console.log(Reception_ID);
-    console.log(lockerout);
-    console.log(nexttrack); */
     $.ajax({
         type: "POST",
         url: "../PHPServidor5.php",
@@ -140,11 +133,47 @@ var generarAlbaran = () => {
         },
         success: function (response) {
             console.log(">>> Tracking actualizado");
+            guardarArchivoTexto(constructorFichero(), Expedition_ID);
         },
         error: function () {
             alert("Error");
         }
     });
+}
+
+var constructorFichero = () => {
+    var Expedition_ID = document.getElementById("exp-id").value;
+    var Agency_ID = document.getElementById("list-agencias").value;
+    var Name = document.getElementById('nombrecliente-exp').value;
+    var Direction1 = document.getElementById('direccion1exp').value;
+    var Direction2 = document.getElementById("direccion2exp").value;
+    var ZIPCode = document.getElementById('cpexp').value;
+    var Town = document.getElementById('poblacionexp').value;
+    var Province = document.getElementById('provexp').value;
+    var Email = document.getElementById('emailexp').value;
+    var Phone1 = document.getElementById('tlf1exp').value;
+    var Phone2 = document.getElementById('tlf2exp').value;
+    var ContactPerson = document.getElementById('nombrecontactoexp').value;
+    var Weigth = document.getElementById("pesoexp").value;
+
+    var ficheroAlbaran_Agencia = "\"" + Expedition_ID + "\"" + ";" + Agency_ID + ";" +
+        Name + ";" + Direction1 + ";" + Direction2 + ";" +
+        ZIPCode + ";" + Town + ";" + Province + ";" + Email + ";" +
+        Phone1 + ";" + Phone2 + ";" + ContactPerson + ";" + Weigth;
+    
+    return ficheroAlbaran_Agencia;
+}
+
+//GENERA Y COMPLETA FICHERO .txt. Lo descarga automáticamente en "downloads";
+var guardarArchivoTexto = (contenido, nombre) => {
+    const a = document.createElement("a");
+    const archivo = new Blob([contenido], { type: 'csv' });
+    const url = URL.createObjectURL(archivo);
+    a.href = url;
+    a.download = nombre;
+    a.click();
+    URL.revokeObjectURL(url);
+    console.log("Se ha generado el fichero del albarán. Preparado para exportar a la impresora")
 }
 
 //BORRARR REGISTRO DE ENTRADA EN DEPARTAMENTO
@@ -257,7 +286,6 @@ var generarExpeditionId = (code) => {
     var second = updatefechahora(date.getSeconds()).toString();
 
     var digitocontrol = Math.floor(Math.random() * (9 - 0 + 1) + 0);
-
     var Expedition_ID = depcode + year + mounth + day + hour + minute + second + digitocontrol;
 
     if (Expedition_ID.length == 18) {
@@ -362,7 +390,7 @@ var lockerName = (id) => {
     });
 }
 
-//BLOQUEO DEL LOCKER SELECCIONADO
+/* //BLOQUEO DEL LOCKER SELECCIONADO
 var bloquearLocker = (lockerid, name) => {
     var locker = lockerid;
     var status = 1;
@@ -380,7 +408,7 @@ var bloquearLocker = (lockerid, name) => {
             alert("Error");
         }
     });
-}
+} */
 
 //LIBERAR LOCKER
 var desbloquearLocker = () => {

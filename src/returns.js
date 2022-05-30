@@ -76,27 +76,6 @@ close.addEventListener('click', () => {
     });
 });
 
-/* //Borrar doble entrada en Tracking
-var borrarDobleEntrada = () => {
-    console.log("dentro de borrar")
-    var ActualizarTabla = "0";
-    $.ajax({
-        type: "POST",
-        url: "../PHPServidor.php",
-        data: {
-            ActualizarTabla: ActualizarTabla,
-        },
-        success: function (response) {
-           // console.log(">>> Devolución " + returnid + " registrada de entrada correctamente");
-        },
-        error: function () {
-            alert("Error");
-        }
-    });
-} */
-
-
-
 //OBTENER EL TIPO DE EMBALAJE
 var obtenerTipoEmbalaje = (lockertype) => {
     var packagetype;

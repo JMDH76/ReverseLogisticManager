@@ -314,7 +314,6 @@ if(isset($_POST["Cliente"])){
 }    
 
 
-
 //OBTENER LA DESCRIPCION DE UN ITEM
 if(isset($_POST["Item"])){
         
@@ -421,10 +420,6 @@ if(isset($_POST["CodeDev"])){
     }
     mysqli_close($conexion);
 }    
-
-
-
-
 
 
 ?>

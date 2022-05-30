@@ -1,6 +1,8 @@
-/* function footerText() {
+function footerText() {
    
-    var nombre = "Jose Manuel"
+    var nombre = "by Jose Manuel Domínguez Hernández"
     document.getElementById("footer").innerText = nombre;
+    document.getElementById("footer").style.color = "lightseagreen";
+
 }
-footerText(); */
+footerText();
