@@ -8,19 +8,17 @@
     <link rel="stylesheet" href="../stylecss/styles.css">
     <link rel="stylesheet" href="../stylecss/ventanamodal.css">
     <title>pickups</title>
-    <script type="text/javascript" src="../src/menunav.js"></script>
+    <script type="text/javascript" src="../src/header.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 
 <body>
     <header>
         <div id='encabezado'>
-
             <div>
                 <img id="logo" src="../images/logo2.png" alt="logo">
             </div>
             <div id='nombreapp'>
-                <!--  <h1>GESTOR DE DEVOLUCIONES</h1> -->
                 <h1>Gestor de devoluciones</h1>
             </div>
             <div id="clock">
@@ -30,9 +28,9 @@
             </div>
         </div>
     </header>
-    <!-- MENU -->
-    <nav>
 
+    <nav>
+        <script type="text/javascript" src="../src/menunav.js"></script>
     </nav>
     <main>
         <!-- BOTONERA LATERAL-->
@@ -67,79 +65,82 @@
                     </div>
                 </div>
                 <script src="../src/pickups.js"></script>
-               <script src="../src/functions.js"></script>
+                <script src="../src/functions.js"></script>
             </div>
         </aside>
 
         <section>
-            <!-- DATOS CLIENTE -->
-            <div class="contenedor-formulario" id="cont1">
-                <div id="titulo-formulario">
-                    <h3>Solicitud de recogida</h3>
-                </div>
-                <h4 class="titulo-campo">Datos del cliente</h4>
-                <div class="contenedor-doble">
-                    
-                    <input type="text" id="codigo-cliente" maxlength="7" class="campos-formulario" placeholder="Cc."
-                        readonly />
-                    <input type="text" id="nombre-cliente" class="campos-formulario" placeholder="Nombre del cliente" />
-                </div>
-                <div class="contenedor-simple">
-                    <input type="text" id="direccion-cliente" class="campos-formulario"
-                        placeholder="Dirección del cliente" required />
-                </div>
-                <div class="contenedor-simple" id="dir2">
-                    <input name="dir2" type="text" id="direccion-cliente2" class="campos-formulario"
-                        placeholder="Dirección del cliente 2" />
-                </div>
-
-                <div class="contenedor-doble">
-                    <input type="text" id="zip-cliente" maxlength="5" class="campos-formulario" placeholder="CP" />
-                    <input type="text" id="poblacion-cliente" class="campos-formulario" placeholder="Población" />
-                    <input type="text" id="provincia-cliente" class="campos-formulario" placeholder="Provincia" />
-                </div>
-
-                <div class="contenedor-simple">
-                    <input type="email" id="email-cliente" class="campos-formulario" placeholder="Correo electrónico" />
-                </div>
-                <div class="contenedor-doble">
-                    <input type="tel" id="tlf1-cliente" maxlength="9" class="campos-formulario"
-                        placeholder="Teléfono1" />
-                    <input name="tel2" type="tel" id="tlf2-cliente" maxlength="9" class="campos-formulario"
-                        placeholder="Telefono2" />
-                </div>
-
-                <form name="formulario">
-                    <!--  <div class="contenedor-doble"> -->
-                    <div id="a01">
-                        <h4 class="titulo-campo">Pedido asociado</h4>
-                        <input type="text" class="campos-formulario" name="orderlist" list="OrdersList"
-                            id="pedido-asociado" maxlength="7" placeholder="Nº de pedido" required>
-                        <datalist id="OrdersList"></datalist>
+            <form>
+                <!-- DATOS CLIENTE -->
+                <div class="contenedor-formulario" id="cont1">
+                    <div id="titulo-formulario">
+                        <h3>Solicitud de recogida</h3>
                     </div>
+                    <h4 class="titulo-campo">Datos del cliente</h4>
+                    <div class="contenedor-doble">
 
-                    <div id="a02">
-                        <h4 class="titulo-campo">Departamento destino</h4>
-                        <select title="selectdept" class="campos-formulario" id="departamento-destino"
-                            required></select>
+                        <input type="text" id="codigo-cliente" maxlength="7" class="campos-formulario" placeholder="Cc."
+                            readonly />
+                        <input type="text" id="nombre-cliente" class="campos-formulario"
+                            placeholder="Nombre del cliente" />
                     </div>
                     <div class="contenedor-simple">
-                        <input class="separador" readonly />
+                        <input type="text" id="direccion-cliente" class="campos-formulario"
+                            placeholder="Dirección del cliente" required />
                     </div>
-                    <div>
-                        <h4 class="titulo-campo">Comentarios / Observaciones mercancía</h4>
-                        <div class="contenedor-doble">
-                            <textarea type="text" id="observaciones-mercancia" class="campos-formulario"
-                                placeholder="Comentarios sobre la devolución"></textarea>
-                        </div>
-                        <div id="salirformulario">
-                            <button id="btcancel" class="boton" onclick="cancel()">
-                                Cancelar solicitud
-                            </button>
-                            <input id="btreset" type="reset" value="Limpiar solicitud" class="boton">
-                        </div>
+                    <div class="contenedor-simple" id="dir2">
+                        <input name="dir2" type="text" id="direccion-cliente2" class="campos-formulario"
+                            placeholder="Dirección del cliente 2" />
                     </div>
-            </div>
+
+                    <div class="contenedor-doble">
+                        <input type="text" id="zip-cliente" maxlength="5" class="campos-formulario" placeholder="CP" />
+                        <input type="text" id="poblacion-cliente" class="campos-formulario" placeholder="Población" />
+                        <input type="text" id="provincia-cliente" class="campos-formulario" placeholder="Provincia" />
+                    </div>
+
+                    <div class="contenedor-simple">
+                        <input type="email" id="email-cliente" class="campos-formulario"
+                            placeholder="Correo electrónico" />
+                    </div>
+                    <div class="contenedor-doble">
+                        <input type="tel" id="tlf1-cliente" maxlength="9" class="campos-formulario"
+                            placeholder="Teléfono1" />
+                        <input name="tel2" type="tel" id="tlf2-cliente" maxlength="9" class="campos-formulario"
+                            placeholder="Telefono2" />
+                    </div>
+
+                    <form name="formulario">
+                        <!--  <div class="contenedor-doble"> -->
+                        <div id="a01">
+                            <h4 class="titulo-campo">Pedido asociado</h4>
+                            <input type="text" class="campos-formulario" name="orderlist" list="OrdersList"
+                                id="pedido-asociado" maxlength="7" placeholder="Nº de pedido" required>
+                            <datalist id="OrdersList"></datalist>
+                        </div>
+
+                        <div id="a02">
+                            <h4 class="titulo-campo">Departamento destino</h4>
+                            <select title="selectdept" class="campos-formulario" id="departamento-destino"
+                                required></select>
+                        </div>
+                        <div class="contenedor-simple">
+                            <input class="separador" readonly />
+                        </div>
+                        <div>
+                            <h4 class="titulo-campo">Comentarios / Observaciones mercancía</h4>
+                            <div class="contenedor-doble">
+                                <textarea type="text" id="observaciones-mercancia" class="campos-formulario"
+                                    placeholder="Comentarios sobre la devolución"></textarea>
+                            </div>
+                            <div id="salirformulario">
+                                <button id="btcancel" class="boton" onclick="cancel()">
+                                    Cancelar solicitud
+                                </button>
+                                <input id="btreset" type="reset" value="Limpiar solicitud" class="boton">
+                            </div>
+                        </div>
+                </div>
         </section>
 
         <section>
@@ -201,20 +202,14 @@
             <div class="contenedor-simple">
                 <input id="codigo-agencia" readonly />
                 <input id="id-codigo-agencia" readonly />
-                <input id="iduser" readonly/>
+                <input id="iduser" readonly />
             </div>
-
         </section>
         </form>
     </main>
 
-    <footer id="footer">
-        <div>
-            <a>
-                <script type="text/javascript" src="../src/footertext.js"></script>
-            </a>
-        </div>
+    <footer>
+        <script type="text/javascript" src="../src/footer.js"></script>
     </footer>
-
 </body>
 </html>

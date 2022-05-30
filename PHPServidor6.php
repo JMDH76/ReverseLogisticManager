@@ -28,7 +28,7 @@
         }
 
         $sql ="UPDATE quality SET Item_ID=$Item_ID, User_ID = $User_ID, Qty = $Qty, Reason = $Reason, Proceded = $Proceded, NextTrackingStatus = $NextTrackingStatus, Locker_ID = $Locker_ID WHERE Quality_ID = Quality_ID";
-        /* $sql ="UPDATE quality SET Item_ID=$Item_ID, User_ID = $User_ID, Analysis = $Analysis, Qty = $Qty, Reason = $Reason, Proceded = $Proceded, NextTrackingStatus = $NextTrackingStatus, Locker_ID = $Locker_ID WHERE Quality_ID = Quality_ID"; */
+
          if (mysqli_query($conexion, $sql)) {
             echo "\nRegistro modificados.";
         } else {
