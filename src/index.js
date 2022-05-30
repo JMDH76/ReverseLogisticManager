@@ -48,8 +48,8 @@ var importarUsuarios = (user, pass) => {
             var index = response.indexOf("[");
             var json = response.substring(index, response.length);
             var jsparse = JSON.parse(json);
+            borrarUsuarioActivo();
             for (var i = 0; i < jsparse.length; i++) {
-                borrarUsuarioActivo(jsparse[i].User_ID);
                 if (jsparse[i].User == user && jsparse[i].Password == pass) {
                     document.getElementById("confirmuserpassword").value = true;
                     document.getElementById("username").value = jsparse[i].Name;
@@ -64,9 +64,8 @@ var importarUsuarios = (user, pass) => {
     });
 }
 
-
-var borrarUsuarioActivo = (iduser) => {
-    var id = iduser;
+var borrarUsuarioActivo = () => {
+    var id = 1;
     $.ajax({
         type: "POST",
         url: "./PHPServidor3.php",
